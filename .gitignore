@@ -1,0 +1,11 @@
+# OS generated files
+.DS_Store
+
+# Dependency directory
+node_modules
+
+# Build
+dist
+
+# Code coverage
+coverage

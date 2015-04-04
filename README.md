@@ -1,2 +1,2 @@
 # tiny-cookies
-Tiny cookie library for the browser
+Tiny CommonJS cookies library for the browser - under development
