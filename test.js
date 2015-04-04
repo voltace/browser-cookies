@@ -15,17 +15,15 @@ describe("Stubbed Test Suite", function() {
       }
     };
     var dateStub = function(string) {
+      // Create a date in UTC time (to prevent time zone dependent test results)
       if (string !== undefined) {
         var d = new Date(string);
         this.date = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()));
-        this.date2 = new Date(Date.UTC(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate(), this.date.getUTCHours(), this.date.getUTCMinutes(), this.date.getUTCSeconds()));
-        console.log('converting:', d, this.date, this.date2);
       } else {
         this.date = new Date(Date.UTC(2030, 12, 31, 23, 59, 59, 1234));
-        this.date2 = new Date(Date.UTC(this.date.getUTCFullYear(), this.date.getUTCMonth(), this.date.getUTCDate(), this.date.getUTCHours(), this.date.getUTCMinutes(), this.date.getUTCSeconds()));
-        console.log('created date:', this.date, this.date2, this.date.getUTCHours(), this.date2.getUTCHours());
       }
-      console.log(this.date, 'getUTCHours:', this.date.getUTCHours(), 'getTimezoneOffset:', this.date.getTimezoneOffset());
+
+      // Proxy the Date function
       this.getTime = function() {
         return this.date.getTime();
       };
@@ -140,7 +138,7 @@ describe("Stubbed Test Suite", function() {
 
     // Verify usage of string format (in a format recognized by Date.parse() )
     this.tinycookies.set('banana', 'yellow', {expires: '01/08/2031'});
-    expect(this.cookie).toBe('banana=yellow;expires=Tue, 07 Jan 2031 23:00:00 GMT;path=/');
+    expect(this.cookie).toBe('banana=yellow;expires=' + new Date('01/08/2031').toUTCString() + ';path=/');
   });
 
   it("Verify unsupported formats for the 'expires' option are ignored", function() {
