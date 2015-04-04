@@ -130,7 +130,7 @@ describe("Stubbed Test Suite", function() {
   it("Verify all allowed formats for the 'expires' option", function() {
     // Verify usage of Date() format
     this.tinycookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});
-    expect(this.cookie).toBe('banana=yellow;expires=Sun, 19 Jan 2031 23:00:00 GMT;path=/');
+    expect(this.cookie).toBe('banana=yellow;expires=' + new Date(2030, 12, 20).toUTCString() + ';path=/');
 
     // Verify usage of integer format (seconds till expiration)
     this.tinycookies.set('banana', 'yellow', {expires: 12345});
@@ -138,9 +138,7 @@ describe("Stubbed Test Suite", function() {
 
     // Verify usage of string format (in a format recognized by Date.parse() )
     this.tinycookies.set('banana', 'yellow', {expires: '01/08/2031'});
-    var d = new Date('01/08/2031');
-    d = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()));
-    expect(this.cookie).toBe('banana=yellow;expires=' + d.toUTCString() + ';path=/');
+    expect(this.cookie).toBe('banana=yellow;expires=' + new Date('01/08/2031').toUTCString() + ';path=/');
   });
 
   it("Verify unsupported formats for the 'expires' option are ignored", function() {
