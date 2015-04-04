@@ -8,6 +8,7 @@ exports.set = function(name, value, options) {
   var domain = options.domain || exports.defaults.domain;
   var path = options.path || exports.defaults.path || '/';
   var secure = options.secure != undefined ? options.secure : exports.defaults.secure;
+  var httponly = options.httponly != undefined ? options.httponly : exports.defaults.httponly;
 
   // Determine cookie expiration date
   // If succesful the result will be a valid Date, otherwise it will be an invalid Date or empty string
@@ -25,7 +26,8 @@ exports.set = function(name, value, options) {
   (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
   (domain ? ';domain=' + domain : '') +                                       // Add domain
   ';path=' + path  +                                                          // Add path
-  (secure ? ";secure" : "");                                                  // Add secure option
+  (secure ? ';secure' : '') +                                                 // Add secure option
+  (httponly ? ';httponly' : '');                                              // Add httponly option
 };
 
 exports.get = function(name) {

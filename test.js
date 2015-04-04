@@ -56,19 +56,21 @@ describe("Stubbed Test Suite", function() {
       expires: 4400,
       domain: 'www.test.com',
       path: '/some/path',
-      secure: true
+      secure: true,
+      httponly: true
     };
     this.tinycookies.set('banana', 'yellow', options);
 
     // All options should have been applied
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 00:13:20 GMT;domain=www.test.com;path=/some/path;secure');
+    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 00:13:20 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // Original options structure not modified
     expect(options).toEqual({
       expires: 4400,
       domain: 'www.test.com',
       path: '/some/path',
-      secure: true
+      secure: true,
+      httponly: true
     });
   });
 
@@ -78,19 +80,21 @@ describe("Stubbed Test Suite", function() {
       expires: 3600,
       domain: 'www.test.com',
       path: '/some/path',
-      secure: true
+      secure: true,
+      httponly: true
     };
 
     // Set cookie, all default options should be applies
     this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 00:00:00 GMT;domain=www.test.com;path=/some/path;secure');
+    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 00:00:00 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // The defaults should not have been modified
     expect(this.tinycookies.defaults).toEqual({
       expires: 3600,
       domain: 'www.test.com',
       path: '/some/path',
-      secure: true
+      secure: true,
+      httponly: true
     });
   });
 
@@ -205,6 +209,34 @@ describe("Stubbed Test Suite", function() {
     expect(this.cookie).toBe('banana=yellow;path=/;secure');
   });
 
+  it("Set httponly option", function() {
+    // Set cookie with the httponly option
+    this.tinycookies.set('banana', 'yellow', {httponly: true});
+    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+
+    // Set cookie without the httponly option
+    this.tinycookies.set('banana', 'yellow', {httponly: false});
+    expect(this.cookie).toBe('banana=yellow;path=/');
+
+    // Change the default to true
+    this.tinycookies.defaults.httponly = true;
+    this.tinycookies.set('banana', 'yellow');
+    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+
+    // Override the default to false using the function option
+    this.tinycookies.set('banana', 'yellow', {httponly: false});
+    expect(this.cookie).toBe('banana=yellow;path=/');
+
+    // Change the default to false
+    this.tinycookies.defaults.httponly = false;
+    this.tinycookies.set('banana', 'yellow');
+    expect(this.cookie).toBe('banana=yellow;path=/');
+
+    // Override the default to true using the function option
+    this.tinycookies.set('banana', 'yellow', {httponly: true});
+    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+  });
+
   it("Verify cookie name encoding", function() {
     // Should apply URI encoding
     this.tinycookies.set('báñâñâ', 'yellow');
@@ -295,7 +327,8 @@ describe("Browser-based test suite", function() {
       expires: 3600,
       domain: 'www.test.com',
       path: '/some/path',
-      secure: true
+      secure: true,
+      httponly: true
     });
     // Note that the cookie won't be set because the domain/path/secure options are
     // not correct for the PhantomJS session
