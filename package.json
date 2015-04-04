@@ -3,6 +3,7 @@
   "description": "Tiny CommonJS cookies library for the browser",
   "version": "0.1.0",
   "main": "index.js",
+  "files": ["index.js", "README.md", "LICENCE"],
   "dependencies": {},
   "devDependencies": {
     "browserify": "^9.0.7",
