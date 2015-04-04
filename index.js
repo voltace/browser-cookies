@@ -1,6 +1,4 @@
-exports.defaults = {
-  path: '/'
-};
+exports.defaults = {};
 
 exports.set = function(name, value, options) {
   options = options || {};
@@ -8,10 +6,10 @@ exports.set = function(name, value, options) {
   // Apply default values for unspecified options
   var expires = options.expires || exports.defaults.expires;
   var domain = options.domain || exports.defaults.domain;
-  var path = options.path || exports.defaults.path;
+  var path = options.path || exports.defaults.path || '/';
   var secure = options.secure != undefined ? options.secure : exports.defaults.secure;
 
-  // Determine expires string
+  // Determine cookie expiration date string
   var date = new Date();
   var expireString = (expires == undefined ? '' : ';expires=' + (
     // if expires is an integer, it (should) specify the amount of seconds till the cookie expires
@@ -23,18 +21,12 @@ exports.set = function(name, value, options) {
   ).toUTCString());
 
   // Set cookie
-  document.cookie = encodeURIComponent(name) +
-  '=' +
-  // Encode cookie value
-  encodeURIComponent(value) +
-  // Add expires
-  expireString +
-  // Add domain
-  (domain ? ';domain=' + domain : '') +
-  // Add path
-  ';path=' + path  +
-  // Add secure option
-  (secure ? ";secure" : "");
+  document.cookie = encodeURIComponent(name) + '=' + // Encode cookie name
+  encodeURIComponent(value) +                        // Encode cookie value
+  expireString +                                     // Add expiration date
+  (domain ? ';domain=' + domain : '') +              // Add domain
+  ';path=' + path  +                                 // Add path
+  (secure ? ";secure" : "");                         // Add secure option
 };
 
 exports.get = function(name) {
@@ -46,7 +38,7 @@ exports.get = function(name) {
     // Remove leading white space from the cookie
     var cookie = cookies[i].replace(/^\s\s*/, '');
 
-    // Check if this cookie name matches the requested name
+    // Check if the name of this cookie matches the requested name
     if (cookie.indexOf(crumble) == 0) {
       return decodeURIComponent(cookie.substring(crumble.length, cookie.length));
     }
