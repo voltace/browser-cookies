@@ -1,4 +1,4 @@
-// Fully stubbed test suite (document.cookie and Date object) that covers all functionality
+// Fully stubbed test suite (document.cookie and Date object)
 describe("Stubbed Test Suite", function() {
   beforeEach(function() {
     var self = this;
@@ -203,6 +203,18 @@ describe("Stubbed Test Suite", function() {
     // Override the default to true using the function option
     this.tinycookies.set('banana', 'yellow', {secure: true});
     expect(this.cookie).toBe('banana=yellow;path=/;secure');
+  });
+
+  it("Verify cookie name encoding", function() {
+    // Should apply URI encoding
+    this.tinycookies.set('báñâñâ', 'yellow');
+    expect(this.cookie).toBe('b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/');
+  });
+
+  it("Verify cookie value encoding", function() {
+    // Should apply URI encoding
+    this.tinycookies.set('banana', '¿yéllów?');
+    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w%3F;path=/');
   });
 });
 
