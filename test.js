@@ -214,7 +214,36 @@ describe("Stubbed Test Suite", function() {
   it("Verify cookie value encoding", function() {
     // Should apply URI encoding
     this.tinycookies.set('banana', '¿yéllów?');
-    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w%3F;path=/');
+    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
+
+    // Should not modify the original value
+    var value = '¿yéllów?';
+    this.tinycookies.set('banana', value);
+    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
+    expect(value).toBe('¿yéllów?');
+
+    // RFC 6265 (http://tools.ietf.org/html/rfc6265) is the 'real world' cookies specification.
+    // The specification allows the following subset of ASCII characters to be unescaped:
+    //     hex    : dec   : ASCII
+    //     0x21   : 33    : !
+    this.tinycookies.set('a', '!'); expect(this.cookie).toBe('a=!;path=/');
+    //     0x23-2B: 35-43 : #$%&'()*+    (note that % should be encoded because it's the prefix for percent encoding)
+    this.tinycookies.set('b', '#$%&\'()*+'); expect(this.cookie).toBe('b=#$%25&\'()*+;path=/');
+    //     0x2D-3A: 45-58 : -./0123456789:
+    this.tinycookies.set('c', '-./0123456789:'); expect(this.cookie).toBe('c=-./0123456789:;path=/');
+    //     0x3C-5B: 60-91 : <=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
+    this.tinycookies.set('d', '<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ['); expect(this.cookie).toBe('d=<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[;path=/');
+    //     0x5D-7E: 93-126: ]^_`abcdefghijklmnopqrstuvwxyz{|}~
+    this.tinycookies.set('e', ']^_`abcdefghijklmnopqrstuvwxyz{|}~'); expect(this.cookie).toBe('e=]^_`abcdefghijklmnopqrstuvwxyz{|}~;path=/');
+
+    // Now check the inverse of above: whether remaining character ranges are percent encoded (they should be)
+    this.tinycookies.set('f_CTL',        '\x10'); expect(this.cookie).toBe('f_CTL=%10;path=/');
+    this.tinycookies.set('f_whitespace', ' '   ); expect(this.cookie).toBe('f_whitespace=%20;path=/');
+    this.tinycookies.set('f_DQUOTE',     '"'   ); expect(this.cookie).toBe('f_DQUOTE=%22;path=/');
+    this.tinycookies.set('f_comma',      ','   ); expect(this.cookie).toBe('f_comma=%2C;path=/');
+    this.tinycookies.set('f_semicolon',  ';'   ); expect(this.cookie).toBe('f_semicolon=%3B;path=/');
+    this.tinycookies.set('f_backslash',  '\\'  ); expect(this.cookie).toBe('f_backslash=%5C;path=/');
+    this.tinycookies.set('f_CTL2',       '\x7F'); expect(this.cookie).toBe('f_CTL2=%7F;path=/');
   });
 });
 

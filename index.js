@@ -20,12 +20,12 @@ exports.set = function(name, value, options) {
     new Date(expires);
 
   // Set cookie
-  document.cookie = encodeURIComponent(name) + '=' +                            // Encode cookie name
-    encodeURIComponent(value) +                                                 // Encode cookie value
-    (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
-    (domain ? ';domain=' + domain : '') +                                       // Add domain
-    ';path=' + path  +                                                          // Add path
-    (secure ? ";secure" : "");                                                  // Add secure option
+  document.cookie = encodeURIComponent(name) + '=' +                          // Encode cookie name
+  value.replace(/[^#\$&\+/:<-\[\]-}]/g, encodeURIComponent) +                 // Encode cookie value (RFC6265)
+  (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
+  (domain ? ';domain=' + domain : '') +                                       // Add domain
+  ';path=' + path  +                                                          // Add path
+  (secure ? ";secure" : "");                                                  // Add secure option
 };
 
 exports.get = function(name) {
