@@ -11,6 +11,7 @@
   "dependencies": {},
   "devDependencies": {
     "browserify": "^9.0.7",
+    "coveralls": "^2.11.2",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-rename": "^1.2.2",
     "gulp-uglify": "^1.1.0",

@@ -1,4 +1,4 @@
-[![Build Status][travis-image]][travis-url]
+[![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
 
 # tiny-cookies
 CommonJS cookies library for the browser - **under development**
@@ -50,3 +50,6 @@ Public domain (UNLICENCE)
 
 [travis-url]: https://travis-ci.org/voltace/tiny-cookies
 [travis-image]: http://img.shields.io/travis/voltace/tiny-cookies.svg
+
+[coveralls-url]: https://coveralls.io/r/voltace/tiny-cookies
+[coveralls-image]: http://img.shields.io/coveralls/voltace/tiny-cookies/master.svg
