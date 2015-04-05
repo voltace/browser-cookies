@@ -79,8 +79,6 @@ gulp.task('test:full', function (done) {
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
     }
   }
-  console.log(process.env.TRAVIS_BUILD_NUMBER, process.env.TRAVIS_JOB_NUMBER);
-  console.log('JOB NUMBERS', customLaunchers);
 
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
@@ -88,7 +86,6 @@ gulp.task('test:full', function (done) {
   config.captureTimeout = 120000;
   config.customLaunchers = customLaunchers;
   config.browsers = Object.keys(customLaunchers);
-
 
   // Run karma
   karma.start(config, done);

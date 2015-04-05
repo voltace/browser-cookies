@@ -14,7 +14,7 @@ describe("Stubbed Test Suite", function() {
         self.cookie = val;
       }
     };
-    var dateStub = function(string) {
+    this.dateStub = function(string) {
       // Create a date in UTC time (to prevent time zone dependent test results)
       if (string !== undefined) {
         var d = new Date(string);
@@ -31,13 +31,23 @@ describe("Stubbed Test Suite", function() {
         return this.date.setTime(milliseconds);
       };
       this.toUTCString = function() {
-        return this.date.toUTCString();
+        function pad(n) {
+          return n < 10 ? '0' + n : n;
+        }
+
+        var date    = this.date;
+        var weekday = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'];
+        var month   = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+
+        return weekday[date.getUTCDay()] + ', ' +
+        pad(date.getUTCDate()) + ' ' + month[date.getUTCMonth()] + ' ' + date.getUTCFullYear() + ' '  +
+        pad(date.getUTCHours()) + ':'  + pad(date.getUTCMinutes()) +  ':' + pad(date.getUTCSeconds()) + ' GMT';
       };
     };
 
     // Create instance of tinycookies with 'document' and 'Date' stubbed
     this.tinycookies = {};
-    requireTinyCookies(this.documentCookieStub, dateStub, this.tinycookies);
+    requireTinyCookies(this.documentCookieStub, this.dateStub, this.tinycookies);
   });
 
   afterEach(function() {
@@ -140,10 +150,10 @@ describe("Stubbed Test Suite", function() {
     this.tinycookies.set('banana', 'yellow', {expires: 1.5});
     expect(this.cookie).toBe('banana=yellow;expires=Sun, 22 Dec 2030 11:15:30 GMT;path=/');
 
-
     // Verify usage of string format (in a format recognized by Date.parse() )
     this.tinycookies.set('banana', 'yellow', {expires: '01/08/2031'});
-    expect(this.cookie).toBe('banana=yellow;expires=' + new Date('01/08/2031').toUTCString() + ';path=/');
+    var expectedDate = (new this.dateStub('01/08/2031')).toUTCString();
+    expect(this.cookie).toBe('banana=yellow;expires=' + expectedDate + ';path=/');
   });
 
   it("Verify unsupported formats for the 'expires' option are ignored", function() {
