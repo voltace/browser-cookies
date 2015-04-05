@@ -20,7 +20,7 @@ describe("Stubbed Test Suite", function() {
         var d = new Date(string);
         this.date = new Date(Date.UTC(d.getUTCFullYear(), d.getUTCMonth(), d.getUTCDate(), d.getUTCHours(), d.getUTCMinutes(), d.getUTCSeconds()));
       } else {
-        this.date = new Date(Date.UTC(2030, 12, 31, 23, 59, 59, 1234));
+        this.date = new Date(Date.UTC(2030, 11, 20, 23, 15, 30, 0)); // 2030-12-20 23:15:30
       }
 
       // Proxy the Date function
@@ -55,13 +55,13 @@ describe("Stubbed Test Suite", function() {
 
     // Test erase
     this.tinycookies.erase('banana');
-    expect(this.cookie).toBe('banana=;expires=Thu, 30 Jan 2031 20:13:20 GMT;path=/');
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/');
   });
 
   it("Set a cookie using all possible options", function() {
     // Set all options
     var options = {
-      expires: 4400,
+      expires: 4,
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
@@ -70,11 +70,11 @@ describe("Stubbed Test Suite", function() {
     this.tinycookies.set('banana', 'yellow', options);
 
     // All options should have been applied
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 01:13:20 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    expect(this.cookie).toBe('banana=yellow;expires=Tue, 24 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // Original options structure not modified
     expect(options).toEqual({
-      expires: 4400,
+      expires: 4,
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
@@ -85,7 +85,7 @@ describe("Stubbed Test Suite", function() {
   it("Set all possible defaults", function() {
     // Set new defaults
     this.tinycookies.defaults = {
-      expires: 3600,
+      expires: 7,
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
@@ -94,11 +94,11 @@ describe("Stubbed Test Suite", function() {
 
     // Set cookie, all default options should be applies
     this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 01:00:00 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    expect(this.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // The defaults should not have been modified
     expect(this.tinycookies.defaults).toEqual({
-      expires: 3600,
+      expires: 7,
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
@@ -114,17 +114,17 @@ describe("Stubbed Test Suite", function() {
 
   it("Set expires option", function() {
     // Set cookie with custom expiration time
-    this.tinycookies.set('banana', 'yellow', {expires: 3600});
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 01:00:00 GMT;path=/');
+    this.tinycookies.set('banana', 'yellow', {expires: 30});
+    expect(this.cookie).toBe('banana=yellow;expires=Sun, 19 Jan 2031 23:15:30 GMT;path=/');
 
     // Set a default expiration time
-    this.tinycookies.defaults.expires = 1800;
+    this.tinycookies.defaults.expires = 7;
     this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 00:30:00 GMT;path=/');
+    expect(this.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;path=/');
 
     // Override the default expiration time using the function option
-    this.tinycookies.set('banana', 'yellow', {expires: 7200});
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 02:00:00 GMT;path=/');
+    this.tinycookies.set('banana', 'yellow', {expires: 14});
+    expect(this.cookie).toBe('banana=yellow;expires=Fri, 03 Jan 2031 23:15:30 GMT;path=/');
   });
 
   it("Verify all allowed formats for the 'expires' option", function() {
@@ -132,9 +132,14 @@ describe("Stubbed Test Suite", function() {
     this.tinycookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});
     expect(this.cookie).toBe('banana=yellow;expires=' + new Date(2030, 12, 20).toUTCString() + ';path=/');
 
-    // Verify usage of integer format (seconds till expiration)
-    this.tinycookies.set('banana', 'yellow', {expires: 12345});
-    expect(this.cookie).toBe('banana=yellow;expires=Sat, 01 Feb 2031 03:25:45 GMT;path=/');
+    // Verify usage of integer format (days till expiration)
+    this.tinycookies.set('banana', 'yellow', {expires: 5});
+    expect(this.cookie).toBe('banana=yellow;expires=Wed, 25 Dec 2030 23:15:30 GMT;path=/');
+
+    // Verify usage of float format (set to one and a half day)
+    this.tinycookies.set('banana', 'yellow', {expires: 1.5});
+    expect(this.cookie).toBe('banana=yellow;expires=Sun, 22 Dec 2030 11:15:30 GMT;path=/');
+
 
     // Verify usage of string format (in a format recognized by Date.parse() )
     this.tinycookies.set('banana', 'yellow', {expires: '01/08/2031'});
@@ -332,7 +337,7 @@ describe("Browser-based test suite", function() {
 
   it("Set cookie using all possible options", function() {
     this.tinycookies.set('banana', 'yellow', {
-      expires: 3600,
+      expires: 30,
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
