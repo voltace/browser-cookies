@@ -49,15 +49,10 @@ gulp.task('build', function (done) {
 // Test run including code coverage and Sauce Labs
 // May be run locally or using travis CI
 gulp.task('test:full', function (done) {
-  // Use ENV vars on Travis and sauce.json locally to get credentials
+  // Check whether Sause Labs credentials are configured
   if (!process.env.SAUCE_USERNAME) {
-    if (!fs.existsSync('sauce.json')) {
-      console.log('Create a sauce.json with your credentials based on the sauce-sample.json file.');
-      process.exit(1);
-    } else {
-      process.env.SAUCE_USERNAME = require('./sauce').username;
-      process.env.SAUCE_ACCESS_KEY = require('./sauce').accessKey;
-    }
+    console.log('SAUCE_USERNAME and SAUSE_ACCESS_KEY must be configured as ENV vars');
+    process.exit(1);
   }
 
   // Copy the Karma config
@@ -77,12 +72,22 @@ gulp.task('test:full', function (done) {
     ]
   };
 
+  // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
+  if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
+    for (var i = 0; i < customLaunchers.length; i++) {
+      customLaunchers[i].build                = process.env.TRAVIS_BUILD_NUMBER;
+      customLaunchers[i]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
+    }
+    console.log('JOB NUMBERS', customLaunchers);
+  }
+
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
   config.sauceLabs = {testName: 'tiny-cookies karma'};
   config.captureTimeout = 120000;
   config.customLaunchers = customLaunchers;
   config.browsers = Object.keys(customLaunchers);
+
 
   // Run karma
   karma.start(config, done);
