@@ -1,4 +1,6 @@
-[![Build Status][travis-image]][travis-url] [![Coveralls Status][coveralls-image]][coveralls-url]
+[![Build Status][travis-image]][travis-url]
+[![Coveralls Status][coveralls-image]][coveralls-url]
+[![Dev Dependencies Status][david-image]][david-url]
 
 # tiny-cookies
 CommonJS cookies library for the browser - **under development**
@@ -35,7 +37,6 @@ CommonJS cookies library for the browser - **under development**
    - Add additional bad weather scenarios
    - Add automated cross-browser test (saucelabs?) to verify browser compatility
      - Verify compatibility for even older browsers manually
-   - Show unit test code coverage
  - Distribution:
    - Generate downloadable minified file for CommonJS
    - Create builds for other loaders (including for not using a loader)
@@ -53,3 +54,6 @@ Public domain (UNLICENCE)
 
 [coveralls-url]: https://coveralls.io/r/voltace/tiny-cookies
 [coveralls-image]: http://img.shields.io/coveralls/voltace/tiny-cookies/master.svg
+
+[david-url]: https://david-dm.org/voltace/tiny-cookies#info=devDependencies
+[david-image]: https://img.shields.io/david/dev/voltace/tiny-cookies.svg
