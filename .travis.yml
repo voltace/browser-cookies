@@ -6,8 +6,6 @@ node_js:
 after_success:
   "cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js"
 
-addons:
-  sauce_connect: true
 env:
   global:
     - secure: gbI+ipNLsOxBGKTp/wDIQnDLKMKZz8jGkIO8xDe9S5xmJRehCavJ827Oaga6sWXXJsK3o69uBh1c1pZO/MWx4JCTYUyUlMgjbxP2NHtcnsgkdnpe4+8Q6XFSc8AvlHeU3Kj2SmAqY9qGYzeMwtPc2pzuZRVsViVCXlLCRiZr5X4=
