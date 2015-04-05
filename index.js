@@ -1,14 +1,16 @@
 exports.defaults = {};
 
 exports.set = function(name, value, options) {
-  options = options || {};
+  // Retrieve options and defaults
+  var opts = options || {};
+  var defaults = exports.defaults;
 
-  // Apply default values for unspecified options
-  var expires = options.expires || exports.defaults.expires;
-  var domain = options.domain || exports.defaults.domain;
-  var path = options.path || exports.defaults.path || '/';
-  var secure = options.secure != undefined ? options.secure : exports.defaults.secure;
-  var httponly = options.httponly != undefined ? options.httponly : exports.defaults.httponly;
+  // Apply default value for unspecified options
+  var expires = opts.expires || defaults.expires;
+  var domain = opts.domain ||defaults.domain;
+  var path = opts.path || defaults.path || '/';
+  var secure = opts.secure != undefined ? opts.secure : defaults.secure;
+  var httponly = opts.httponly != undefined ? opts.httponly : defaults.httponly;
 
   // Determine cookie expiration date
   // If succesful the result will be a valid Date, otherwise it will be an invalid Date or empty string
