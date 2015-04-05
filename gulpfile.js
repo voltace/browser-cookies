@@ -74,12 +74,13 @@ gulp.task('test:full', function (done) {
 
   // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
   if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
-    for (var i = 0; i < customLaunchers.length; i++) {
-      customLaunchers[i].build                = process.env.TRAVIS_BUILD_NUMBER;
-      customLaunchers[i]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
+    for (var launcher in customLaunchers) {
+      customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
+      customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
     }
-    console.log('JOB NUMBERS', customLaunchers);
   }
+  console.log(process.env.TRAVIS_BUILD_NUMBER, process.env.TRAVIS_JOB_NUMBER);
+  console.log('JOB NUMBERS', customLaunchers);
 
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
