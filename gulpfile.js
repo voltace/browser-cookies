@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var karma = require('karma').server;
 var rename = require('gulp-rename');
+var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 var util = require('util');
 
@@ -43,6 +44,7 @@ gulp.task('build', function (done) {
   return gulp.src('index.js')
   .pipe(uglify())
   .pipe(rename('tiny-cookies.min.js'))
+  .pipe(size({gzip: true}))
   .pipe(gulp.dest('dist'));
 });
 

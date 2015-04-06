@@ -86,7 +86,7 @@ Options may be passed as optional argument to cookies.set(name, value [], option
 | Name     | Type           | Default | Description
 |----------|----------------|---------|--------
 | expires  | Number or Date | 0       | Number of days until the cookie expires, the cookie will expire at the end of the session if set to 0. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g: new Date(2018, 3, 27)).
-| domain   | String         | ""      | The domain from where the cookie is readable, if not specified the current domain will be used.
+| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable, if not specified the current domain will be used.
 | path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
 | secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
 | httponly | Boolean        | false   | If true the cookie may only be read by the webserver. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
@@ -105,12 +105,12 @@ Options may be passed as optional argument to cookies.set(name, value [], option
     - iOS x+
 - Distribution:
   - Generate downloadable minified file for CommonJS?
-  - Create builds for other loaders (including for not using a loader)?
-  - Add to NPM and/or Bower
+  - Create builds for other loaders (including for those not using a loader)?
+  - Add to NPM (and Bower?)
 - Documentation
   - Add API reference
 - Cross browser issues:
-  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps make this the default for consistent behavior amongst all browsers? Would need to investigate whether something like
+  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though.
 
 ### Development
 This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
