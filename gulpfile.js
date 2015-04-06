@@ -72,12 +72,17 @@ gulp.task('test:full', function (done) {
     ]
   };
 
-  // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
-  if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
-    for (var launcher in customLaunchers) {
+
+  // Configure Sauce Labs browsers
+  for (var launcher in customLaunchers) {
+    // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
+    if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
       customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
     }
+
+    // Make results public
+    customLaunchers[launcher].public = 'public';
   }
 
   // Enable Sauce Labs
