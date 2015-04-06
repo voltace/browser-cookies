@@ -1,6 +1,6 @@
 {
-  "name": "tiny-cookies",
-  "description": "Tiny CommonJS cookies library for the browser",
+  "name": "browser-cookies",
+  "description": "Tiny cookies library for the browser",
   "version": "0.1.0",
   "main": "index.js",
   "files": [
@@ -37,16 +37,16 @@
   "license": "Public Domain",
   "repository": {
     "type": "git",
-    "url": "git://github.com/voltace/tiny-cookies"
+    "url": "git://github.com/voltace/browser-cookies"
   },
   "bugs": {
-    "url": "https://github.com/voltace/tiny-cookies/issues"
+    "url": "https://github.com/voltace/browser-cookies/issues"
   },
   "keywords": [
-    "tiny",
-    "cookies",
     "browser",
+    "cookies",
     "commonjs",
     "browserify"
+    "RFC6265"
   ]
 }

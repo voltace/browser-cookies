@@ -2,7 +2,7 @@
 [![Coveralls Status][coveralls-image]][coveralls-url]
 [![Dev Dependencies Status][david-image]][david-url]
 
-# tiny-cookies
+# browser-cookies
 Cookies library for the browser - **under development**
 
 ### Features:
@@ -26,7 +26,7 @@ Cross browser support is verified on real browsers using automated testing:
 ### Examples
 Count the number of a visits to a page
 ```javascript
-var cookies = require('tiny-cookies');
+var cookies = require('browser-cookies');
 
 // Fetch the number of visits to this page
 var visits = cookies.get('visits-counter');
@@ -38,7 +38,7 @@ cookies.set('visits-counter', parseInt(visits) + 1);
 
 Any type of string can be stored, an example using JSON:  
 ```javascript
-var cookies = require('tiny-cookies');
+var cookies = require('browser-cookies');
 // Store JSON data
 var user = {firstName: 'Sofia', lastName: 'Dueñas'};
 cookies.set('user', JSON.stringify(user))
@@ -51,7 +51,7 @@ alert('Hi ' + userObject.firstName);
 
 Additional options may be passed when setting a cookie:  
 ```javascript
-var cookies = require('tiny-cookies');
+var cookies = require('browser-cookies');
 
 // Set cookie to expire after 1 year (by default it expires at the end of the browser session)
 cookies.set('FirstName', 'John', {expires: 365})
@@ -62,7 +62,7 @@ cookies.set('LastName', 'Smith', {domain: 'www.example.org', secure: true, httpo
 
 Default values may be set for each option:  
 ```javascript
-var cookies = require('tiny-cookies');
+var cookies = require('browser-cookies');
 
 // Set global defaults
 cookies.defaults.secure = true;
@@ -122,14 +122,14 @@ License
 ----
 Public domain (UNLICENCE)
 
-[travis-url]: https://travis-ci.org/voltace/tiny-cookies
-[travis-image]: http://img.shields.io/travis/voltace/tiny-cookies.svg
+[travis-url]: https://travis-ci.org/voltace/browser-cookies
+[travis-image]: http://img.shields.io/travis/voltace/browser-cookies.svg
 
-[coveralls-url]: https://coveralls.io/r/voltace/tiny-cookies
-[coveralls-image]: http://img.shields.io/coveralls/voltace/tiny-cookies/master.svg
+[coveralls-url]: https://coveralls.io/r/voltace/browser-cookies
+[coveralls-image]: http://img.shields.io/coveralls/voltace/browser-cookies/master.svg
 
-[david-url]: https://david-dm.org/voltace/tiny-cookies#info=devDependencies
-[david-image]: https://img.shields.io/david/dev/voltace/tiny-cookies.svg
+[david-url]: https://david-dm.org/voltace/browser-cookies#info=devDependencies
+[david-image]: https://img.shields.io/david/dev/voltace/browser-cookies.svg
 
-[saucelabs-url]: https://saucelabs.com/u/tiny-cookies
-[saucelabs-image]: https://saucelabs.com/browser-matrix/tiny-cookies.svg
+[saucelabs-url]: https://saucelabs.com/u/browser-cookies
+[saucelabs-image]: https://saucelabs.com/browser-matrix/browser-cookies.svg
