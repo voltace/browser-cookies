@@ -137,6 +137,45 @@ describe("Stubbed Test Suite", function() {
     expect(this.cookie).toBe('banana=yellow;expires=Fri, 03 Jan 2031 23:15:30 GMT;path=/');
   });
 
+  it("Verify erase options are applied", function() {
+    // Erase cookie with all available options
+    this.tinycookies.erase('banana', {domain: 'example.org', path: '/a/path'});
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/a/path');
+
+    // Erase cookie with only the path set
+    this.tinycookies.erase('banana', {path: '/a/path'});
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/a/path');
+
+    // Erase cookie with only the domain set
+    this.tinycookies.erase('banana', {domain: 'example.org'});
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/');
+
+  });
+
+  it("Verify erase doesn't apply default configuration", function() {
+    // Set some defaults
+    this.tinycookies.defaults = {
+      expires: 7,
+      domain: 'default.example.org',
+      path: '/default/path',
+      secure: true,
+      httponly: true
+    };
+
+    // Erase cookie should apply the domain and path specified in the defaults  above
+    this.tinycookies.erase('banana');
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=default.example.org;path=/default/path');
+
+    // Erase cookie with specified domain and path overrules the defaults
+    this.tinycookies.erase('banana', {domain: 'other.example.org', path: '/other/path'});
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
+
+    // All options besides domain and path should be ignored
+    this.tinycookies.erase('banana', {domain: 'other.example.org', path: '/other/path', expires: 100, secure: true, httponly: true});
+    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
+  });
+
+
   it("Verify all allowed formats for the 'expires' option", function() {
     // Verify usage of Date() format
     this.tinycookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});

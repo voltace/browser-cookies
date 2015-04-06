@@ -52,6 +52,12 @@ exports.get = function(name) {
   return null;
 };
 
-exports.erase = function(name) {
-  exports.set(name, '', {expires : -1});
+exports.erase = function(name, options) {
+  exports.set(name, '', {
+    expires:  -1,
+    domain:   options && options.domain,
+    path:     options && options.path,
+    secure:   false,
+    httponly: false}
+  );
 };
