@@ -20,7 +20,7 @@ Cross browser support is verified on real browsers using automated testing:
 
 ### Installation
 ```javascript
-// TODO
+// TODO - probably add to NPM
 ```
 
 ### Usage
@@ -31,16 +31,27 @@ cookies.set('firstName', 'Lisa');
 cookies.set('firstName', 'Lisa', {expires: 365}); // Expires after 1 year
 cookies.set('firstName', 'Lisa', {secure: true, domain: 'www.example.org'});
 
-cookies.get('firstName');
+cookies.get('firstName'); // Returns cookie value (or null)
 
-cookies.erase('firstName');
+cookies.erase('firstName'); // Removes cookie
 ```
 [More examples](#examples)
 
 ### API
-```javascript
-// TODO
-```
+cookies.set(name, value [, options])
+> Saves a cookie
+>- **name**: (string) the name of the cookie to save
+>- **value**: (string) the value to save
+>- **options**: (object) may contain any of the properties specified in [options](#options) below
+
+cookies.get(name)
+> Returns cookie value, or null if the cookie is not found
+> - **name**: (string) the name of the cookie to retrieve
+
+cookies.erase(name [, options])
+> Removes a cookie
+> - **name**: (string) the name of the cookie to remove
+> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) below
 
 ### Options
 Options may be passed as optional argument to cookies.set(name, value [], options]) method. Defaults may be set in the property cookies.defaults.
@@ -51,7 +62,7 @@ Options may be passed as optional argument to cookies.set(name, value [], option
 | domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable, if not specified the current domain will be used.
 | path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
 | secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
-| httponly | Boolean        | false   | If true the cookie may only be read by the webserver. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
+| httponly | Boolean        | false   | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
 ### Examples
 Count the number of a visits to a page
@@ -79,29 +90,18 @@ var userObject = JSON.parse(userString);
 alert('Hi ' + userObject.firstName);
 ```
 
-Additional options may be passed when setting a cookie:  
+Configure defaults shared by all cookies:  
 ```javascript
 var cookies = require('browser-cookies');
 
-// Set cookie to expire after 1 year (by default it expires at the end of the browser session)
-cookies.set('FirstName', 'John', {expires: 365})
-
-// Limit cookie a specific domain, and enable the 'secure' and 'httponly' option
-cookies.set('LastName', 'Smith', {domain: 'www.example.org', secure: true, httponly: true});
-```
-
-Default values may be set for each option:  
-```javascript
-var cookies = require('browser-cookies');
-
-// Set global defaults
+// Override defaults
 cookies.defaults.secure = true;
 cookies.defaults.expires = 7;
 
-// This cookie will have to 'secure' option enabled and will expire after 7 days
+// This cookie will have the 'secure' option enabled and will expire after 7 days
 cookies.set('FirstName', 'John')
 
-// This cookie will have to 'secure' option enabled and will expire after 30 days
+// This cookie will have the 'secure' option enabled and will expire after 30 days
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
@@ -128,9 +128,6 @@ cookies.set('LastName', 'Smith', {expires: 30})
 
 ### Development
 This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
-
-Creating issues on GitHub is encouraged!
-
 
 License
 ----
