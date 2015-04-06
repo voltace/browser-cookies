@@ -266,6 +266,11 @@ describe("Stubbed Test Suite", function() {
     expect(this.cookie).toBe('b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/');
   });
 
+  it("Verify cookie name decoding", function() {
+    this.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/';
+    expect(this.tinycookies.get('báñâñâ')).toBe('yellow');
+  });
+
   it("Verify cookie value encoding", function() {
     // Should apply URI encoding
     this.tinycookies.set('banana', '¿yéllów?');
@@ -361,5 +366,15 @@ describe("Browser-based test suite", function() {
   it("Erase non-existing cookie", function() {
     // Shouldn't raise any error
     this.tinycookies.erase('orange');
+  });
+
+  it("Verify cookie name encoding and decoding", function() {
+    this.tinycookies.set('báñâñâ', 'yellow');
+    expect(this.tinycookies.get('báñâñâ')).toBe('yellow');
+
+    // FIXME check all allowed characters according to the 'token' spec in:
+    // http://tools.ietf.org/html/rfc2616#section-2.2
+
+    // FIXME leading and trailing spaces should also be removed?
   });
 });
