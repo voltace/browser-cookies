@@ -46,7 +46,7 @@
     "browser",
     "cookies",
     "commonjs",
-    "browserify"
+    "browserify",
     "RFC6265"
   ]
 }

@@ -14,7 +14,7 @@ Tiny cookies library for the browser - **under development**
   - Unit tests
   - Supports CommonJS (e.g. Browserify)
 
-### Browser compatability
+### Browser compatibility
 Cross browser support is verified on real browsers using automated testing:  
 [![Sauce Test Status][saucelabs-image]][saucelabs-url]
 
@@ -23,17 +23,47 @@ Cross browser support is verified on real browsers using automated testing:
 // TODO
 ```
 
+### Usage
+```javascript
+var cookies = require('browser-cookies');
+
+cookies.set('firstName', 'Lisa');
+cookies.set('firstName', 'Lisa', {expires: 365}); // Expires after 1 year
+cookies.set('firstName', 'Lisa', {secure: true, domain: 'www.example.org'});
+
+cookies.get('firstName');
+
+cookies.erase('firstName');
+```
+[More examples](#examples)
+
+### API
+```javascript
+// TODO
+```
+
+### Options
+Options may be passed as optional argument to cookies.set(name, value [], options]) method. Defaults may be set in the property cookies.defaults.
+
+| Name     | Type           | Default | Description
+|----------|----------------|---------|--------
+| expires  | Number or Date | 0       | Number of days until the cookie expires, the cookie will expire at the end of the session if set to 0. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g: new Date(2018, 3, 27)).
+| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable, if not specified the current domain will be used.
+| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
+| secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
+| httponly | Boolean        | false   | If true the cookie may only be read by the webserver. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
+
 ### Examples
 Count the number of a visits to a page
 ```javascript
 var cookies = require('browser-cookies');
 
 // Fetch the number of visits to this page
-var visits = cookies.get('visits-counter');
+var visits = cookies.get('count');
 console.log("You've been here " + parseInt(visits) + " times before!");
 
 // Increment the visits counter and store as cookie
-cookies.set('visits-counter', parseInt(visits) + 1);
+cookies.set('count', parseInt(visits) + 1);
 ```
 
 Any type of string can be stored, an example using JSON:  
@@ -74,22 +104,6 @@ cookies.set('FirstName', 'John')
 // This cookie will have to 'secure' option enabled and will expire after 30 days
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
-
-### API
-```javascript
-// TODO
-```
-
-### Options
-Options may be passed as optional argument to cookies.set(name, value [], options]) method. Defaults may be set in the property cookies.defaults.
-
-| Name     | Type           | Default | Description
-|----------|----------------|---------|--------
-| expires  | Number or Date | 0       | Number of days until the cookie expires, the cookie will expire at the end of the session if set to 0. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g: new Date(2018, 3, 27)).
-| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable, if not specified the current domain will be used.
-| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
-| secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
-| httponly | Boolean        | false   | If true the cookie may only be read by the webserver. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
 ### Todo's
 - Testing:
