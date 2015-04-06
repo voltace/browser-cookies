@@ -38,26 +38,26 @@ cookies.erase('firstName'); // Removes cookie
 [More examples](#examples)
 
 ### API
-method **cookies.set(** name, value [, options] **)**
-> Saves a cookie
+**cookies.set(** name, value [, options] **)**
+> Method to save a cookie
 >- **name**: (string) the name of the cookie to save
 >- **value**: (string) the value to save
 >- **options**: (object) may contain any of the properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
 
-method **cookies.get(** name **)**
-> Returns cookie value, or null if the cookie is not found
+**cookies.get(** name **)**
+> Method that returns a cookie value, or null if the cookie is not found
 > - **name**: (string) the name of the cookie to retrieve
 
-method **cookies.erase(** name [, options] **)**
-> Removes a cookie
+**cookies.erase(** name [, options] **)**
+> Method to removes a cookie
 > - **name**: (string) the name of the cookie to remove
 > - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
 
-property **cookies.defaults**
-> Contains the default configuration for all cookie options specified in [options](#options) further below. May change properties in this object to change the global default.
+**cookies.defaults**
+> This object contains the default configuration for all cookie options specified in [options](#options) further below. May change properties in this object to change the global default.
 
 ### Options
-Options may be set globally using **cookies.defaults** or passed as function argument, see [API](API) above for details.
+Options may be set globally using **cookies.defaults** or passed as function argument, see the [Examples](examples) section below and the [API](api) section above for details.
 
 | Name     | Type           | Default | Description
 |----------|----------------|---------|--------
@@ -68,7 +68,7 @@ Options may be set globally using **cookies.defaults** or passed as function arg
 | httponly | Boolean        | false   | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
 ### Examples
-Count the number of a visits to a page  
+Count the number of a visits to a page:  
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -80,7 +80,7 @@ console.log("You've been here " + parseInt(visits) + " times before!");
 cookies.set('count', parseInt(visits) + 1);
 ```
 
-Any type of string can be stored, an example using JSON:  
+JSON can be saved by converting the data to a string:  
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -94,7 +94,7 @@ var userObject = JSON.parse(userString);
 alert('Hi ' + userObject.firstName);
 ```
 
-Configure defaults shared by all cookies:  
+The global cookie options may be overwritten:
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -102,34 +102,28 @@ var cookies = require('browser-cookies');
 cookies.defaults.secure = true;
 cookies.defaults.expires = 7;
 
-// This cookie will have the 'secure' option enabled and will expire after 7 days
+// This cookie has the 'secure' option enabled and expires after 7 days
 cookies.set('FirstName', 'John')
 
-// This cookie will have the 'secure' option enabled and will expire after 30 days
+// This cookie has the 'secure' option enabled and expires after 30 days
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
 ### Todo's
 - Testing:
-  - Add additional tests cases to verify proper encoding/decoding
-  - Add additional bad weather scenarios
-  - Extend sauce labs browser test suite to verify a wide range of browsers and platforms
-    - Internet Explorer 6+
-    - Chrome x+
-    - Firefox x+
-    - Safari 6+
-    - Opera 10+
-    - Android x+
-    - iOS x+
+  - Add additional tests cases to verify proper encoding/decoding.
+  - Add additional bad weather scenarios.
+  - Check why karma doesn't provide any output on iOS4 (and iOS5).
+  - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
 - Distribution:
   - Generate downloadable minified file for CommonJS?
   - Create builds for other loaders (including for those not using a loader)?
   - Add to NPM (and Bower?)
-- Cross browser issues:
-  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though.
+- Cross browser consistency:
+  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this.
 
 ### Development
-This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
+This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency. Feel free to add issues on GitHub.
 
 License
 ----

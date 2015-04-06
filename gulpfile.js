@@ -5,18 +5,28 @@ var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 var util = require('util');
 
-// Browsers to run on Sauce Labs
-// available: https://npmjs.org/browse/keyword/karma-launcher
+// Browsers to run on Sauce Labs (https://saucelabs.com/platforms/)
 var customLaunchers = {
-  'SL_Chrome': {
-    base: 'SauceLabs',
-    browserName: 'chrome'
-  },
-  'SL_Firefox': { // FIXME IE != Firefox ??
-    base: 'SauceLabs',
-    browserName: 'internet explorer',
-    version: '9'
-  }
+  // Mobile
+  Android_40: {browserName: 'android',           version: '4.0'},
+  Android_50: {browserName: 'android',           version: '5'},
+  iPhone_4:   {browserName: 'iphone',            version: '4'},
+  iPhone_6:   {browserName: 'iphone',            version: '6'},
+  iPhone_8:   {browserName: 'iphone',            version: '8'},
+
+  // Desktop
+  Chrome_26:  {browserName: 'chrome',            version: '26'},
+  Chrome_41:  {browserName: 'chrome',            version: '41'},
+  IE_07:      {browserName: 'internet explorer', version:  '7'},
+  IE_08:      {browserName: 'internet explorer', version:  '8'},
+  IE_09:      {browserName: 'internet explorer', version:  '9'},
+  IE_10:      {browserName: 'internet explorer', version: '10'},
+  IE_11:      {browserName: 'internet explorer', version: '11'},
+  Firefox_03: {browserName: 'firefox',           version:  '3'},
+  Firefox_36: {browserName: 'firefox',           version: '36'},
+  Opera_11:   {browserName: 'opera',             version: '11'},
+  Safari_5:   {browserName: 'safari',            version:  '5'},
+  Safari_8:   {browserName: 'safari',            version:  '8'}
 };
 
 // Base Karma configuration, contains everything needed for a local teste run
@@ -34,16 +44,16 @@ var karmaConfig = {
     'index.js': ['wrap'],
   },
   wrapPreprocessor: {
-    template: 'function requireTinyCookies(document, Date, exports) { <%= contents %> }'
+    template: 'function requireCookies(document, Date, exports) { <%= contents %> }'
   },
-  browsers: ['PhantomJS']
-  //logLevel: config.LOG_WARN,
+  browsers: ['PhantomJS'],
+  //logLevel: 'DEBUG',
 };
 
 gulp.task('build', function (done) {
   return gulp.src('index.js')
   .pipe(uglify())
-  .pipe(rename('tiny-cookies.min.js'))
+  .pipe(rename('browser-cookies.min.js'))
   .pipe(size({gzip: true}))
   .pipe(gulp.dest('dist'));
 });
@@ -77,20 +87,21 @@ gulp.task('test:full', function (done) {
 
   // Configure Sauce Labs browsers
   for (var launcher in customLaunchers) {
+    customLaunchers[launcher].base = 'SauceLabs'; // Use SauceLabs
+    customLaunchers[launcher].public = 'public'; // Make results public
+    customLaunchers[launcher].tags = [launcher]; // Add browser key as tag
+
     // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
     if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
       customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
     }
-
-    // Make results public
-    customLaunchers[launcher].public = 'public';
   }
 
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
-  config.sauceLabs = {testName: 'tiny-cookies karma'};
-  config.captureTimeout = 120000;
+  config.sauceLabs = {testName: 'browser-cookies karma'};
+  config.captureTimeout = 15 * 50 * 1000; // time in ms
   config.customLaunchers = customLaunchers;
   config.browsers = Object.keys(customLaunchers);
 

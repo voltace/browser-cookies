@@ -3,17 +3,13 @@ describe("Stubbed Test Suite", function() {
   beforeEach(function() {
     var self = this;
 
-    // Define document.cookie stub
-    this.cookie = '';
-    this.documentCookieStub = {
-      val : '',
-      get cookie () {
-        return self.cookie;
-      },
-      set cookie(val) {
-        self.cookie = val;
-      }
-    };
+    // Create document.cookie stub
+    function documentCookieStub() {
+      this.cookie = '';
+    }
+    this.docStub = new documentCookieStub();
+
+    // Create Date stub
     this.dateStub = function(string) {
       // Create a date in UTC time (to prevent time zone dependent test results)
       if (string !== undefined) {
@@ -45,9 +41,9 @@ describe("Stubbed Test Suite", function() {
       };
     };
 
-    // Create instance of tinycookies with 'document' and 'Date' stubbed
-    this.tinycookies = {};
-    requireTinyCookies(this.documentCookieStub, this.dateStub, this.tinycookies);
+    // Create instance of browser-cookies with 'document' and 'Date' stubbed
+    this.browsercookies = {};
+    requireCookies(this.docStub, this.dateStub, this.browsercookies);
   });
 
   afterEach(function() {
@@ -56,16 +52,16 @@ describe("Stubbed Test Suite", function() {
 
   it("Get/set/erase basics", function() {
     // Test set
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Test get
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Test erase
-    this.tinycookies.erase('banana');
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/');
+    this.browsercookies.erase('banana');
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/');
   });
 
   it("Set a cookie using all possible options", function() {
@@ -77,10 +73,10 @@ describe("Stubbed Test Suite", function() {
       secure: true,
       httponly: true
     };
-    this.tinycookies.set('banana', 'yellow', options);
+    this.browsercookies.set('banana', 'yellow', options);
 
     // All options should have been applied
-    expect(this.cookie).toBe('banana=yellow;expires=Tue, 24 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Tue, 24 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // Original options structure not modified
     expect(options).toEqual({
@@ -94,7 +90,7 @@ describe("Stubbed Test Suite", function() {
 
   it("Set all possible defaults", function() {
     // Set new defaults
-    this.tinycookies.defaults = {
+    this.browsercookies.defaults = {
       expires: 7,
       domain: 'www.test.com',
       path: '/some/path',
@@ -103,11 +99,11 @@ describe("Stubbed Test Suite", function() {
     };
 
     // Set cookie, all default options should be applies
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
 
     // The defaults should not have been modified
-    expect(this.tinycookies.defaults).toEqual({
+    expect(this.browsercookies.defaults).toEqual({
       expires: 7,
       domain: 'www.test.com',
       path: '/some/path',
@@ -117,44 +113,44 @@ describe("Stubbed Test Suite", function() {
   });
 
   it("Using no defaults at all", function() {
-    this.tinycookies.defaults = {};
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.defaults = {};
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
   });
 
   it("Set expires option", function() {
     // Set cookie with custom expiration time
-    this.tinycookies.set('banana', 'yellow', {expires: 30});
-    expect(this.cookie).toBe('banana=yellow;expires=Sun, 19 Jan 2031 23:15:30 GMT;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: 30});
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Sun, 19 Jan 2031 23:15:30 GMT;path=/');
 
     // Set a default expiration time
-    this.tinycookies.defaults.expires = 7;
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;path=/');
+    this.browsercookies.defaults.expires = 7;
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;path=/');
 
     // Override the default expiration time using the function option
-    this.tinycookies.set('banana', 'yellow', {expires: 14});
-    expect(this.cookie).toBe('banana=yellow;expires=Fri, 03 Jan 2031 23:15:30 GMT;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: 14});
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Fri, 03 Jan 2031 23:15:30 GMT;path=/');
   });
 
   it("Verify erase options are applied", function() {
     // Erase cookie with all available options
-    this.tinycookies.erase('banana', {domain: 'example.org', path: '/a/path'});
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/a/path');
+    this.browsercookies.erase('banana', {domain: 'example.org', path: '/a/path'});
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/a/path');
 
     // Erase cookie with only the path set
-    this.tinycookies.erase('banana', {path: '/a/path'});
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/a/path');
+    this.browsercookies.erase('banana', {path: '/a/path'});
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;path=/a/path');
 
     // Erase cookie with only the domain set
-    this.tinycookies.erase('banana', {domain: 'example.org'});
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/');
+    this.browsercookies.erase('banana', {domain: 'example.org'});
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=example.org;path=/');
 
   });
 
   it("Verify erase doesn't apply default configuration", function() {
     // Set some defaults
-    this.tinycookies.defaults = {
+    this.browsercookies.defaults = {
       expires: 7,
       domain: 'default.example.org',
       path: '/default/path',
@@ -163,186 +159,186 @@ describe("Stubbed Test Suite", function() {
     };
 
     // Erase cookie should apply the domain and path specified in the defaults  above
-    this.tinycookies.erase('banana');
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=default.example.org;path=/default/path');
+    this.browsercookies.erase('banana');
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=default.example.org;path=/default/path');
 
     // Erase cookie with specified domain and path overrules the defaults
-    this.tinycookies.erase('banana', {domain: 'other.example.org', path: '/other/path'});
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
+    this.browsercookies.erase('banana', {domain: 'other.example.org', path: '/other/path'});
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
 
     // All options besides domain and path should be ignored
-    this.tinycookies.erase('banana', {domain: 'other.example.org', path: '/other/path', expires: 100, secure: true, httponly: true});
-    expect(this.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
+    this.browsercookies.erase('banana', {domain: 'other.example.org', path: '/other/path', expires: 100, secure: true, httponly: true});
+    expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
   });
 
 
   it("Verify all allowed formats for the 'expires' option", function() {
     // Verify usage of Date() format
-    this.tinycookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});
-    expect(this.cookie).toBe('banana=yellow;expires=' + new Date(2030, 12, 20).toUTCString() + ';path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=' + new Date(2030, 12, 20).toUTCString() + ';path=/');
 
     // Verify usage of integer format (days till expiration)
-    this.tinycookies.set('banana', 'yellow', {expires: 5});
-    expect(this.cookie).toBe('banana=yellow;expires=Wed, 25 Dec 2030 23:15:30 GMT;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: 5});
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Wed, 25 Dec 2030 23:15:30 GMT;path=/');
 
     // Verify usage of float format (set to one and a half day)
-    this.tinycookies.set('banana', 'yellow', {expires: 1.5});
-    expect(this.cookie).toBe('banana=yellow;expires=Sun, 22 Dec 2030 11:15:30 GMT;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: 1.5});
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Sun, 22 Dec 2030 11:15:30 GMT;path=/');
 
     // Verify usage of string format (in a format recognized by Date.parse() )
-    this.tinycookies.set('banana', 'yellow', {expires: '01/08/2031'});
+    this.browsercookies.set('banana', 'yellow', {expires: '01/08/2031'});
     var expectedDate = (new this.dateStub('01/08/2031')).toUTCString();
-    expect(this.cookie).toBe('banana=yellow;expires=' + expectedDate + ';path=/');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=' + expectedDate + ';path=/');
   });
 
   it("Verify unsupported formats for the 'expires' option are ignored", function() {
-    this.tinycookies.set('banana', 'yellow', {expires: 'anInvalidDateString'});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: 'anInvalidDateString'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
-    this.tinycookies.set('banana', 'yellow', {expires: ['an', 'array']});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: ['an', 'array']});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
-    this.tinycookies.set('banana', 'yellow', {expires: NaN});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: NaN});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
-    this.tinycookies.set('banana', 'yellow', {expires: null});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: null});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
   });
 
   it("Set domain option", function() {
     // Set cookie with custom domain
-    this.tinycookies.set('banana', 'yellow', {domain: 'www.test.com'});
-    expect(this.cookie).toBe('banana=yellow;domain=www.test.com;path=/');
+    this.browsercookies.set('banana', 'yellow', {domain: 'www.test.com'});
+    expect(this.docStub.cookie).toBe('banana=yellow;domain=www.test.com;path=/');
 
     // Set a default domain
-    this.tinycookies.defaults.domain = 'default.domain.com';
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;domain=default.domain.com;path=/');
+    this.browsercookies.defaults.domain = 'default.domain.com';
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;domain=default.domain.com;path=/');
 
     // Override the default domain using the function option
-    this.tinycookies.set('banana', 'yellow', {domain: 'override.domain.com'});
-    expect(this.cookie).toBe('banana=yellow;domain=override.domain.com;path=/');
+    this.browsercookies.set('banana', 'yellow', {domain: 'override.domain.com'});
+    expect(this.docStub.cookie).toBe('banana=yellow;domain=override.domain.com;path=/');
   });
 
   it("Set path option", function() {
     // Path defaults to '/'
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Set cookie with custom path
-    this.tinycookies.set('banana', 'yellow', {path: '/some/path'});
-    expect(this.cookie).toBe('banana=yellow;path=/some/path');
+    this.browsercookies.set('banana', 'yellow', {path: '/some/path'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/some/path');
 
     // Change the default path
-    this.tinycookies.defaults.path = '/a/default/path';
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/a/default/path');
+    this.browsercookies.defaults.path = '/a/default/path';
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/a/default/path');
 
     // Override the default path using the function option
-    this.tinycookies.set('banana', 'yellow', {path: '/override/path'});
-    expect(this.cookie).toBe('banana=yellow;path=/override/path');
+    this.browsercookies.set('banana', 'yellow', {path: '/override/path'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/override/path');
   });
 
   it("Set secure option", function() {
     // Set cookie with the secure option
-    this.tinycookies.set('banana', 'yellow', {secure: true});
-    expect(this.cookie).toBe('banana=yellow;path=/;secure');
+    this.browsercookies.set('banana', 'yellow', {secure: true});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;secure');
 
     // Set cookie without the secure option
-    this.tinycookies.set('banana', 'yellow', {secure: false});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {secure: false});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Change the default to true
-    this.tinycookies.defaults.secure = true;
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/;secure');
+    this.browsercookies.defaults.secure = true;
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;secure');
 
     // Override the default to false using the function option
-    this.tinycookies.set('banana', 'yellow', {secure: false});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {secure: false});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Change the default to false
-    this.tinycookies.defaults.secure = false;
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.defaults.secure = false;
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Override the default to true using the function option
-    this.tinycookies.set('banana', 'yellow', {secure: true});
-    expect(this.cookie).toBe('banana=yellow;path=/;secure');
+    this.browsercookies.set('banana', 'yellow', {secure: true});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;secure');
   });
 
   it("Set httponly option", function() {
     // Set cookie with the httponly option
-    this.tinycookies.set('banana', 'yellow', {httponly: true});
-    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+    this.browsercookies.set('banana', 'yellow', {httponly: true});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;httponly');
 
     // Set cookie without the httponly option
-    this.tinycookies.set('banana', 'yellow', {httponly: false});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {httponly: false});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Change the default to true
-    this.tinycookies.defaults.httponly = true;
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+    this.browsercookies.defaults.httponly = true;
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;httponly');
 
     // Override the default to false using the function option
-    this.tinycookies.set('banana', 'yellow', {httponly: false});
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.set('banana', 'yellow', {httponly: false});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Change the default to false
-    this.tinycookies.defaults.httponly = false;
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.cookie).toBe('banana=yellow;path=/');
+    this.browsercookies.defaults.httponly = false;
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
 
     // Override the default to true using the function option
-    this.tinycookies.set('banana', 'yellow', {httponly: true});
-    expect(this.cookie).toBe('banana=yellow;path=/;httponly');
+    this.browsercookies.set('banana', 'yellow', {httponly: true});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;httponly');
   });
 
   it("Verify cookie name encoding", function() {
     // Should apply URI encoding
-    this.tinycookies.set('báñâñâ', 'yellow');
-    expect(this.cookie).toBe('b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/');
+    this.browsercookies.set('báñâñâ', 'yellow');
+    expect(this.docStub.cookie).toBe('b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/');
   });
 
   it("Verify cookie name decoding", function() {
-    this.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/';
-    expect(this.tinycookies.get('báñâñâ')).toBe('yellow');
+    this.docStub.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/';
+    expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
   });
 
   it("Verify cookie value encoding", function() {
     // Should apply URI encoding
-    this.tinycookies.set('banana', '¿yéllów?');
-    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
+    this.browsercookies.set('banana', '¿yéllów?');
+    expect(this.docStub.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
 
     // Should not modify the original value
     var value = '¿yéllów?';
-    this.tinycookies.set('banana', value);
-    expect(this.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
+    this.browsercookies.set('banana', value);
+    expect(this.docStub.cookie).toBe('banana=%C2%BFy%C3%A9ll%C3%B3w?;path=/');
     expect(value).toBe('¿yéllów?');
 
     // RFC 6265 (http://tools.ietf.org/html/rfc6265) is the 'real world' cookies specification.
     // The specification allows the following subset of ASCII characters to be unescaped:
     //     hex    : dec   : ASCII
     //     0x21   : 33    : !
-    this.tinycookies.set('a', '!'); expect(this.cookie).toBe('a=!;path=/');
+    this.browsercookies.set('a', '!'); expect(this.docStub.cookie).toBe('a=!;path=/');
     //     0x23-2B: 35-43 : #$%&'()*+    (note that % should be encoded because it's the prefix for percent encoding)
-    this.tinycookies.set('b', '#$%&\'()*+'); expect(this.cookie).toBe('b=#$%25&\'()*+;path=/');
+    this.browsercookies.set('b', '#$%&\'()*+'); expect(this.docStub.cookie).toBe('b=#$%25&\'()*+;path=/');
     //     0x2D-3A: 45-58 : -./0123456789:
-    this.tinycookies.set('c', '-./0123456789:'); expect(this.cookie).toBe('c=-./0123456789:;path=/');
+    this.browsercookies.set('c', '-./0123456789:'); expect(this.docStub.cookie).toBe('c=-./0123456789:;path=/');
     //     0x3C-5B: 60-91 : <=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[
-    this.tinycookies.set('d', '<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ['); expect(this.cookie).toBe('d=<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[;path=/');
+    this.browsercookies.set('d', '<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ['); expect(this.docStub.cookie).toBe('d=<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[;path=/');
     //     0x5D-7E: 93-126: ]^_`abcdefghijklmnopqrstuvwxyz{|}~
-    this.tinycookies.set('e', ']^_`abcdefghijklmnopqrstuvwxyz{|}~'); expect(this.cookie).toBe('e=]^_`abcdefghijklmnopqrstuvwxyz{|}~;path=/');
+    this.browsercookies.set('e', ']^_`abcdefghijklmnopqrstuvwxyz{|}~'); expect(this.docStub.cookie).toBe('e=]^_`abcdefghijklmnopqrstuvwxyz{|}~;path=/');
 
     // Now check the inverse of above: whether remaining character ranges are percent encoded (they should be)
-    this.tinycookies.set('f_CTL',        '\x10'); expect(this.cookie).toBe('f_CTL=%10;path=/');
-    this.tinycookies.set('f_whitespace', ' '   ); expect(this.cookie).toBe('f_whitespace=%20;path=/');
-    this.tinycookies.set('f_DQUOTE',     '"'   ); expect(this.cookie).toBe('f_DQUOTE=%22;path=/');
-    this.tinycookies.set('f_comma',      ','   ); expect(this.cookie).toBe('f_comma=%2C;path=/');
-    this.tinycookies.set('f_semicolon',  ';'   ); expect(this.cookie).toBe('f_semicolon=%3B;path=/');
-    this.tinycookies.set('f_backslash',  '\\'  ); expect(this.cookie).toBe('f_backslash=%5C;path=/');
-    this.tinycookies.set('f_CTL2',       '\x7F'); expect(this.cookie).toBe('f_CTL2=%7F;path=/');
+    this.browsercookies.set('f_CTL',        '\x10'); expect(this.docStub.cookie).toBe('f_CTL=%10;path=/');
+    this.browsercookies.set('f_whitespace', ' '   ); expect(this.docStub.cookie).toBe('f_whitespace=%20;path=/');
+    this.browsercookies.set('f_DQUOTE',     '"'   ); expect(this.docStub.cookie).toBe('f_DQUOTE=%22;path=/');
+    this.browsercookies.set('f_comma',      ','   ); expect(this.docStub.cookie).toBe('f_comma=%2C;path=/');
+    this.browsercookies.set('f_semicolon',  ';'   ); expect(this.docStub.cookie).toBe('f_semicolon=%3B;path=/');
+    this.browsercookies.set('f_backslash',  '\\'  ); expect(this.docStub.cookie).toBe('f_backslash=%5C;path=/');
+    this.browsercookies.set('f_CTL2',       '\x7F'); expect(this.docStub.cookie).toBe('f_CTL2=%7F;path=/');
   });
 });
 
@@ -353,9 +349,9 @@ describe("Stubbed Test Suite", function() {
 // Basic regression test cases to be executed using an actual browser (PhantomJS)
 describe("Browser-based test suite", function() {
   beforeEach(function() {
-    // Create non stubbed instance of tinycookies
-    this.tinycookies = {};
-    requireTinyCookies(document, Date, this.tinycookies);
+    // Create non stubbed instance of browser-cookies
+    this.browsercookies = {};
+    requireCookies(document, Date, this.browsercookies);
   });
 
   afterEach(function() {
@@ -365,32 +361,32 @@ describe("Browser-based test suite", function() {
 
   it("Get/set/erase basics", function() {
     // Test get (when no cookie has been set)
-    expect(this.tinycookies.get('banana')).toBe(null);
+    expect(this.browsercookies.get('banana')).toBe(null);
 
     // Test set
-    this.tinycookies.set('banana', 'yellow');
-    expect(this.tinycookies.get('banana')).toBe('yellow');
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.browsercookies.get('banana')).toBe('yellow');
 
     // Test erase
-    this.tinycookies.erase('banana');
-    expect(this.tinycookies.get('banana')).toBe(null);
+    this.browsercookies.erase('banana');
+    expect(this.browsercookies.get('banana')).toBe(null);
   });
 
   it("Get/set/erase cookie using expire option", function() {
     // Test get (when no cookie has been set)
-    expect(this.tinycookies.get('banana')).toBe(null);
+    expect(this.browsercookies.get('banana')).toBe(null);
 
     // Test set with the expires option set
-    this.tinycookies.set('banana', 'yellow', {expires: 100});
-    expect(this.tinycookies.get('banana')).toBe('yellow');
+    this.browsercookies.set('banana', 'yellow', {expires: 100});
+    expect(this.browsercookies.get('banana')).toBe('yellow');
 
     // Test erase
-    this.tinycookies.erase('banana');
-    expect(this.tinycookies.get('banana')).toBe(null);
+    this.browsercookies.erase('banana');
+    expect(this.browsercookies.get('banana')).toBe(null);
   });
 
   it("Set cookie using all possible options", function() {
-    this.tinycookies.set('banana', 'yellow', {
+    this.browsercookies.set('banana', 'yellow', {
       expires: 30,
       domain: 'www.test.com',
       path: '/some/path',
@@ -399,17 +395,17 @@ describe("Browser-based test suite", function() {
     });
     // Note that the cookie won't be set because the domain/path/secure options are
     // not correct for the PhantomJS session
-    expect(this.tinycookies.get('banana')).toBe(null);
+    expect(this.browsercookies.get('banana')).toBe(null);
   });
 
   it("Erase non-existing cookie", function() {
     // Shouldn't raise any error
-    this.tinycookies.erase('orange');
+    this.browsercookies.erase('orange');
   });
 
   it("Verify cookie name encoding and decoding", function() {
-    this.tinycookies.set('báñâñâ', 'yellow');
-    expect(this.tinycookies.get('báñâñâ')).toBe('yellow');
+    this.browsercookies.set('báñâñâ', 'yellow');
+    expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
 
     // FIXME check all allowed characters according to the 'token' spec in:
     // http://tools.ietf.org/html/rfc2616#section-2.2
