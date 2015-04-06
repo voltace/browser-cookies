@@ -49,7 +49,7 @@ var userObject = JSON.parse(userString);
 alert('Hi ' + userObject.firstName);
 ```
 
-Additional options may be specified:  
+Additional options may be passed when setting a cookie:  
 ```javascript
 var cookies = require('tiny-cookies');
 
@@ -80,6 +80,17 @@ cookies.set('LastName', 'Smith', {expires: 30})
 // TODO
 ```
 
+### Options
+Options may be passed as optional argument to cookies.set(name, value [], options]) method. Defaults may be set in the property cookies.defaults.
+
+| Name     | Type           | Default | Description
+|----------|----------------|---------|--------
+| expires  | Number or Date | 0       | Number of days until the cookie expires, the cookie will expire at the end of the session if set to 0. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g: new Date(2018, 3, 27)).
+| domain   | String         | ""      | The domain from where the cookie is readable, if not specified the current domain will be used.
+| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
+| secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
+| httponly | Boolean        | false   | If true the cookie may only be read by the webserver. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
+
 ### Todo's
 - Testing:
   - Add additional tests cases to verify proper encoding/decoding
@@ -98,9 +109,11 @@ cookies.set('LastName', 'Smith', {expires: 30})
   - Add to NPM and/or Bower
 - Documentation
   - Add API reference
+- Cross browser issues:
+  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps make this the default for consistent behavior amongst all browsers? Would need to investigate whether something like
 
 ### Development
-This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and cross-browser compatible.
+This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
 
 Creating issues on GitHub is encouraged!
 
