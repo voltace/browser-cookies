@@ -3,7 +3,7 @@
 [![Dev Dependencies Status][david-image]][david-url]
 
 # browser-cookies
-Cookies library for the browser - **under development**
+Tiny cookies library for the browser - **under development**
 
 ### Features:
   - Clean and easy to use API
