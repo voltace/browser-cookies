@@ -38,23 +38,26 @@ cookies.erase('firstName'); // Removes cookie
 [More examples](#examples)
 
 ### API
-cookies.set(name, value [, options])
+method **cookies.set(** name, value [, options] **)**
 > Saves a cookie
 >- **name**: (string) the name of the cookie to save
 >- **value**: (string) the value to save
->- **options**: (object) may contain any of the properties specified in [options](#options) below
+>- **options**: (object) may contain any of the properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
 
-cookies.get(name)
+method **cookies.get(** name **)**
 > Returns cookie value, or null if the cookie is not found
 > - **name**: (string) the name of the cookie to retrieve
 
-cookies.erase(name [, options])
+method **cookies.erase(** name [, options] **)**
 > Removes a cookie
 > - **name**: (string) the name of the cookie to remove
-> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) below
+> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
+
+property **cookies.defaults**
+> Contains the default configuration for all cookie options specified in [options](#options) further below. May change properties in this object to change the global default.
 
 ### Options
-Options may be passed as optional argument to cookies.set(name, value [], options]) method. Defaults may be set in the property cookies.defaults.
+Options may be set globally using **cookies.defaults** or passed as function argument, see [API](API) above for details.
 
 | Name     | Type           | Default | Description
 |----------|----------------|---------|--------
@@ -65,12 +68,12 @@ Options may be passed as optional argument to cookies.set(name, value [], option
 | httponly | Boolean        | false   | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
 ### Examples
-Count the number of a visits to a page
+Count the number of a visits to a page  
 ```javascript
 var cookies = require('browser-cookies');
 
 // Fetch the number of visits to this page
-var visits = cookies.get('count');
+var visits = cookies.get('count', {expires: 365});
 console.log("You've been here " + parseInt(visits) + " times before!");
 
 // Increment the visits counter and store as cookie
@@ -80,6 +83,7 @@ cookies.set('count', parseInt(visits) + 1);
 Any type of string can be stored, an example using JSON:  
 ```javascript
 var cookies = require('browser-cookies');
+
 // Store JSON data
 var user = {firstName: 'Sofia', lastName: 'Dueñas'};
 cookies.set('user', JSON.stringify(user))
@@ -121,8 +125,6 @@ cookies.set('LastName', 'Smith', {expires: 30})
   - Generate downloadable minified file for CommonJS?
   - Create builds for other loaders (including for those not using a loader)?
   - Add to NPM (and Bower?)
-- Documentation
-  - Add API reference
 - Cross browser issues:
   - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though.
 
