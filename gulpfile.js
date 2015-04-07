@@ -5,6 +5,10 @@ var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 var util = require('util');
 
+// Defines
+var FILENAME_DEV = 'browser-cookies.js';
+var FILENAME_MIN = 'browser-cookies.min.js';
+
 // Browsers to run on Sauce Labs (https://saucelabs.com/platforms/)
 var customLaunchers = {
   // Mobile
@@ -34,14 +38,14 @@ var customLaunchers = {
 var karmaConfig = {
   basePath: '',
   frameworks: ['jasmine'],
-  files: ['index.js', 'test.js'],
+  files: ['browser-cookies.js', 'test.js'],
   reporters: ['progress', 'spec'],
   port: 9876,
   colors: true,
   autoWatch: false,
   singleRun: true,
   preprocessors: {
-    'index.js': ['wrap'],
+    'browser-cookies.js': ['wrap'],
   },
   wrapPreprocessor: {
     template: 'function requireCookies(document, Date, exports) { <%= contents %> }'
@@ -86,13 +90,10 @@ function runInSeries(config, browsersPending, done) {
 }
 
 gulp.task('build', function (done) {
-  var FILENAME_DEV = 'browser-cookies.js';
-  var FILENAME_MIN = 'browser-cookies.min.js';
-
-  return gulp.src('index.js')
+  return gulp.src(FILENAME_DEV)
   .pipe(size({gzip: false, title: FILENAME_DEV + '     size:'}))
   .pipe(uglify())
-  .pipe(rename('browser-cookies.min.js'))
+  .pipe(rename(FILENAME_MIN))
   .pipe(size({gzip: false, title: FILENAME_MIN + ' size:'}))
   .pipe(size({gzip: true,  title: FILENAME_MIN + ' size:'}))
   .pipe(gulp.dest('dist'));
@@ -115,7 +116,7 @@ gulp.task('test:full', function (done) {
 
   // Enable code coverage
   config.reporters.push('coverage');
-  config.preprocessors['index.js'].push('coverage');
+  config.preprocessors[FILENAME_DEV].push('coverage');
   config.coverageReporter = {
     dir: 'coverage/',
     reporters: [

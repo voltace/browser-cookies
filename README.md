@@ -72,11 +72,11 @@ Count the number of a visits to a page:
 ```javascript
 var cookies = require('browser-cookies');
 
-// Get counter valuue
+// Get cookie value
 var visits = cookies.get('count', {expires: 365});
 console.log("You've been here " + parseInt(visits) + " times before!");
 
-// Increment the counter and store as cookie
+// Increment the counter and set (or update) the cookie
 cookies.set('count', parseInt(visits) + 1);
 ```
 
@@ -110,20 +110,20 @@ cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
 ### Todo's
-- Testing:
-  - Add additional tests cases to verify proper encoding/decoding (stubbed and non-stubbed).
-  - Add additional bad weather scenarios.
-  - Disabled automated testing for mobile browsers because the results varied per run, perhaps there's a better way to test mobile browsers.
+- Additional tests:
+  - More test cases to verify proper encoding/decoding (stubbed and non-stubbed).
+  - More bad weather scenarios.
+  - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
 - Distribution:
   - Generate downloadable minified file for CommonJS?
-  - Create builds for other loaders (including for those not using a loader)?
-  - Add to NPM (and Bower?)
+  - Create builds for other loaders (AMD?) and for use without a loader.
+  - Add to NPM and possibly Bower.
 - Cross browser consistency:
   - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this.
 
 ### Development
-This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency. Feel free to add issues on GitHub.
+This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
 
 Development setup (requires [node](https://nodejs.org/download/) and [git](https://help.github.com/articles/set-up-git/) to be installed):  
 ```python
@@ -134,8 +134,10 @@ npm run test:local  # Run unit tests locally (takes ~5 seconds)
 npm run build       # Create minified version
 ```
 
+Feel free to add issues on GitHub for questions, bug reports and feature requests.
+
 ### License
-Public domain ([UNLICENCE](LICENCE))
+Public Domain ([UNLICENSE](LICENSE))
 
 [travis-url]: https://travis-ci.org/voltace/browser-cookies
 [travis-image]: http://img.shields.io/travis/voltace/browser-cookies.svg
