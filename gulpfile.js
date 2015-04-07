@@ -135,7 +135,6 @@ gulp.task('test:full', function (done) {
     if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
       customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
-      customLaunchers[launcher].startConnect = false;
     }
   }
 
@@ -145,7 +144,10 @@ gulp.task('test:full', function (done) {
 
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
-  config.sauceLabs = {testName: 'run ' + startTime};
+  config.sauceLabs = {
+    testName: 'run ' + startTime,
+    startConnect: false
+    };
   config.customLaunchers = customLaunchers;
   //config.browsers = Object.keys(customLaunchers);
   //karma.start(config, done)
