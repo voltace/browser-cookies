@@ -113,7 +113,7 @@ cookies.set('LastName', 'Smith', {expires: 30})
 - Testing:
   - Add additional tests cases to verify proper encoding/decoding (stubbed and non-stubbed).
   - Add additional bad weather scenarios.
-  - Check why karma doesn't provide any output on iOS4 (and iOS5).
+  - Disabled automated testing for mobile browsers because the results varied per run, perhaps there's a better way to test mobile browsers.
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
 - Distribution:
   - Generate downloadable minified file for CommonJS?

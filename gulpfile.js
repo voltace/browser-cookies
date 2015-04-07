@@ -8,11 +8,11 @@ var util = require('util');
 // Browsers to run on Sauce Labs (https://saucelabs.com/platforms/)
 var customLaunchers = {
   // Mobile
-  Android_40: {browserName: 'android',           version: '4.0'},
+/*Android_40: {browserName: 'android',           version: '4.0'},
   Android_50: {browserName: 'android',           version: '5'},
-  //iPhone_4:   {browserName: 'iphone',            version: '4'}, Can't get unit tests to run...
+  iPhone_4:   {browserName: 'iphone',            version: '4'},
   iPhone_6:   {browserName: 'iphone',            version: '6'},
-  iPhone_8:   {browserName: 'iphone',            version: '8'},
+  iPhone_8:   {browserName: 'iphone',            version: '8'},*/
 
   // Desktop
   Chrome_26:  {browserName: 'chrome',            version: '26'},
@@ -49,6 +49,41 @@ var karmaConfig = {
   browsers: ['PhantomJS'],
   //logLevel: 'DEBUG',
 };
+
+// Function to run Karma on Sauce Labs in batches
+// so start 3 jobs -> wait for these to finish -> start another 3 jobs -> etc...
+function runInSeries(config, browsersPending, done) {
+  var parallelJobs = 3;
+
+  // Add new batch to test
+  config.browsers = [];
+  while(browsersPending.length > 0 && config.browsers.length < parallelJobs) {
+    config.browsers.push(browsersPending.pop());
+  }
+  console.log('Starting new batch:', config.browsers.join(', '));
+
+  // Run Karma
+  karma.start(config, function() {
+    // Batch finished
+    console.log('Finished batch:', config.browsers.join(', '));
+    console.log('Remaining browsers to test:', browsersPending.length);
+
+    // We're done if there are no more browsers to test
+    if (browsersPending.length === 0) {
+      done();
+      return;
+    }
+
+    // Increase port number, to prevent conflict with previous Karma session that may still be shutting down
+    config = util._extend({}, config);
+    config.port += 10;
+
+    // Schedule a new batch (using timeout to allow existing karma run to exit before starting a new run)
+    setTimeout(function () {
+      runInSeries(config, browsersPending, done);
+    }, 5000);
+  });
+}
 
 gulp.task('build', function (done) {
   var FILENAME_DEV = 'browser-cookies.js';
@@ -89,7 +124,6 @@ gulp.task('test:full', function (done) {
     ]
   };
 
-
   // Configure Sauce Labs browsers
   for (var launcher in customLaunchers) {
     customLaunchers[launcher].base = 'SauceLabs'; // Use SauceLabs
@@ -103,14 +137,20 @@ gulp.task('test:full', function (done) {
     }
   }
 
+  // Determine starttime of the test (used in test run title).
+  var date = new Date();
+  var startTime = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
+
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
-  config.sauceLabs = {testName: 'browser-cookies karma'};
+  config.sauceLabs = {testName: 'run ' + startTime};
   config.customLaunchers = customLaunchers;
-  config.browsers = Object.keys(customLaunchers);
+  //config.browsers = Object.keys(customLaunchers);
+  //karma.start(config, done)
 
-  // Run karma
-  karma.start(config, done);
+  // Run Karma (on Sauce Labs) in batches
+  console.log('Starting karma session', config.sauceLabs.testName);
+  runInSeries(config, Object.keys(customLaunchers).sort(), done);
 });
 
 // Execute tests on local system
