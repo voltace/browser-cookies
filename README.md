@@ -42,28 +42,28 @@ cookies.erase('firstName'); // Removes cookie
 > Method to save a cookie
 >- **name**: (string) the name of the cookie to save
 >- **value**: (string) the value to save
->- **options**: (object) may contain any of the properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
+>- **options**: (object) may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in **cookies.defaults** will be used.
 
 **cookies.get(** name **)**
-> Method that returns a cookie value, or null if the cookie is not found
+> Method that returns a cookie value, or **null** if the cookie is not found
 > - **name**: (string) the name of the cookie to retrieve
 
 **cookies.erase(** name [, options] **)**
-> Method to removes a cookie
+> Method to remove a cookie
 > - **name**: (string) the name of the cookie to remove
-> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) further below. Any unspecified option will use the value configured in **cookies.defaults**.
+> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) below. If an option is not specified, the value configured in **cookies.defaults** will be used.
 
 **cookies.defaults**
-> This object contains the default configuration for all cookie options specified in [options](#options) further below. May change properties in this object to change the global default.
+> This object may be used to change the default value of each option specified in [options](#options) below.
 
 ### Options
-Options may be set globally using **cookies.defaults** or passed as function argument, see the [Examples](examples) section below and the [API](api) section above for details.
+Options may be set globally using **cookies.defaults** or passed as function argument, see the [Examples](examples) section below and the [API](api) reference above for details.
 
 | Name     | Type           | Default | Description
 |----------|----------------|---------|--------
-| expires  | Number or Date | 0       | Number of days until the cookie expires, the cookie will expire at the end of the session if set to 0. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g: new Date(2018, 3, 27)).
-| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable, if not specified the current domain will be used.
-| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, relative paths are not allowed.
+| expires  | Number or Date | 0       | Number of days until the cookie expires, if set to 0 the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g. new Date(2018, 3, 27) ).
+| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
+| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, cookies don't support relative paths.
 | secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
 | httponly | Boolean        | false   | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
@@ -72,15 +72,15 @@ Count the number of a visits to a page:
 ```javascript
 var cookies = require('browser-cookies');
 
-// Fetch the number of visits to this page
+// Get counter valuue
 var visits = cookies.get('count', {expires: 365});
 console.log("You've been here " + parseInt(visits) + " times before!");
 
-// Increment the visits counter and store as cookie
+// Increment the counter and store as cookie
 cookies.set('count', parseInt(visits) + 1);
 ```
 
-JSON can be saved by converting the data to a string:  
+JSON may be saved by converting the object into a string:  
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -94,7 +94,7 @@ var userObject = JSON.parse(userString);
 alert('Hi ' + userObject.firstName);
 ```
 
-The global cookie options may be overwritten:
+The default value of cookie options may be changed:
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -111,7 +111,7 @@ cookies.set('LastName', 'Smith', {expires: 30})
 
 ### Todo's
 - Testing:
-  - Add additional tests cases to verify proper encoding/decoding.
+  - Add additional tests cases to verify proper encoding/decoding (stubbed and non-stubbed).
   - Add additional bad weather scenarios.
   - Check why karma doesn't provide any output on iOS4 (and iOS5).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?

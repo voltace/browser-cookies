@@ -10,7 +10,7 @@ var customLaunchers = {
   // Mobile
   Android_40: {browserName: 'android',           version: '4.0'},
   Android_50: {browserName: 'android',           version: '5'},
-  iPhone_4:   {browserName: 'iphone',            version: '4'},
+  //iPhone_4:   {browserName: 'iphone',            version: '4'}, Can't get unit tests to run...
   iPhone_6:   {browserName: 'iphone',            version: '6'},
   iPhone_8:   {browserName: 'iphone',            version: '8'},
 
@@ -101,7 +101,6 @@ gulp.task('test:full', function (done) {
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
   config.sauceLabs = {testName: 'browser-cookies karma'};
-  config.captureTimeout = 15 * 50 * 1000; // time in ms
   config.customLaunchers = customLaunchers;
   config.browsers = Object.keys(customLaunchers);
 
