@@ -51,10 +51,15 @@ var karmaConfig = {
 };
 
 gulp.task('build', function (done) {
+  var FILENAME_DEV = 'browser-cookies.js';
+  var FILENAME_MIN = 'browser-cookies.min.js';
+
   return gulp.src('index.js')
+  .pipe(size({gzip: false, title: FILENAME_DEV + '     size:'}))
   .pipe(uglify())
   .pipe(rename('browser-cookies.min.js'))
-  .pipe(size({gzip: true}))
+  .pipe(size({gzip: false, title: FILENAME_MIN + ' size:'}))
+  .pipe(size({gzip: true,  title: FILENAME_MIN + ' size:'}))
   .pipe(gulp.dest('dist'));
 });
 

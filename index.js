@@ -44,7 +44,7 @@ exports.get = function(name) {
 
     // If a separator index is found, Decode the cookie name and compare to the requested cookie name
     // FIXME remove leading and trailing whitespace? something like .replace(/^\s\s*|\s\s+$/, '')
-    if (separatorIndex != -1 &&  decodeURIComponent(cookie.substring(0, separatorIndex)) == name) {
+    if (separatorIndex != -1 && decodeURIComponent(cookie.substring(0, separatorIndex)) == name) {
       return decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
     }
   }

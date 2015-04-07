@@ -125,9 +125,17 @@ cookies.set('LastName', 'Smith', {expires: 30})
 ### Development
 This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency. Feel free to add issues on GitHub.
 
-License
-----
-Public domain (UNLICENCE)
+Development setup (requires [node](https://nodejs.org/download/) and [git](https://help.github.com/articles/set-up-git/) to be installed):  
+```python
+git clone https://github.com/voltace/browser-cookies.git
+cd browser-cookies
+npm install         # Install dev dependencies
+npm run test:local  # Run unit tests locally (takes ~5 seconds)
+npm run build       # Create minified version
+```
+
+### License
+Public domain ([UNLICENCE](LICENCE))
 
 [travis-url]: https://travis-ci.org/voltace/browser-cookies
 [travis-image]: http://img.shields.io/travis/voltace/browser-cookies.svg
