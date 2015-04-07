@@ -146,7 +146,6 @@ gulp.task('test:full', function (done) {
   config.reporters.push('saucelabs');
   config.sauceLabs = {
     testName: 'run ' + startTime,
-    startConnect: false
     };
   config.customLaunchers = customLaunchers;
   //config.browsers = Object.keys(customLaunchers);
