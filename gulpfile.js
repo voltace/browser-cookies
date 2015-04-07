@@ -1,3 +1,4 @@
+var co = require('co');
 var gulp = require('gulp');
 var karma = require('karma').server;
 var rename = require('gulp-rename');
@@ -12,7 +13,7 @@ var FILENAME_MIN = 'browser-cookies.min.js';
 // Browsers to run on Sauce Labs (https://saucelabs.com/platforms/)
 var customLaunchers = {
   // Mobile
-/*Android_40: {browserName: 'android',           version: '4.0'},
+  /*Android_40: {browserName: 'android',           version: '4.0'},
   Android_50: {browserName: 'android',           version: '5'},
   iPhone_4:   {browserName: 'iphone',            version: '4'},
   iPhone_6:   {browserName: 'iphone',            version: '6'},
@@ -56,38 +57,37 @@ var karmaConfig = {
 
 // Function to run Karma on Sauce Labs in batches
 // so start 3 jobs -> wait for these to finish -> start another 3 jobs -> etc...
-function runInSeries(config, browsersPending, done) {
+// Using a 'co' function, so asyncronous functions can by yielded synchronous
+var runInSeries = function *(config, browsersPending, done) {
   var parallelJobs = 3;
 
-  // Add new batch to test
-  config.browsers = [];
-  while(browsersPending.length > 0 && config.browsers.length < parallelJobs) {
-    config.browsers.push(browsersPending.pop());
-  }
-  console.log('Starting new batch:', config.browsers.join(', '));
-
-  // Run Karma
-  karma.start(config, function() {
-    // Batch finished
-    console.log('Finished batch:', config.browsers.join(', '));
-    console.log('Remaining browsers to test:', browsersPending.length);
-
-    // We're done if there are no more browsers to test
-    if (browsersPending.length === 0) {
-      done();
-      return;
+  while(browsersPending.length > 0) {
+    // Determine the browsers to test in this batch
+    config.browsers = [];
+    while(browsersPending.length > 0 && config.browsers.length < parallelJobs) {
+      config.browsers.push(browsersPending.pop());
     }
 
-    // Increase port number, to prevent conflict with previous Karma session that may still be shutting down
-    config = util._extend({}, config);
-    config.port += 10;
+    // Run Karma batch
+    console.log('Starting new batch:', config.browsers.join(', '));
+    yield new Promise(function (resolve, reject) {
+      karma.start(config, function () {
+        // Resolve using a timeout to allow existing karma run to exit before starting a new run)
+        setTimeout(function() {resolve();}, 15000);
+      });
+    });
 
-    // Schedule a new batch (using timeout to allow existing karma run to exit before starting a new run)
-    setTimeout(function () {
-      runInSeries(config, browsersPending, done);
-    }, 5000);
-  });
-}
+    // Karma batch finished
+    console.log('Finished batch:', config.browsers.join(', '));
+    console.log('Remaining number of browsers to test:', browsersPending.length);
+
+    // Increase port number, to prevent conflict with previous Karma session that may still be shutting down
+    //config = util._extend({}, config);
+    //config.port += 10;
+  }
+
+  done();
+};
 
 gulp.task('build', function (done) {
   return gulp.src(FILENAME_DEV)
@@ -135,6 +135,7 @@ gulp.task('test:full', function (done) {
     if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
       customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
+      customLaunchers[launcher].startConnect = false;
     }
   }
 
@@ -150,8 +151,8 @@ gulp.task('test:full', function (done) {
   //karma.start(config, done)
 
   // Run Karma (on Sauce Labs) in batches
-  console.log('Starting karma session', config.sauceLabs.testName);
-  runInSeries(config, Object.keys(customLaunchers).sort(), done);
+  console.log('Starting karma session:', config.sauceLabs.testName);
+  co(runInSeries(config, Object.keys(customLaunchers).sort(), done));
 });
 
 // Execute tests on local system

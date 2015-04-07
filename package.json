@@ -11,6 +11,7 @@
   "dependencies": {},
   "devDependencies": {
     "browserify": "^9.0.7",
+    "co": "^4.5.1",
     "coveralls": "^2.11.2",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-rename": "^1.2.2",
@@ -27,10 +28,10 @@
     "karma-wrap-preprocessor": "^0.1.0"
   },
   "scripts": {
-    "build":      "./node_modules/gulp/bin/gulp.js build",
-    "test:local": "./node_modules/gulp/bin/gulp.js test:local",
-    "test:full":  "./node_modules/gulp/bin/gulp.js test:full",
-    "test":       "./node_modules/gulp/bin/gulp.js test:full"
+    "build": "node --harmony ./node_modules/gulp/bin/gulp.js build",
+    "test:local": "node --harmony ./node_modules/gulp/bin/gulp.js test:local",
+    "test:full": "node --harmony ./node_modules/gulp/bin/gulp.js test:full",
+    "test": "node --harmony ./node_modules/gulp/bin/gulp.js test:full"
   },
   "author": {
     "name": "Voltace",
