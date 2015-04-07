@@ -20,7 +20,7 @@ Cross browser support is verified on real browsers using automated testing:
 
 ### Installation
 ```javascript
-// TODO - probably add to NPM
+npm install browser-cookies
 ```
 
 ### Usage
