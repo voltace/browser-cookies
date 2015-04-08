@@ -66,13 +66,13 @@ cookies.erase('firstName'); // Removes cookie
 ### Options
 Options may be set globally using `cookies.defaults` or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
 
-| Name     | Type           | Default | Description
-|----------|----------------|---------|--------
-| `expires`  | `Number` or `Date` | `0`     | Number of days until the cookie expires, if set to `0` the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g. `new Date(2018, 3, 27)`).
-| `domain`   | `String`         | `""`    | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
-| `path`     | `String`         | `"/"`   | The path from where the cookie is readable, the default value of `"/"` allows the cookie to be readable from each path. Note that the path must be absolute, cookies don't support relative paths.
-| `secure`   | `Boolean`        | `false` | If true the cookie will only be transmitted over secure protocols like https.
-| `httponly` | `Boolean`        | `false` | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
+| Name       | Type               | Default | Description
+|------------|--------------------|---------|--------
+| `expires`  | `Number` or `Date` | `0`     | Number of days until the cookie expires, if set to `0` the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed such as `new Date(2018, 3, 27)`.
+| `domain`   | `String`           | `""`    | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
+| `path`     | `String`           | `"/"`   | The path from where the cookie is readable, the default value of `"/"` allows the cookie to be readable from all paths. <br/><br/> Note that cookies don't support relative paths such as `../../some/path`, paths must be absolute like `/some/path`.
+| `secure`   | `Boolean`          | `false` | If true the cookie will only be transmitted over secure protocols like https.
+| `httponly` | `Boolean`          | `false` | If true the cookie may only be read by the web server. <br/><br/>This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), not all browsers support this feature yet.
 
 ### Examples
 Count the number of a visits to a page:  
@@ -80,11 +80,11 @@ Count the number of a visits to a page:
 var cookies = require('browser-cookies');
 
 // Get cookie value
-var visits = cookies.get('count', {expires: 365});
+var visits = cookies.get('count');
 console.log("You've been here " + parseInt(visits) + " times before!");
 
 // Increment the counter and set (or update) the cookie
-cookies.set('count', parseInt(visits) + 1);
+cookies.set('count', parseInt(visits) + 1, {expires: 365});
 ```
 
 JSON may be saved by converting the JSON object into a string:  
