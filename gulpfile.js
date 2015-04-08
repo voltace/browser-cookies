@@ -58,32 +58,35 @@ var karmaConfig = {
 // Function to run Karma on Sauce Labs in batches
 // so start 3 jobs -> wait for these to finish -> start another 3 jobs -> etc...
 // Using a 'co' function, so asyncronous functions can by yielded synchronous
-var runInSeries = function *(config, browsersPending, done) {
-  var parallelJobs = 3;
+var runInSeries = function *(config, browsers, done) {
+  var parallelJobs = 1;
 
-  while(browsersPending.length > 0) {
+  var batchTotal = Math.ceil(browsers.length / parallelJobs);
+  var batchCurrent = 0;
+
+  while(browsers.length > 0) {
     // Determine the browsers to test in this batch
     config.browsers = [];
-    while(browsersPending.length > 0 && config.browsers.length < parallelJobs) {
-      config.browsers.push(browsersPending.pop());
+    while(browsers.length > 0 && config.browsers.length < parallelJobs) {
+      config.browsers.push(browsers.pop());
     }
 
+    console.log(Date.now(), 'Starting batch ' + (batchCurrent + 1) + '/' + batchTotal + ': ', config.browsers.join(', '));
+
     // Run Karma batch
-    console.log('Starting new batch:', config.browsers.join(', '));
     yield new Promise(function (resolve, reject) {
       karma.start(config, function () {
-        // Resolve using a timeout to allow existing karma run to exit before starting a new run)
-        setTimeout(function() {resolve();}, 15000);
+        // Resolve using a timeout to allow existing karma session to exit before starting a new session
+        setTimeout(function() {resolve();}, 0);
       });
     });
 
-    // Karma batch finished
-    console.log('Finished batch:', config.browsers.join(', '));
-    console.log('Remaining number of browsers to test:', browsersPending.length);
+    console.log(Date.now(), 'Finished batch ' + (batchCurrent + 1) + '/' + batchTotal + ': ', config.browsers.join(', '));
+    batchCurrent += 1;
 
     // Increase port number, to prevent conflict with previous Karma session that may still be shutting down
-    //config = util._extend({}, config);
-    //config.port += 10;
+    config = util._extend({}, config);
+    config.port += 10;
   }
 
   done();
@@ -125,6 +128,13 @@ gulp.task('test:full', function (done) {
     ]
   };
 
+  // Determine starttime of the test (used in test title and build numbee).
+  var date = new Date();
+  var startDate = date.toISOString().slice(0,10).replace(/-/g,"");
+  function pad(integer) {return ('0' + integer).slice(-2);}
+  var startTime = pad(date.getHours()) +pad(date.getMinutes()) + pad(date.getSeconds());
+  var start = startDate + '_' + startTime;
+
   // Configure Sauce Labs browsers
   for (var launcher in customLaunchers) {
     customLaunchers[launcher].base = 'SauceLabs'; // Use SauceLabs
@@ -133,21 +143,26 @@ gulp.task('test:full', function (done) {
 
     // If running on TRAVIS use the job number as tunnel-identifier for Sauce Labs
     if (process.env.TRAVIS_JOB_NUMBER !== undefined) {
-      customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER;
       customLaunchers[launcher]['tunnel-identifier'] = process.env.TRAVIS_JOB_NUMBER;
+      customLaunchers[launcher].build                = process.env.TRAVIS_BUILD_NUMBER + '_' + START;
+    } else {
+      customLaunchers[launcher]['tunnel-identifier'] = start;
     }
   }
-
-  // Determine starttime of the test (used in test run title).
-  var date = new Date();
-  var startTime = ('0' + date.getHours()).slice(-2) + ':' + ('0' + date.getMinutes()).slice(-2);
 
   // Enable Sauce Labs
   config.reporters.push('saucelabs');
   config.sauceLabs = {
-    testName: 'run ' + startTime,
+    testName: start,
     };
   config.customLaunchers = customLaunchers;
+  config.captureTimeout = 300 * 1000;
+  config.browserNoActivityTimeout = 300 * 1000;
+  config.browserDisconnectTimeout = 15 * 1000;
+  config.browserDisconnectTolerance = 2;
+  config.browserNoActivityTimeout = 300 * 1000;
+  config.background = true;
+
   //config.browsers = Object.keys(customLaunchers);
   //karma.start(config, done)
 
