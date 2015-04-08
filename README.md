@@ -3,16 +3,23 @@
 [![Dev Dependencies Status][david-image]][david-url]
 
 # browser-cookies
-Tiny cookies library for the browser - **under development**
+Tiny cookies library for the browser
+- [Features](#features)
+- [Browser compatibility](#browser-compatibility)
+- [Installation](#installation)
+- [Usage](#usage)
+- [API](#api)
+- [Options](#options)
+- [Examples](#examples)
 
-### Features:
-  - Clean and easy to use API
-  - Small footprint (minified and gzipped ~ 0.5kB)
-  - No dependencies
-  - RFC6265 compliant
-  - Cross browser support
-  - Unit tests
-  - Supports CommonJS (e.g. Browserify)
+### Features
+- Clean and easy to use API
+- Small footprint (minified and gzipped ~ 0.5kB)
+- No dependencies
+- RFC6265 compliant
+- Cross browser support
+- Unit tests
+- Supports CommonJS (e.g. Browserify)
 
 ### Browser compatibility
 Cross browser support is verified on real browsers using automated testing:  
@@ -38,34 +45,34 @@ cookies.erase('firstName'); // Removes cookie
 [More examples](#examples)
 
 ### API
-**cookies.set(** name, value [, options] **)**
-> Method to save a cookie
->- **name**: (string) the name of the cookie to save
->- **value**: (string) the value to save
->- **options**: (object) may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in **cookies.defaults** will be used.
+**cookies.set(** `name`, `value` [, `options`] **)**
+> Method to save a cookie  
+> - **`name`** (string) the name of the cookie to save  
+> - **`value`** (string) the value to save  
+> - **`options`** (object) may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
 
-**cookies.get(** name **)**
+**cookies.get(** `name` **)**
 > Method that returns a cookie value, or **null** if the cookie is not found
-> - **name**: (string) the name of the cookie to retrieve
+> - **`name`** (string) the name of the cookie to retrieve
 
-**cookies.erase(** name [, options] **)**
+**cookies.erase(** `name` [, `options`] **)**
 > Method to remove a cookie
-> - **name**: (string) the name of the cookie to remove
-> - **options**: (object) may contain the **domain** and **path** properties specified in [options](#options) below. If an option is not specified, the value configured in **cookies.defaults** will be used.
+> - **`name`** (string) the name of the cookie to remove
+> - **`options`** (object) may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
 
 **cookies.defaults**
 > This object may be used to change the default value of each option specified in [options](#options) below.
 
 ### Options
-Options may be set globally using **cookies.defaults** or passed as function argument, see the [Examples](examples) section below and the [API](api) reference above for details.
+Options may be set globally using `cookies.defaults` or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
 
 | Name     | Type           | Default | Description
 |----------|----------------|---------|--------
-| expires  | Number or Date | 0       | Number of days until the cookie expires, if set to 0 the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g. new Date(2018, 3, 27) ).
-| domain   | String         | ""      | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
-| path     | String         | "/"     | The path from where the cookie is readable, the default value of "/" allows the cookie to be readable from each path. Note that the path must be absolute, cookies don't support relative paths.
-| secure   | Boolean        | false   | If true the cookie will only be transmitted over secure protocols like https.
-| httponly | Boolean        | false   | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
+| `expires`  | `Number` or `Date` | `0`     | Number of days until the cookie expires, if set to `0` the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed (e.g. `new Date(2018, 3, 27)`).
+| `domain`   | `String`         | `""`    | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
+| `path`     | `String`         | `"/"`   | The path from where the cookie is readable, the default value of `"/"` allows the cookie to be readable from each path. Note that the path must be absolute, cookies don't support relative paths.
+| `secure`   | `Boolean`        | `false` | If true the cookie will only be transmitted over secure protocols like https.
+| `httponly` | `Boolean`        | `false` | If true the cookie may only be read by the web server. This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), though not all browsers support this feature yet.
 
 ### Examples
 Count the number of a visits to a page:  
@@ -80,7 +87,7 @@ console.log("You've been here " + parseInt(visits) + " times before!");
 cookies.set('count', parseInt(visits) + 1);
 ```
 
-JSON may be saved by converting the object into a string:  
+JSON may be saved by converting the JSON object into a string:  
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -90,8 +97,7 @@ cookies.set('user', JSON.stringify(user))
 
 // Retrieve JSON data
 var userString = cookies.get('user');
-var userObject = JSON.parse(userString);
-alert('Hi ' + userObject.firstName);
+alert('Hi ' + JSON.parse(userString).firstName);
 ```
 
 The default value of cookie options may be changed:
@@ -102,10 +108,10 @@ var cookies = require('browser-cookies');
 cookies.defaults.secure = true;
 cookies.defaults.expires = 7;
 
-// This cookie has the 'secure' option enabled and expires after 7 days
+// 'secure' option enabled and cookie expires in 7 days
 cookies.set('FirstName', 'John')
 
-// This cookie has the 'secure' option enabled and expires after 30 days
+// 'secure' option enabled and cookie expires in 30 days
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
@@ -134,7 +140,7 @@ npm run test:local  # Run unit tests locally (takes ~5 seconds)
 npm run build       # Create minified version
 ```
 
-Feel free to add issues on GitHub for questions, bug reports and feature requests.
+Feel free to add an issue on GitHub for any questions, bug or feature request you may have.
 
 ### License
 Public Domain ([UNLICENSE](LICENSE))
