@@ -8,7 +8,7 @@ exports.set = function(name, value, options) {
   // Apply default value for unspecified options
   var expires  = opts.expires || defaults.expires;
   var domain   = opts.domain  || defaults.domain;
-  var path     = opts.path    || defaults.path || '/';
+  var path     = opts.path     != undefined ? opts.path     : (defaults.path != undefined ? defaults.path : '/');
   var secure   = opts.secure   != undefined ? opts.secure   : defaults.secure;
   var httponly = opts.httponly != undefined ? opts.httponly : defaults.httponly;
 
@@ -26,10 +26,10 @@ exports.set = function(name, value, options) {
   document.cookie = encodeURIComponent(name) + '=' +                          // Encode cookie name
   value.replace(/[^#\$&\+/:<-\[\]-}]/g, encodeURIComponent) +                 // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
-  (domain ? ';domain=' + domain : '') +                                       // Add domain
-  ';path=' + path  +                                                          // Add path
-  (secure ? ';secure' : '') +                                                 // Add secure option
-  (httponly ? ';httponly' : '');                                              // Add httponly option
+  (domain   ? ';domain=' + domain : '') +                                     // Add domain
+  (path     ? ';path='   + path   : '') +                                     // Add path
+  (secure   ? ';secure'           : '') +                                     // Add secure option
+  (httponly ? ';httponly'         : '');                                      // Add httponly option
 };
 
 exports.get = function(name) {

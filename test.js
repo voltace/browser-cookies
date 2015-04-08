@@ -115,7 +115,7 @@ describe("Stubbed Test Suite", function() {
   it("Using no defaults at all", function() {
     this.browsercookies.defaults = {};
     this.browsercookies.set('banana', 'yellow');
-    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
+    expect(this.docStub.cookie).toBe('banana=yellow');
   });
 
   it("Set expires option", function() {
@@ -229,6 +229,10 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.set('banana', 'yellow', {path: '/some/path'});
     expect(this.docStub.cookie).toBe('banana=yellow;path=/some/path');
 
+    // Set cookie with an empty path (the browser will use the current path)
+    this.browsercookies.set('banana', 'yellow', {path: ''});
+    expect(this.docStub.cookie).toBe('banana=yellow');
+
     // Change the default path
     this.browsercookies.defaults.path = '/a/default/path';
     this.browsercookies.set('banana', 'yellow');
@@ -237,6 +241,11 @@ describe("Stubbed Test Suite", function() {
     // Override the default path using the function option
     this.browsercookies.set('banana', 'yellow', {path: '/override/path'});
     expect(this.docStub.cookie).toBe('banana=yellow;path=/override/path');
+
+    // Default path may set set to ''
+    this.browsercookies.defaults.path = '';
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow');
   });
 
   it("Set secure option", function() {
