@@ -124,9 +124,8 @@ cookies.set('LastName', 'Smith', {expires: 30})
 - Distribution:
   - Generate downloadable minified file for CommonJS?
   - Create builds for other loaders (AMD?) and for use without a loader.
-  - Add to NPM and possibly Bower.
 - Cross browser consistency:
-  - [IE sends cookies to all domains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/), perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this.
+  - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/). Perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this. But first of all need to decide on the desired behavior.
 
 ### Development
 This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
