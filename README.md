@@ -1,4 +1,5 @@
-![browser-cookies][logo-url]
+<img width="425" height="200" src="https://raw.githubusercontent.com/voltace/browser-cookies/master/browser-cookies.png"/>
+
 # browser-cookies
 **Tiny cookies library for the browser**
 
@@ -147,8 +148,6 @@ Feel free to add an issue on GitHub for any questions, bug or feature request yo
 
 ### License
 Public Domain ([UNLICENSE](LICENSE))
-
-[logo-url]: https://raw.githubusercontent.com/voltace/browser-cookies/master/browser-cookies.png
 
 [npm-url]: https://npmjs.org/package/browser-cookies
 [npm-version-image]: http://img.shields.io/npm/v/browser-cookies.svg
