@@ -38,7 +38,7 @@
     "email": "support@voltace.com",
     "url": "http://www.voltace.com/"
   },
-  "license": "Public Domain",
+  "license": "Unlicence",
   "repository": {
     "type": "git",
     "url": "git://github.com/voltace/browser-cookies"
@@ -51,6 +51,6 @@
     "cookies",
     "commonjs",
     "browserify",
-    "RFC6265"
+    "rfc6265"
   ]
 }
