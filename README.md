@@ -2,6 +2,8 @@
 # browser-cookies
 **Tiny cookies library for the browser**
 
+[![NPM Version][npm-version-image]][npm-url]
+[![NPM Downloads][npm-downloads-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coveralls Status][coveralls-image]][coveralls-url]
 [![Dev Dependencies Status][david-image]][david-url]
@@ -147,6 +149,10 @@ Feel free to add an issue on GitHub for any questions, bug or feature request yo
 Public Domain ([UNLICENSE](LICENSE))
 
 [logo-url]: https://raw.githubusercontent.com/voltace/browser-cookies/master/browser-cookies.png
+
+[npm-url]: https://npmjs.org/package/browser-cookies
+[npm-version-image]: http://img.shields.io/npm/v/browser-cookies.svg
+[npm-downloads-image]: http://img.shields.io/npm/dm/browser-cookies.svg
 
 [travis-url]: https://travis-ci.org/voltace/browser-cookies
 [travis-image]: http://img.shields.io/travis/voltace/browser-cookies.svg
