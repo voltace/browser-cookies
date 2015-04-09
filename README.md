@@ -31,9 +31,11 @@ Cross browser support is verified on real browsers using automated testing:
 [![Sauce Test Status][saucelabs-image]][saucelabs-url]
 
 ### Installation
-```javascript
-npm install browser-cookies
-```
+Using NPM  
+`npm install browser-cookies`
+
+Using Bower  
+`bower install browser-cookies`
 
 ### Usage
 ```javascript
@@ -127,8 +129,7 @@ cookies.set('LastName', 'Smith', {expires: 30})
   - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
 - Distribution:
-  - Generate downloadable minified file for CommonJS?
-  - Create builds for other loaders (AMD?) and for use without a loader.
+  - Generate build (development build + minified version) for use without a loader.
 - Cross browser consistency:
   - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains](http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/). Perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this. But first of all need to decide on the desired behavior.
 
