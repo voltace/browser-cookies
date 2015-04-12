@@ -356,7 +356,7 @@ describe("Stubbed Test Suite", function() {
 
 
 // Basic regression test cases to be executed using an actual browser (PhantomJS)
-describe("Browser-based test suite", function() {
+describe("Browser-based Test Suite", function() {
   beforeEach(function() {
     // Create non stubbed instance of browser-cookies
     this.browsercookies = {};

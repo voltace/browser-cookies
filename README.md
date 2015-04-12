@@ -29,7 +29,7 @@
 ### Browser compatibility
 Cross browser support is verified on real browsers using automated testing:  
 [![Sauce Test Status][saucelabs-image]][saucelabs-url]  
-Or [run the unit tests](http://rawgit.com/voltace/browser-cookies/master/test/index.html) in your current browser right now.
+Or [run the unit tests](https://rawgit.com/voltace/browser-cookies/master/test/index.html) for your current browser right now.
 
 ### Installation
 Using NPM  
@@ -77,7 +77,7 @@ Options may be set globally using `cookies.defaults` or passed as function argum
 | Name       | Type               | Default | Description
 |------------|--------------------|---------|--------
 | `expires`  | `Number` or `Date` | `0`     | Number of days until the cookie expires, if set to `0` the cookie will expire at the end of the session. Alternatively a [Date](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date) object may be passed such as `new Date(2018, 3, 27)`.
-| `domain`   | `String`           | `""`    | The [domain](http://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
+| `domain`   | `String`           | `""`    | The [domain](https://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work) from where the cookie is readable. If not specified, the current domain will be used.
 | `path`     | `String`           | `"/"`   | The path from where the cookie is readable, the default value of `"/"` allows the cookie to be readable from all paths. If set to `""` the cookie will only be readable from the current browser path. <br/><br/> Note that cookies don't support relative paths such as `../../some/path`, paths must be absolute like `/some/path`.
 | `secure`   | `Boolean`          | `false` | If true the cookie will only be transmitted over secure protocols like https.
 | `httponly` | `Boolean`          | `false` | If true the cookie may only be read by the web server. <br/><br/>This option may be set to [prevent malicious scripts from accessing cookies](http://blog.codinghorror.com/protecting-your-cookies-httponly/), not all browsers support this feature yet.
@@ -152,11 +152,11 @@ Feel free to add an issue on GitHub for any questions, bug or feature request yo
 Public Domain ([UNLICENSE](LICENSE))
 
 [npm-url]: https://npmjs.org/package/browser-cookies
-[npm-version-image]: http://img.shields.io/npm/v/browser-cookies.svg
-[npm-downloads-image]: http://img.shields.io/npm/dm/browser-cookies.svg
+[npm-version-image]: https://img.shields.io/npm/v/browser-cookies.svg
+[npm-downloads-image]: https://img.shields.io/npm/dm/browser-cookies.svg
 
 [travis-url]: https://travis-ci.org/voltace/browser-cookies
-[travis-image]: http://img.shields.io/travis/voltace/browser-cookies.svg
+[travis-image]: https://img.shields.io/travis/voltace/browser-cookies.svg
 
 [coveralls-url]: https://coveralls.io/r/voltace/browser-cookies
 [coveralls-image]: http://img.shields.io/coveralls/voltace/browser-cookies/master.svg
