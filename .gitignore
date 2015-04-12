@@ -4,8 +4,5 @@
 # Dependency directory
 node_modules
 
-# Build
-dist
-
 # Code coverage
 coverage
