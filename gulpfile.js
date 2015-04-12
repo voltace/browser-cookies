@@ -5,10 +5,12 @@ var rename = require('gulp-rename');
 var size = require('gulp-size');
 var uglify = require('gulp-uglify');
 var util = require('util');
+var wrap = require('gulp-wrap');
 
 // Defines
 var FILENAME_DEV = 'browser-cookies.js';
 var FILENAME_MIN = 'browser-cookies.min.js';
+var FILENAME_TST = 'browser-cookies.test.js';
 
 // Browsers to run on Sauce Labs (https://saucelabs.com/platforms/)
 var customLaunchers = {
@@ -39,18 +41,13 @@ var customLaunchers = {
 var karmaConfig = {
   basePath: '',
   frameworks: ['jasmine'],
-  files: ['browser-cookies.js', 'test.js'],
+  files: ['dist/' + FILENAME_TST, 'test/spec.js'],
   reporters: ['progress', 'spec'],
   port: 9876,
   colors: true,
   autoWatch: false,
   singleRun: true,
-  preprocessors: {
-    'browser-cookies.js': ['wrap'],
-  },
-  wrapPreprocessor: {
-    template: 'function requireCookies(document, Date, exports) { <%= contents %> }'
-  },
+  preprocessors: {},
   browsers: ['PhantomJS'],
   //logLevel: 'DEBUG',
 };
@@ -102,9 +99,17 @@ gulp.task('build', function (done) {
   .pipe(gulp.dest('dist'));
 });
 
+
+gulp.task('test:_build', function (done) {
+  return gulp.src(FILENAME_DEV)
+    .pipe(rename(FILENAME_TST))
+    .pipe(wrap('function requireCookies(document, Date, exports) { <%= contents %> }'))
+    .pipe(gulp.dest("dist"));
+});
+
 // Test run including code coverage and Sauce Labs
 // May be run locally or using travis CI
-gulp.task('test:full', function (done) {
+gulp.task('test:_full', function (done) {
   // Check whether Sause Labs credentials are configured
   if (!process.env.SAUCE_USERNAME) {
     console.log('SAUCE_USERNAME and SAUSE_ACCESS_KEY must be configured as ENV vars');
@@ -172,7 +177,7 @@ gulp.task('test:full', function (done) {
 });
 
 // Execute tests on local system
-gulp.task('test:local', function (done) {
+gulp.task('test:_local', function (done) {
   // Copy the Karma config
   var config = util._extend({}, karmaConfig);
 
@@ -182,3 +187,6 @@ gulp.task('test:local', function (done) {
   // Run Karma
   karma.start(config, done);
 });
+
+gulp.task('test:full',  gulp.series(['test:_build', 'test:_full' ]));
+gulp.task('test:local', gulp.series(['test:_build', 'test:_local']));
