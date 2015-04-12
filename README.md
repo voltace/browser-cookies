@@ -28,7 +28,8 @@
 
 ### Browser compatibility
 Cross browser support is verified on real browsers using automated testing:  
-[![Sauce Test Status][saucelabs-image]][saucelabs-url]
+[![Sauce Test Status][saucelabs-image]][saucelabs-url]  
+Or [run the unit tests](http://rawgit.com/voltace/browser-cookies/master/test/index.html) in your current browser right now.
 
 ### Installation
 Using NPM  

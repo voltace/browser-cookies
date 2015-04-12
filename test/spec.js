@@ -112,7 +112,7 @@ describe("Stubbed Test Suite", function() {
     });
   });
 
-  it("Using no defaults at all", function() {
+  it("Set cookie using using no global defaults at all", function() {
     this.browsercookies.defaults = {};
     this.browsercookies.set('banana', 'yellow');
     expect(this.docStub.cookie).toBe('banana=yellow;path=/');
