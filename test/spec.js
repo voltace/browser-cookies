@@ -410,7 +410,7 @@ describe("Browser-based test suite", function() {
 
   it("Erase non-existing cookie", function() {
     // Shouldn't raise any error
-    this.browsercookies.erase('orange');
+    expect(this.browsercookies.erase('orange')).toBe(undefined);
   });
 
   it("Verify cookie name encoding and decoding", function() {
