@@ -364,8 +364,9 @@ describe("Browser-based test suite", function() {
   });
 
   afterEach(function() {
-    // Remove 'banana' cookie
-    document.cookie = 'banana=; expires=Thu, 01 Jan 1970 00:00:01 GMT;';
+    // Remove 'banana' cookies
+    document.cookie = 'banana=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+    document.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
   });
 
   it("Get/set/erase basics", function() {
