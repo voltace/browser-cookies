@@ -311,8 +311,34 @@ describe("Stubbed Test Suite", function() {
   });
 
   it("Verify cookie name decoding", function() {
-    this.docStub.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/';
+    this.docStub.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow';
     expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
+  });
+
+  it("Verify cookie name parsing using whitespace", function() {
+    // Without whitespace
+    this.docStub.cookie = 'a=1;b=2;c=3';
+    expect(this.browsercookies.get('a')).toBe('1');
+    expect(this.browsercookies.get('b')).toBe('2');
+    expect(this.browsercookies.get('c')).toBe('3');
+
+    // With leading whitespace
+    this.docStub.cookie = 'a=1; b=2;c=3';
+    expect(this.browsercookies.get('a')).toBe('1');
+    expect(this.browsercookies.get('b')).toBe('2');
+    expect(this.browsercookies.get('c')).toBe('3');
+
+    // With trailing whitespace
+    this.docStub.cookie = 'a=1;b =2;c=3';
+    expect(this.browsercookies.get('a')).toBe('1');
+    expect(this.browsercookies.get('b')).toBe('2');
+    expect(this.browsercookies.get('c')).toBe('3');
+
+    // With leading and trailing whitespace
+    this.docStub.cookie = 'a=1; b =2;c=3';
+    expect(this.browsercookies.get('a')).toBe('1');
+    expect(this.browsercookies.get('b')).toBe('2');
+    expect(this.browsercookies.get('c')).toBe('3');
   });
 
   it("Verify cookie value encoding", function() {
@@ -365,8 +391,10 @@ describe("Browser-based Test Suite", function() {
 
   afterEach(function() {
     // Remove 'banana' cookies
-    document.cookie = 'banana=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
-    document.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+    var cookies = ['banana', 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2', 'a', 'b', 'c'];
+    for (var i = 0; i < cookies.length; i++) {
+      document.cookie = cookies[i] + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+    }
   });
 
   it("Get/set/erase basics", function() {
@@ -419,7 +447,23 @@ describe("Browser-based Test Suite", function() {
 
     // FIXME check all allowed characters according to the 'token' spec in:
     // http://tools.ietf.org/html/rfc2616#section-2.2
+  });
 
-    // FIXME leading and trailing spaces should also be removed?
+  it("Verify retrieval of multiple cookies", function() {
+    this.browsercookies.set('a', '1');
+    this.browsercookies.set('b', '2');
+    this.browsercookies.set('c', '3');
+    expect(this.browsercookies.get('a')).toBe('1');
+    expect(this.browsercookies.get('b')).toBe('2');
+    expect(this.browsercookies.get('c')).toBe('3');
+  });
+
+  it("Verify retrieval of multiple cookies using separators in the value", function() {
+    this.browsercookies.set('a', '=1=');
+    this.browsercookies.set('b', ':2:');
+    this.browsercookies.set('c', ';3;');
+    expect(this.browsercookies.get('a')).toBe('=1=');
+    expect(this.browsercookies.get('b')).toBe(':2:');
+    expect(this.browsercookies.get('c')).toBe(';3;');
   });
 });
