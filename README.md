@@ -53,39 +53,49 @@ cookies.erase('firstName'); // Removes cookie
 [More examples](#examples)
 
 ### API
-**cookies.set(** `name`, `value` [, `options`] **)**  
+API contents:
+- method [cookies.set(`name`, `value` [, `options`])](#cookies-set)
+- method [cookies.get(`name`)](#cookies-get)
+- method [cookies.set(`name`, [, `options`])](#cookies-erase)
+- property [cookies.defaults](#cookies-defaults)
+
+<hr/>
+<a name="cookies-set" href="#cookies-set">**cookies.set(** `name`, `value` [, `options`] **)**</a>  
 Method to save a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to save.
 | **`value`**   | string | the value to save.
-| **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
-<hr/>
+| **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [`cookies.defaults`](#cookies-defaults) will be used.
 
-**cookies.get(** `name` **)**  
+
+<hr/>
+<a name="cookies-get" href="#cookies-get">**cookies.get(** `name` **)**</a>  
 Method that returns a cookie value, or **null** if the cookie is not found.
 
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to retrieve.
-<hr/>
 
-**cookies.erase(** `name` [, `options`] **)**  
+
+<hr/>
+<a name="cookies-erase" href="#cookies-erase">**cookies.erase(** `name` [, `options`] **)**</a>  
 Method to remove a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to remove.
-| **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
-<hr/>
+| **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [`cookies.defaults`](#cookies-defaults) will be used.
 
-**cookies.defaults**  
-This object may be used to change the default value of each option specified in [options](#options) below.
+
 <hr/>
+<a name="cookies-defaults" href="#cookies-defaults">**cookies.defaults**</a>  
+This object may be used to change the default value of each option specified in [options](#options) below.
+
 
 ### Options
-Options may be set globally using `cookies.defaults` or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
+Options may be set globally using [`cookies.defaults`](#cookies-defaults) or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
 
 | Name       | Type                       | Default | Description
 |------------|----------------------------|---------|--------
