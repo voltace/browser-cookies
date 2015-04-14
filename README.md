@@ -61,7 +61,7 @@ Method to save a cookie.
 | **`name`**    | string | the name of the cookie to save.
 | **`value`**   | string | the value to save.
 | **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
--------------------------------------
+<hr/>
 
 **cookies.get(** `name` **)**  
 Method that returns a cookie value, or **null** if the cookie is not found.
@@ -69,7 +69,7 @@ Method that returns a cookie value, or **null** if the cookie is not found.
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to retrieve.
---------------------------------------
+<hr/>
 
 **cookies.erase(** `name` [, `options`] **)**  
 Method to remove a cookie.
@@ -78,11 +78,11 @@ Method to remove a cookie.
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to remove.
 | **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in `cookies.defaults` will be used.
---------------------------------------
+<hr/>
 
 **cookies.defaults**  
 This object may be used to change the default value of each option specified in [options](#options) below.
--------------------------------------
+<hr/>
 
 ### Options
 Options may be set globally using `cookies.defaults` or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
