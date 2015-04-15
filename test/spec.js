@@ -381,7 +381,7 @@ describe("Stubbed Test Suite", function() {
 
 
 
-// Basic regression test cases to be executed using an actual browser (PhantomJS)
+// Test cases to be executed using an actual browser
 describe("Browser-based Test Suite", function() {
   beforeEach(function() {
     // Create non stubbed instance of browser-cookies
@@ -391,7 +391,7 @@ describe("Browser-based Test Suite", function() {
 
   afterEach(function() {
     // Remove 'banana' cookies
-    var cookies = ['banana', 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2', 'a', 'b', 'c'];
+    var cookies = ['banana', 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2', 'a', 'b', 'c', 'd', 'e', 'f'];
     for (var i = 0; i < cookies.length; i++) {
       document.cookie = cookies[i] + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
     }
@@ -444,9 +444,35 @@ describe("Browser-based Test Suite", function() {
   it("Verify cookie name encoding and decoding", function() {
     this.browsercookies.set('báñâñâ', 'yellow');
     expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
+  });
 
-    // FIXME check all allowed characters according to the 'token' spec in:
-    // http://tools.ietf.org/html/rfc2616#section-2.2
+
+  it("Verify cookie value encoding and decoding", function() {
+    // Should apply URI encoding
+    this.browsercookies.set('banana', '¿yéllów?');
+    expect(this.browsercookies.get('banana')).toBe('¿yéllów?');
+
+    // Should not modify the original value
+    var value = '¿yéllów?';
+    this.browsercookies.set('banana', value);
+    expect(this.browsercookies.get('banana')).toBe('¿yéllów?');
+    expect(value).toBe('¿yéllów?');
+
+    // Check whether all characters allowed to be escaped by rfc6265 are identical before encoding and after decoding
+    this.browsercookies.set('a', '!');                                  expect(this.browsercookies.get('a')).toBe('!');
+    this.browsercookies.set('b', '#$%&\'()*+');                         expect(this.browsercookies.get('b')).toBe('#$%&\'()*+');
+    this.browsercookies.set('c', '-./0123456789:');                     expect(this.browsercookies.get('c')).toBe('-./0123456789:');
+    this.browsercookies.set('d', '<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[');   expect(this.browsercookies.get('d')).toBe('<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[');
+    this.browsercookies.set('e', ']^_`abcdefghijklmnopqrstuvwxyz{|}~'); expect(this.browsercookies.get('e')).toBe(']^_`abcdefghijklmnopqrstuvwxyz{|}~');
+
+    // Check whether all characters that must be escaped by rfc6265 are identical before encoding and after decoding
+    this.browsercookies.set('f', '\x10'); expect(this.browsercookies.get('f')).toBe('\x10');
+    this.browsercookies.set('f', ' '   ); expect(this.browsercookies.get('f')).toBe(' '   );
+    this.browsercookies.set('f', '"'   ); expect(this.browsercookies.get('f')).toBe('"'   );
+    this.browsercookies.set('f', ','   ); expect(this.browsercookies.get('f')).toBe(','   );
+    this.browsercookies.set('f', ';'   ); expect(this.browsercookies.get('f')).toBe(';'   );
+    this.browsercookies.set('f', '\\'  ); expect(this.browsercookies.get('f')).toBe('\\'  );
+    this.browsercookies.set('f', '\x7F'); expect(this.browsercookies.get('f')).toBe('\x7F');
   });
 
   it("Verify retrieval of multiple cookies", function() {

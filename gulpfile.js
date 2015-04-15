@@ -124,7 +124,7 @@ gulp.task('test:_full', function (done) {
 
   // Enable code coverage
   config.reporters.push('coverage');
-  config.preprocessors[FILENAME_DEV].push('coverage');
+  config.preprocessors[FILENAME_DEV] = ['coverage'];
   config.coverageReporter = {
     dir: 'coverage/',
     reporters: [
@@ -188,5 +188,5 @@ gulp.task('test:_local', function (done) {
   karma.start(config, done);
 });
 
-gulp.task('test:full',  gulp.series(['test:_build', 'test:_full' ]));
-gulp.task('test:local', gulp.series(['test:_build', 'test:_local']));
+gulp.task('test:full',  gulp.series(['test:_build', 'test:_full' ])); // Various browsers using Sauce Labs
+gulp.task('test:local', gulp.series(['test:_build', 'test:_local'])); // Local run using PhantomJS

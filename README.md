@@ -148,7 +148,7 @@ cookies.set('LastName', 'Smith', {expires: 30})
 
 ### Todo's
 - Additional tests:
-  - More test cases to verify proper encoding/decoding (stubbed and non-stubbed).
+  - Extend test cases to verify proper cookie name encoding/decoding (stubbed and non-stubbed).
   - More bad weather scenarios.
   - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?

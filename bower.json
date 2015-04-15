@@ -9,6 +9,7 @@
   "description": "Tiny cookies library for the browser",
   "keywords": [
     "browser",
+    "cookie",
     "cookies",
     "commonjs",
     "browserify",
