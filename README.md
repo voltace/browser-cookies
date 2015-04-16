@@ -54,14 +54,14 @@ cookies.erase('firstName'); // Removes cookie
 
 ### API
 API contents:
-- method [cookies.set(`name`, `value` [, `options`])](#cookies-set)
+- method [cookies.set(`name`, `value` &#91;, `options`&#93;)](#cookies-set)
 - method [cookies.get(`name`)](#cookies-get)
-- method [cookies.set(`name`, [, `options`])](#cookies-erase)
+- method [cookies.erase(`name`, &#91;, `options`&#93;)](#cookies-erase)
 - property [cookies.defaults](#cookies-defaults)
 
-<hr/>
-<a name="cookies-set"></a>
-[**cookies.set(** `name`, `value` [, `options`] **)**](#cookies-set)
+<hr/><a name="cookies-set"></a>
+
+[**cookies.set(** `name`, `value` &#91;, `options`&#93; **)**](#cookies-set)
 <br/>
 Method to save a cookie.
 
@@ -72,8 +72,8 @@ Method to save a cookie.
 | **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
-<hr/>
-<a name="cookies-get"></a>
+<hr/><a name="cookies-get"></a>
+
 [**cookies.get(** `name` **)**](#cookies-get)
 <br/>
 Method that returns a cookie value, or **null** if the cookie is not found.
@@ -83,9 +83,9 @@ Method that returns a cookie value, or **null** if the cookie is not found.
 | **`name`**    | string | the name of the cookie to retrieve.
 
 
-<hr/>
-<a name="cookies-erase"></a>
-[**cookies.erase(** `name` [, `options`] **)**](#cookies-erase)
+<hr/><a name="cookies-erase"></a>
+
+[**cookies.erase(** `name` &#91;, `options` &#93; **)**](#cookies-erase)
 <br/>
 Method to remove a cookie.
 
@@ -95,8 +95,8 @@ Method to remove a cookie.
 | **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
-<hr/>
-<a name="cookies-defaults"></a>
+<hr/><a name="cookies-defaults"></a>
+
 [**cookies.defaults**](#cookies-defaults)
 <br/>
 This object may be used to change the default value of each option specified in [options](#options) below.
