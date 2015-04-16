@@ -41,9 +41,11 @@ exports.get = function(name) {
 
     // Determine separator index ("name=value")
     var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
     separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
 
-    // If a separator index is found, Decode the cookie name and compare to the requested cookie name
+    // Decode the cookie name and remove any leading/trailing spaces, then compare to the requested cookie name
     if (decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+|\s+$/g,'')) == name) {
       return decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
     }
