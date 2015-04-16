@@ -1,7 +1,7 @@
 {
   "name": "browser-cookies",
   "main": "browser-cookies.js",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "homepage": "https://github.com/voltace/browser-cookies",
   "authors": [
     "Voltace <support@voltace.com>"

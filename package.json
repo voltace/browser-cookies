@@ -1,7 +1,7 @@
 {
   "name": "browser-cookies",
   "description": "Tiny cookies library for the browser",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "main": "browser-cookies.js",
   "files": [
     "browser-cookies.js",
