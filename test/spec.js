@@ -112,6 +112,11 @@ describe("Stubbed Test Suite", function() {
     });
   });
 
+  it("Set empty cookie", function() {
+    this.browsercookies.set('banana', '');
+    expect(this.docStub.cookie).toBe('banana=;path=/');
+  });
+
   it("Set cookie using using no global defaults at all", function() {
     this.browsercookies.defaults = {};
     this.browsercookies.set('banana', 'yellow');
@@ -436,6 +441,11 @@ describe("Browser-based Test Suite", function() {
     expect(this.browsercookies.get('banana')).toBe(null);
   });
 
+  it("Set empty cookie", function() {
+    this.browsercookies.set('banana', '');
+    expect(this.browsercookies.get('banana')).toBe('');
+  });
+
   it("Erase non-existing cookie", function() {
     // Shouldn't raise any error
     expect(this.browsercookies.erase('orange')).toBe(undefined);
@@ -445,7 +455,6 @@ describe("Browser-based Test Suite", function() {
     this.browsercookies.set('báñâñâ', 'yellow');
     expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
   });
-
 
   it("Verify cookie value encoding and decoding", function() {
     // Should apply URI encoding
