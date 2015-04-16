@@ -60,18 +60,22 @@ API contents:
 - property [cookies.defaults](#cookies-defaults)
 
 <hr/>
-<a name="cookies-set" href="#cookies-set">**cookies.set(** `name`, `value` [, `options`] **)**</a>  
+<a name="cookies-set"></a>
+[**cookies.set(** `name`, `value` [, `options`] **)**](#cookies-set)
+<br/>
 Method to save a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to save.
 | **`value`**   | string | the value to save.
-| **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [`cookies.defaults`](#cookies-defaults) will be used.
+| **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
 <hr/>
-<a name="cookies-get" href="#cookies-get">**cookies.get(** `name` **)**</a>  
+<a name="cookies-get"></a>
+[**cookies.get(** `name` **)**](#cookies-get)
+<br/>
 Method that returns a cookie value, or **null** if the cookie is not found.
 
 | argument      | type   | description
@@ -80,22 +84,26 @@ Method that returns a cookie value, or **null** if the cookie is not found.
 
 
 <hr/>
-<a name="cookies-erase" href="#cookies-erase">**cookies.erase(** `name` [, `options`] **)**</a>  
+<a name="cookies-erase"></a>
+[**cookies.erase(** `name` [, `options`] **)**](#cookies-erase)
+<br/>
 Method to remove a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | the name of the cookie to remove.
-| **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [`cookies.defaults`](#cookies-defaults) will be used.
+| **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
 <hr/>
-<a name="cookies-defaults" href="#cookies-defaults">**cookies.defaults**</a>  
+<a name="cookies-defaults"></a>
+[**cookies.defaults**](#cookies-defaults)
+<br/>
 This object may be used to change the default value of each option specified in [options](#options) below.
 
 
 ### Options
-Options may be set globally using [`cookies.defaults`](#cookies-defaults) or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
+Options may be set globally using [cookies.defaults](#cookies-defaults) or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
 
 | Name       | Type                       | Default | Description
 |------------|----------------------------|---------|--------
@@ -174,7 +182,6 @@ Feel free to add an issue on GitHub for any questions, bug or feature request yo
 ### License
 Public Domain ([UNLICENSE][ref-licence])
 
-<!--- References -->
 [ref-cookie-domain]: https://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work
 [ref-date-parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
 [ref-httponly]: http://blog.codinghorror.com/protecting-your-cookies-httponly/
@@ -184,7 +191,6 @@ Public Domain ([UNLICENSE][ref-licence])
 [ref-licence]: http://choosealicense.com/licenses/#unlicense
 [ref-unittests]: https://rawgit.com/voltace/browser-cookies/master/test/index.html
 
-<!--- Shields -->
 [npm-url]: https://npmjs.org/package/browser-cookies
 [npm-version-image]: https://img.shields.io/npm/v/browser-cookies.svg
 [npm-downloads-image]: https://img.shields.io/npm/dm/browser-cookies.svg
