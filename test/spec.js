@@ -313,6 +313,62 @@ describe("Stubbed Test Suite", function() {
     // Should apply URI encoding
     this.browsercookies.set('báñâñâ', 'yellow');
     expect(this.docStub.cookie).toBe('b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow;path=/');
+
+    // rfc6265 specifies a cookie name is of the `token` type as defined in rfc2616:
+    //   token          = 1*<any CHAR except CTLs or separators>
+    //   separators     = "(" | ")" | "<" | ">" | "@"
+    //                  | "," | ";" | ":" | "\" | <">
+    //                  | "/" | "[" | "]" | "?" | "="
+    //                  | "{" | "}" | SP | HT
+    //
+    //  Note that a CHAR is defined as any US-ASCII character (octets 0 - 127)
+    var separators = {
+      '('  : '%28',
+      ')'  : '%29',
+      '<'  : '%3C',
+      '>'  : '%3E',
+      '@'  : '%40',
+      ','  : '%2C',
+      ';'  : '%3B',
+      ':'  : '%3A',
+      '\\' : '%5C',
+      '\"' : '%22',
+      '/'  : '%2F',
+      '['  : '%5B',
+      ']'  : '%5D',
+      '?'  : '%3F',
+      '='  : '%3D',
+      '{'  : '%7B',
+      '}'  : '%7D',
+      ' '  : '%20',
+      '\t' : '%09'
+    };
+
+    // Check whether all separators are encoded
+    for (var separator in separators) {
+      this.browsercookies.set('cookie' + separator, 'value');
+      expect(this.docStub.cookie).toBe('cookie' + separators[separator] + '=value;path=/');
+    }
+
+    // Check whether CTLs are encoded
+    this.browsercookies.set('\x10', 'value'); expect(this.docStub.cookie).toBe('%10=value;path=/');
+    this.browsercookies.set('\x7F', 'value'); expect(this.docStub.cookie).toBe('%7F=value;path=/');
+
+    // The '%' sign should be encoded as it's used as prefix for percentage encoding
+    this.browsercookies.set('%', 'value'); expect(this.docStub.cookie).toBe('%25=value;path=/');
+
+    // Check whether all US-ASCII CHARS except for separators and CTLs are encoded
+    for (var i = 0; i < 256; i++) {
+      var ascii = String.fromCharCode(i);
+
+      // Skip CTLs, the % sign and separators
+      if (i < 32 || i >= 127 || ascii == '%' || separators.hasOwnProperty(ascii)) {
+        continue;
+      }
+
+      this.browsercookies.set('cookie' + ascii, 'value');
+      expect(this.docStub.cookie).toBe('cookie' + ascii + '=value;path=/');
+    }
   });
 
   it("Verify cookie name decoding", function() {
@@ -454,6 +510,21 @@ describe("Browser-based Test Suite", function() {
   it("Verify cookie name encoding and decoding", function() {
     this.browsercookies.set('báñâñâ', 'yellow');
     expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
+
+    // Check whether all US-ASCII CHARS are identical before encoding and after decoding
+    for (var i = 0; i < 256; i++) {
+      var name = 'cookie' + String.fromCharCode(i);
+
+      // Set cookie
+      this.browsercookies.set(name, 'value');
+
+      // Get cookie
+      expect(this.browsercookies.get(name)).toBe('value');
+
+      // Erase cookie
+      this.browsercookies.erase(name);
+      expect(this.browsercookies.get(name)).toBe(null);
+    }
   });
 
   it("Verify cookie value encoding and decoding", function() {

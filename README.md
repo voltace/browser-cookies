@@ -61,7 +61,7 @@ API contents:
 
 <hr/><a name="cookies-set"></a>
 
-[**cookies.set(** `name`, `value` &#91;, `options`&#93; **)**](#cookies-set)
+[cookies.set(`name`, `value` &#91;, `options`&#93;)](#cookies-set)
 <br/>
 Method to save a cookie.
 
@@ -74,7 +74,7 @@ Method to save a cookie.
 
 <hr/><a name="cookies-get"></a>
 
-[**cookies.get(** `name` **)**](#cookies-get)
+[cookies.get(`name`)](#cookies-get)
 <br/>
 Method that returns a cookie value, or **null** if the cookie is not found.
 
@@ -85,7 +85,7 @@ Method that returns a cookie value, or **null** if the cookie is not found.
 
 <hr/><a name="cookies-erase"></a>
 
-[**cookies.erase(** `name` &#91;, `options` &#93; **)**](#cookies-erase)
+[cookies.erase(`name` &#91;, `options` &#93;)](#cookies-erase)
 <br/>
 Method to remove a cookie.
 
@@ -97,7 +97,7 @@ Method to remove a cookie.
 
 <hr/><a name="cookies-defaults"></a>
 
-[**cookies.defaults**](#cookies-defaults)
+[cookies.defaults](#cookies-defaults)
 <br/>
 This object may be used to change the default value of each option specified in [options](#options) below.
 
@@ -156,8 +156,6 @@ cookies.set('LastName', 'Smith', {expires: 30})
 
 ### Todo's
 - Additional tests:
-  - Extend test cases to verify proper cookie name encoding/decoding (stubbed and non-stubbed).
-  - More bad weather scenarios.
   - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
 - Distribution:
