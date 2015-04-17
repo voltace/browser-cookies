@@ -16,17 +16,17 @@ exports.set = function(name, value, options) {
   // If succesful the result will be a valid Date, otherwise it will be an invalid Date or empty string
   var expDate = expires == undefined ? '' :
   // in case expires is an integer, it (should) specify the amount in days till the cookie expires
-  typeof expires == 'number' ? new Date(new Date().getTime() + (expires * 864e5)) :
+  typeof expires == 'number' ? new Date((new Date()).getTime() + (expires * 864e5)) :
   // in case expires is (probably) a Date object
   expires.getTime ? expires :
   // in case expires is not in any of the above formats, try parsing as a format recognized by Date.parse()
   new Date(expires);
 
   // Set cookie
-  document.cookie = name.replace(/[^#\$&\+\^`|]/g, encodeURIComponent)        // Encode cookie name
+  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)           // Encode cookie name
   .replace('(', '%28')
   .replace(')', '%29') +
-  '=' + value.replace(/[^#\$&\+/:<-\[\]-}]/g, encodeURIComponent) +           // Encode cookie value (RFC6265)
+  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +             // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
   (domain   ? ';domain=' + domain : '') +                                     // Add domain
   (path     ? ';path='   + path   : '') +                                     // Add path
@@ -40,16 +40,17 @@ exports.get = function(name) {
   // Iterate all cookies
   for(var i = 0; i < cookies.length; i++) {
     var cookie = cookies[i];
+    var cookieLength = cookie.length;
 
     // Determine separator index ("name=value")
     var separatorIndex = cookie.indexOf('=');
 
     // IE<11 emits the equal sign when the cookie value is empty
-    separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+    separatorIndex = separatorIndex < 0 ? cookieLength : separatorIndex;
 
     // Decode the cookie name and remove any leading/trailing spaces, then compare to the requested cookie name
-    if (decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+|\s+$/g,'')) == name) {
-      return decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
+    if (decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+|\s+$/g, '')) == name) {
+      return decodeURIComponent(cookie.substring(separatorIndex + 1, cookieLength));
     }
   }
 
@@ -61,8 +62,8 @@ exports.erase = function(name, options) {
     expires:  -1,
     domain:   options && options.domain,
     path:     options && options.path,
-    secure:   false,
-    httponly: false}
+    secure:   0,
+    httponly: 0}
   );
 };
  }
