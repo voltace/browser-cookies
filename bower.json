@@ -1,6 +1,6 @@
 {
   "name": "browser-cookies",
-  "main": "browser-cookies.js",
+  "main": "src/browser-cookies.js",
   "version": "1.0.7",
   "homepage": "https://github.com/voltace/browser-cookies",
   "authors": [
@@ -19,6 +19,6 @@
   "license": "Unlicense",
   "ignore": [
     "**/*",
-    "!browser-cookies.js*"
+    "!src/browser-cookies.js"
   ]
 }

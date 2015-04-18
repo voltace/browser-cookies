@@ -2,9 +2,9 @@
   "name": "browser-cookies",
   "description": "Tiny cookies library for the browser",
   "version": "1.0.7",
-  "main": "browser-cookies.js",
+  "main": "src/browser-cookies.js",
   "files": [
-    "browser-cookies.js",
+    "src/browser-cookies.js",
     "README.md",
     "LICENCE"
   ],

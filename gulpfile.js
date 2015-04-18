@@ -8,7 +8,7 @@ var util = require('util');
 var wrap = require('gulp-wrap');
 
 // Defines
-var FILENAME_DEV = 'browser-cookies.js';
+var FILENAME_DEV = 'src/browser-cookies.js';
 var FILENAME_MIN = 'browser-cookies.min.js';
 var FILENAME_TST = 'browser-cookies.test.js';
 
@@ -91,7 +91,7 @@ var runInSeries = function *(config, browsers, done) {
 
 gulp.task('build', function (done) {
   return gulp.src(FILENAME_DEV)
-  .pipe(size({gzip: false, title: FILENAME_DEV + '     size:'}))
+  .pipe(size({gzip: false, title: FILENAME_DEV + ' size:'}))
   .pipe(uglify())
   .pipe(rename(FILENAME_MIN))
   .pipe(size({gzip: false, title: FILENAME_MIN + ' size:'}))
@@ -124,7 +124,7 @@ gulp.task('test:_full', function (done) {
 
   // Enable code coverage
   config.reporters.push('coverage');
-  config.preprocessors[FILENAME_DEV] = ['coverage'];
+  config.preprocessors['dist/' + FILENAME_TST] = ['coverage'];
   config.coverageReporter = {
     dir: 'coverage/',
     reporters: [
