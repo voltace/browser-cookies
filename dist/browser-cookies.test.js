@@ -13,25 +13,24 @@ exports.set = function(name, value, options) {
   var httponly = opts.httponly != undefined ? opts.httponly : defaults.httponly;
 
   // Determine cookie expiration date
-  // If succesful the result will be a valid Date, otherwise it will be an invalid Date or empty string
-  var expDate = expires == undefined ? '' :
-  // in case expires is an integer, it (should) specify the amount in days till the cookie expires
-  typeof expires == 'number' ? new Date((new Date()).getTime() + (expires * 864e5)) :
-  // in case expires is (probably) a Date object
-  expires.getTime ? expires :
-  // in case expires is not in any of the above formats, try parsing as a format recognized by Date.parse()
-  new Date(expires);
+  // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
+  var expDate = expires ? new Date(
+      // in case expires is an integer, it should specify the number of days till the cookie expires
+      typeof expires == 'number' ? new Date().getTime() + (expires * 864e5) :
+      // else expires should be either a Date object or in a format recognized by Date.parse()
+      expires
+  ) : '';
 
   // Set cookie
-  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)           // Encode cookie name
+  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
   .replace('(', '%28')
   .replace(')', '%29') +
-  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +             // Encode cookie value (RFC6265)
-  (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
-  (domain   ? ';domain=' + domain : '') +                                     // Add domain
-  (path     ? ';path='   + path   : '') +                                     // Add path
-  (secure   ? ';secure'           : '') +                                     // Add secure option
-  (httponly ? ';httponly'         : '');                                      // Add httponly option
+  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
+  (expDate && expDate.getTime() ? ';expires=' + expDate.toUTCString() : '') +      // Add expiration date
+  (domain   ? ';domain=' + domain : '') +                                          // Add domain
+  (path     ? ';path='   + path   : '') +                                          // Add path
+  (secure   ? ';secure'           : '') +                                          // Add secure option
+  (httponly ? ';httponly'         : '');                                           // Add httponly option
 };
 
 exports.get = function(name) {

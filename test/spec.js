@@ -179,8 +179,9 @@ describe("Stubbed Test Suite", function() {
 
   it("Verify all allowed formats for the 'expires' option", function() {
     // Verify usage of Date() format
-    this.browsercookies.set('banana', 'yellow', {expires: new Date(2030, 12, 20)});
-    expect(this.docStub.cookie).toBe('banana=yellow;expires=' + new Date(2030, 12, 20).toUTCString() + ';path=/');
+    this.browsercookies.set('banana', 'yellow', {expires: new Date(2030, 11, 20)});
+    expect(this.docStub.cookie.replace('GMT', 'UTC'))
+    .toBe(('banana=yellow;expires=' + new Date(2030, 11, 20).toUTCString().replace('GMT', 'UTC') + ';path=/'));
 
     // Verify usage of integer format (days till expiration)
     this.browsercookies.set('banana', 'yellow', {expires: 5});
