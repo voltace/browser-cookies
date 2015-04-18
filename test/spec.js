@@ -195,6 +195,11 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.set('banana', 'yellow', {expires: '01/08/2031'});
     var expectedDate = (new this.dateStub('01/08/2031')).toUTCString();
     expect(this.docStub.cookie).toBe('banana=yellow;expires=' + expectedDate + ';path=/');
+
+    // Verify date may be set to unix epoch
+    this.browsercookies.set('banana', 'yellow', {expires: new Date(0)});
+    expectedDate = (new this.dateStub(0)).toUTCString();
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=' + expectedDate + ';path=/');
   });
 
   it("Verify unsupported formats for the 'expires' option are ignored", function() {
