@@ -442,6 +442,133 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.set('f_backslash',  '\\'  ); expect(this.docStub.cookie).toBe('f_backslash=%5C;path=/');
     this.browsercookies.set('f_CTL2',       '\x7F'); expect(this.docStub.cookie).toBe('f_CTL2=%7F;path=/');
   });
+
+  it("Verify compatibility with PHP server side", function() {
+    it("Using PHP setcookie() - doesn't encode the plus sign properly", function() {
+      // PHP output was generated using PHP 5.5
+      // http://php.net/manual/en/function.setcookie.php
+
+      // <?php setcookie('banana', '¿yéllów?'); ?>
+      this.docStub.cookie = 'banana=%C2%BFy%C3%A9ll%C3%B3w%3F';
+      expect(this.browsercookies.get('banana')).toBe('¿yéllów?');
+
+      // <?php setcookie('a', '!#$%&\'()*+-./0123456789:'); ?>
+      this.docStub.cookie = 'a=%21%23%24%25%26%27%28%29%2A%2B-.%2F0123456789%3A';
+      expect(this.browsercookies.get('a')).toBe('!#$%&\'()*+-./0123456789:');
+
+      // <?php setcookie('b', '<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ['); ?>
+      this.docStub.cookie = 'b=%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B';
+      expect(this.browsercookies.get('b')).toBe('<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[');
+
+      // <?php setcookie('c', ']^_`abcdefghijklmnopqrstuvwxyz{|}~'); ?>
+      this.docStub.cookie = 'c=%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D%7E';
+      expect(this.browsercookies.get('c')).toBe(']^_`abcdefghijklmnopqrstuvwxyz{|}~');
+
+      // <?php setcookie('f', "\x10"); ?>
+      this.docStub.cookie = 'f=%10';
+      expect(this.browsercookies.get('f')).toBe('\x10');
+
+      // <?php setcookie('f', " "); ?>
+      this.docStub.cookie = 'f=+';
+      expect(this.browsercookies.get('f')).toBe('+'); // Note: should have been ' ' instead of '+'
+
+      // <?php setcookie('f', '"'); ?>
+      this.docStub.cookie = 'f=%22';
+      expect(this.browsercookies.get('f')).toBe('"');
+
+      // <?php setcookie('f', ","); ?>
+      this.docStub.cookie = 'f=%2C';
+      expect(this.browsercookies.get('f')).toBe(',');
+
+      // <?php setcookie('f', ";"); ?>
+      this.docStub.cookie = 'f=%3B';
+      expect(this.browsercookies.get('f')).toBe(';');
+
+      // <?php setcookie('f', "\\"); ?>
+      this.docStub.cookie = 'f=%5C';
+      expect(this.browsercookies.get('f')).toBe('\\');
+
+      // <?php setcookie('f', "\x7F"); ?>
+      this.docStub.cookie = 'f=%7F';
+      expect(this.browsercookies.get('f')).toBe('\x7F');
+
+      // PHP cookie array notation
+      // <?php setcookie('cookie[one]', "1"); ?>
+      // <?php setcookie('cookie[two]', "2"); ?>
+      this.docStub.cookie = 'cookie[one]=1; cookie[two]=2';
+      expect(this.browsercookies.get('cookie[one]')).toBe('1');
+      expect(this.browsercookies.get('cookie[two]')).toBe('2');
+
+      // PHP will overwrite existing cookies (which is the correct behavior)
+      // <?php setcookie('c', "1"); ?>
+      // <?php setcookie('c', "2"); ?>
+      this.docStub.cookie = 'c=2';
+      expect(this.browsercookies.get('c')).toBe('2');
+    });
+
+    it("Using PHP setrawcookie() and rawurlencode", function() {
+      // PHP output was generated using PHP 5.5
+      // http://php.net/manual/en/function.setcookie.php
+      // http://php.net/manual/en/function.rawurlencode.php
+
+      // <?php setrawcookie('banana', rawurlencode('¿yéllów?')); ?>
+      this.docStub.cookie = 'banana=%C2%BFy%C3%A9ll%C3%B3w%3F';
+      expect(this.browsercookies.get('banana')).toBe('¿yéllów?');
+
+      // <?php setrawcookie('a', rawurlencode('!#$%&\'()*+-./0123456789:')); ?>
+      this.docStub.cookie = 'a=%21%23%24%25%26%27%28%29%2A%2B-.%2F0123456789%3A';
+      expect(this.browsercookies.get('a')).toBe('!#$%&\'()*+-./0123456789:');
+
+      // <?php setrawcookie('b', rawurlencode('<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[')); ?>
+      this.docStub.cookie = 'b=%3C%3D%3E%3F%40ABCDEFGHIJKLMNOPQRSTUVWXYZ%5B';
+      expect(this.browsercookies.get('b')).toBe('<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[');
+
+      // <?php setrawcookie('c', rawurlencode(']^_`abcdefghijklmnopqrstuvwxyz{|}~')); ?>
+      this.docStub.cookie = 'c=%5D%5E_%60abcdefghijklmnopqrstuvwxyz%7B%7C%7D~';
+      expect(this.browsercookies.get('c')).toBe(']^_`abcdefghijklmnopqrstuvwxyz{|}~');
+
+      // <?php setrawcookie('f', rawurlencode("\x10")); ?>
+      this.docStub.cookie = 'f=%10';
+      expect(this.browsercookies.get('f')).toBe('\x10');
+
+      // <?php setrawcookie('f', rawurlencode(' ')); ?>
+      this.docStub.cookie = 'f=%20';
+      expect(this.browsercookies.get('f')).toBe(' ');
+
+      // <?php setrawcookie('f', rawurlencode('"')); ?>
+      this.docStub.cookie = 'f=%22';
+      expect(this.browsercookies.get('f')).toBe('"');
+
+      // <?php setrawcookie('f', rawurlencode(',')); ?>
+      this.docStub.cookie = 'f=%2C';
+      expect(this.browsercookies.get('f')).toBe(',');
+
+      // <?php setrawcookie('f', rawurlencode(';')); ?>
+      this.docStub.cookie = 'f=%3B';
+      expect(this.browsercookies.get('f')).toBe(';');
+
+      // <?php setrawcookie('f', rawurlencode("\\")); ?>
+      this.docStub.cookie = 'f=%5C';
+      expect(this.browsercookies.get('f')).toBe('\\');
+
+      // <?php setrawcookie('f', rawurlencode("\x7F")); ?>
+      this.docStub.cookie = 'f=%7F';
+      expect(this.browsercookies.get('f')).toBe('\x7F');
+
+      // PHP cookie array notation
+      // <?php setrawcookie('cookie[one]', rawurlencode("1")); ?>
+      // <?php setrawcookie('cookie[two]', rawurlencode("2")); ?>
+      this.docStub.cookie = 'cookie[one]=1; cookie[two]=2';
+      expect(this.browsercookies.get('cookie[one]')).toBe('1');
+      expect(this.browsercookies.get('cookie[two]')).toBe('2');
+
+      // PHP will overwrite existing cookies (which is the correct behavior)
+      // <?php setrawcookie('c', rawurlencode('1')); ?>
+      // <?php setrawcookie('c', rawurlencode('2')); ?>
+      this.docStub.cookie = 'c=2';
+      expect(this.browsercookies.get('c')).toBe('2');
+    });
+  });
 });
 
 

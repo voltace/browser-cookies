@@ -8,12 +8,10 @@
   ],
   "description": "Tiny cookies library for the browser",
   "keywords": [
-    "browser",
-    "cookie",
     "cookies",
-    "commonjs",
-    "browserify",
-    "rfc6265"
+    "cookie",
+    "browser",
+    "client"
   ],
   "moduleType": "node",
   "license": "Unlicense",

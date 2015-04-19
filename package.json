@@ -47,11 +47,9 @@
     "url": "https://github.com/voltace/browser-cookies/issues"
   },
   "keywords": [
-    "browser",
-    "cookie",
     "cookies",
-    "commonjs",
-    "browserify",
-    "rfc6265"
+    "cookie",
+    "browser",
+    "client"
   ]
 }

@@ -16,6 +16,7 @@
 - [API](#api)
 - [Options](#options)
 - [Examples](#examples)
+- [How to use with PHP](#how-to-use-with-php)
 
 ### Features
 - Clean and easy to use API
@@ -154,14 +155,26 @@ cookies.set('FirstName', 'John')
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
+### How to use with PHP
+Use [setrawcookie()][ref-php-setrawcookie] instead of `setcookie()` to prevent PHP from replacing spaces by `+` characters:
+```php
+// Set cookie
+setrawcookie('fullName', rawurlencode('Lisa Cuddy'));
+
+// Get cookie
+$_COOKIE['fullName'];
+```
+
+
 ### Todo's
-- Additional tests:
+- Additional testing:
   - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
   - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
+  - Perform compatibility testing with nodejs and document server-side usage.
 - Distribution:
-  - Generate build (development build + minified version) for use without a loader.
+  - Generate build for use without a loader (development build + minified version).
 - Cross browser consistency:
-  - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains][ref-ie-cookies]. Perhaps save cookies to all subdomains by default for consistent behavior amongst all browsers? Would need to investigate whether something like window.location.hostname is cross-browser supported though. Or check how other cookie libs solved this. But first of all need to decide on the desired behavior.
+  - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains][ref-ie-cookies]. Could ensure cookies are saved to all subdomains by default for consistent behavior amongst all browsers? or perhaps add a note ti set the domain explicitly for proper cross-browser consistency?
 
 ### Development
 This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
@@ -187,6 +200,7 @@ Public Domain ([UNLICENSE][ref-licence])
 [ref-node-download]: https://nodejs.org/download/
 [ref-git-setup]: https://help.github.com/articles/set-up-git/
 [ref-licence]: http://choosealicense.com/licenses/#unlicense
+[ref-php-setrawcookie]: http://php.net/manual/en/function.setrawcookie.php
 [ref-unittests]: https://rawgit.com/voltace/browser-cookies/master/test/index.html
 
 [npm-url]: https://npmjs.org/package/browser-cookies
