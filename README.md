@@ -68,9 +68,9 @@ Method to save a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
-| **`name`**    | string | the name of the cookie to save.
-| **`value`**   | string | the value to save.
-| **`options`** | object | may contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
+| **`name`**    | string | The name of the cookie to save.
+| **`value`**   | string | The value to save.
+| **`options`** | object | May contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
 <hr/><a name="cookies-get"></a>
@@ -81,7 +81,7 @@ Method that returns a cookie value, or **null** if the cookie is not found.
 
 | argument      | type   | description
 |---------------|--------|------------
-| **`name`**    | string | the name of the cookie to retrieve.
+| **`name`**    | string | The name of the cookie to retrieve.
 
 
 <hr/><a name="cookies-erase"></a>
@@ -92,8 +92,8 @@ Method to remove a cookie.
 
 | argument      | type   | description
 |---------------|--------|------------
-| **`name`**    | string | the name of the cookie to remove.
-| **`options`** | object | may contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
+| **`name`**    | string | The name of the cookie to remove.
+| **`options`** | object | May contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
 <hr/><a name="cookies-defaults"></a>
@@ -140,7 +140,7 @@ var userString = cookies.get('user');
 alert('Hi ' + JSON.parse(userString).firstName);
 ```
 
-The default value of cookie options may be changed:
+The default cookie options may be changed:
 ```javascript
 var cookies = require('browser-cookies');
 
@@ -156,7 +156,7 @@ cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
 ### How to use with PHP
-Use [setrawcookie()][ref-php-setrawcookie] instead of `setcookie()` to prevent PHP from replacing spaces by `+` characters:
+Use [setrawcookie()][ref-php-setrawcookie] instead of `setcookie()` to prevent PHP from replacing spaces with `+` characters:
 ```php
 // Set cookie
 setrawcookie('fullName', rawurlencode('Lisa Cuddy'));

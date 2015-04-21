@@ -443,7 +443,7 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.set('f_CTL2',       '\x7F'); expect(this.docStub.cookie).toBe('f_CTL2=%7F;path=/');
   });
 
-  it("Verify compatibility with PHP server side", function() {
+  describe("Verify compatibility with PHP server side", function() {
     it("Using PHP setcookie() - doesn't encode the plus sign properly", function() {
       // PHP output was generated using PHP 5.5
       // http://php.net/manual/en/function.setcookie.php
