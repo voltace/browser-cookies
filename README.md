@@ -69,7 +69,7 @@ Method to save a cookie.
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | The name of the cookie to save.
-| **`value`**   | string | The value to save.
+| **`value`**   | string | The value to save, [percent encoding][ref-percent-encoding] will automatically be applied.
 | **`options`** | object | May contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
@@ -77,7 +77,7 @@ Method to save a cookie.
 
 [cookies.get(`name`)](#cookies-get)
 <br/>
-Method that returns a cookie value, or **null** if the cookie is not found.
+Method that returns a cookie value, or **null** if the cookie is not found. [Percent encoded][ref-percent-encoding] values will automatically be decoded.
 
 | argument      | type   | description
 |---------------|--------|------------
@@ -104,7 +104,7 @@ This object may be used to change the default value of each option specified in 
 
 
 ### Options
-Options may be set globally using [cookies.defaults](#cookies-defaults) or passed as function argument, see the [Examples](#examples) section below and the [API](#api) reference above for details.
+The options shown in the table below may be set globally using [cookies.defaults](#cookies-defaults) or passed as function argument to [cookies.set()](#cookies-set) and [cookies.get()](#cookies-get). Also check out the [Examples](#examples) further below.
 
 | Name       | Type                       | Default | Description
 |------------|----------------------------|---------|--------
@@ -120,7 +120,7 @@ Count the number of a visits to a page:
 var cookies = require('browser-cookies');
 
 // Get cookie value
-var visits = cookies.get('count');
+var visits = cookies.get('count') || 0;
 console.log("You've been here " + parseInt(visits) + " times before!");
 
 // Increment the counter and set (or update) the cookie
@@ -197,9 +197,10 @@ Public Domain ([UNLICENSE][ref-licence])
 [ref-date-parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
 [ref-httponly]: http://blog.codinghorror.com/protecting-your-cookies-httponly/
 [ref-ie-cookies]: http://erik.io/blog/2014/03/04/definitive-guide-to-cookie-domains/
-[ref-node-download]: https://nodejs.org/download/
 [ref-git-setup]: https://help.github.com/articles/set-up-git/
 [ref-licence]: http://choosealicense.com/licenses/#unlicense
+[ref-node-download]: https://nodejs.org/download/
+[ref-percent-encoding]: http://en.wikipedia.org/wiki/Percent-encoding
 [ref-php-setrawcookie]: http://php.net/manual/en/function.setrawcookie.php
 [ref-unittests]: https://rawgit.com/voltace/browser-cookies/master/test/index.html
 
