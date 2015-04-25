@@ -1,7 +1,7 @@
 {
   "name": "browser-cookies",
   "main": "src/browser-cookies.js",
-  "version": "1.0.7",
+  "version": "1.0.8",
   "homepage": "https://github.com/voltace/browser-cookies",
   "authors": [
     "Voltace <support@voltace.com>"
@@ -10,7 +10,6 @@
   "keywords": [
     "cookies",
     "cookie",
-    "browser",
     "client"
   ],
   "moduleType": "node",
