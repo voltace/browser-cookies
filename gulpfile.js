@@ -24,7 +24,7 @@ var customLaunchers = {
   // Desktop
   Chrome_26:  {browserName: 'chrome',            version: '26'},
   Chrome_41:  {browserName: 'chrome',            version: '41'},
-  IE_07:      {browserName: 'internet explorer', version:  '7'},
+  //IE_07:      {browserName: 'internet explorer', version:  '7'}, // doesn't run with Jasmine anymore?
   IE_08:      {browserName: 'internet explorer', version:  '8'},
   IE_09:      {browserName: 'internet explorer', version:  '9'},
   IE_10:      {browserName: 'internet explorer', version: '10'},
@@ -161,11 +161,10 @@ gulp.task('test:_full', function (done) {
     testName: start,
     };
   config.customLaunchers = customLaunchers;
-  config.captureTimeout = 300 * 1000;
+  config.captureTimeout = 60 * 1000;
   config.browserNoActivityTimeout = 300 * 1000;
   config.browserDisconnectTimeout = 15 * 1000;
-  config.browserDisconnectTolerance = 2;
-  config.browserNoActivityTimeout = 300 * 1000;
+  config.browserDisconnectTolerance = 1;
   config.background = true;
 
   //config.browsers = Object.keys(customLaunchers);

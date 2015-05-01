@@ -10,7 +10,7 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "browserify": "9.x.x",
+    "browserify": "10.x.x",
     "co": "4.x.x",
     "coveralls": "2.x.x",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
