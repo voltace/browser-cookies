@@ -7,7 +7,6 @@
 [![NPM Downloads][npm-downloads-image]][npm-url]
 [![Build Status][travis-image]][travis-url]
 [![Coveralls Status][coveralls-image]][coveralls-url]
-[![Dev Dependencies Status][david-image]][david-url]
 
 - [Features](#features)
 - [Browser compatibility](#browser-compatibility)
@@ -213,9 +212,6 @@ Public Domain ([UNLICENSE][ref-licence])
 
 [coveralls-url]: https://coveralls.io/r/voltace/browser-cookies
 [coveralls-image]: https://img.shields.io/coveralls/voltace/browser-cookies/master.svg
-
-[david-url]: https://david-dm.org/voltace/browser-cookies#info=devDependencies
-[david-image]: https://img.shields.io/david/dev/voltace/browser-cookies.svg
 
 [saucelabs-url]: https://saucelabs.com/u/browser-cookies
 [saucelabs-image]: https://saucelabs.com/browser-matrix/browser-cookies.svg

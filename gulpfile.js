@@ -24,7 +24,7 @@ var customLaunchers = {
   // Desktop
   Chrome_26:  {browserName: 'chrome',            version: '26'},
   Chrome_41:  {browserName: 'chrome',            version: '41'},
-  //IE_07:      {browserName: 'internet explorer', version:  '7'}, // doesn't run with Jasmine anymore?
+  IE_07:      {browserName: 'internet explorer', version:  '7'},
   IE_08:      {browserName: 'internet explorer', version:  '8'},
   IE_09:      {browserName: 'internet explorer', version:  '9'},
   IE_10:      {browserName: 'internet explorer', version: '10'},

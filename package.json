@@ -18,11 +18,10 @@
     "gulp-size": "1.x.x",
     "gulp-uglify": "1.x.x",
     "gulp-wrap": "0.11.x",
-    "jasmine-core": "2.x.x",
     "karma": "0.x.x",
     "karma-browserify": "4.x.x",
     "karma-coverage": "0.3.x",
-    "karma-jasmine": "0.3.x",
+    "karma-jasmine": "0.1.x",
     "karma-phantomjs-launcher": "0.1.x",
     "karma-sauce-launcher": "0.2.x",
     "karma-spec-reporter": "0.0.x"
