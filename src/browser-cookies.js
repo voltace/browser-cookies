@@ -1,6 +1,10 @@
 exports.defaults = {};
 
 exports.set = function(name, value, options) {
+  if (typeof module !== 'undefined' && module.exports) {
+    return;
+  }
+  
   // Retrieve options and defaults
   var opts = options || {};
   var defaults = exports.defaults;
@@ -34,6 +38,10 @@ exports.set = function(name, value, options) {
 };
 
 exports.get = function(name) {
+  if (typeof module !== 'undefined' && module.exports) {
+    return null;
+  }
+  
   var cookies = document.cookie.split(';');
 
   // Iterate all cookies
@@ -57,6 +65,10 @@ exports.get = function(name) {
 };
 
 exports.erase = function(name, options) {
+  if (typeof module !== 'undefined' && module.exports) {
+    return;
+  }
+  
   exports.set(name, '', {
     expires:  -1,
     domain:   options && options.domain,
