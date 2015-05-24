@@ -1,5 +1,3 @@
-> I forked [votace/browser-cookies](https://github.com/voltace/browser-cookies) and shimmed out the API to do nothing (but not error out) in node.
-
 <img width="425" height="200" src="https://raw.githubusercontent.com/voltace/browser-cookies/master/browser-cookies.png"/>
 
 # browser-cookies
