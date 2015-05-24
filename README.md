@@ -164,6 +164,8 @@ setrawcookie('fullName', rawurlencode('Lisa Cuddy'));
 $_COOKIE['fullName'];
 ```
 
+### How to use as a node shim
+The package [browser-cookies-shim](ref-browser-cookies-shim] provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
 
 ### Todo's
 - Additional testing:
@@ -192,6 +194,7 @@ Feel free to add an issue on GitHub for any questions, bug or feature request yo
 ### License
 Public Domain ([UNLICENSE][ref-licence])
 
+[ref-browser-cookies-shim]: https://www.github.com/voltace/browser-cookies-shim
 [ref-cookie-domain]: https://stackoverflow.com/questions/1062963/how-do-browser-cookie-domains-work
 [ref-date-parse]: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/parse
 [ref-httponly]: http://blog.codinghorror.com/protecting-your-cookies-httponly/
