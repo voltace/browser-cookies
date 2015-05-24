@@ -16,7 +16,7 @@
 - [Options](#options)
 - [Examples](#examples)
 - [How to use with PHP](#how-to-use-with-php)
-- [How to shim browser-cookies on node](how-to-shim-browser-cookies-on-node)
+- [How to shim browser-cookies on node](#how-to-shim-browser-cookies-on-node)
 
 ### Features
 - Clean and easy to use API
