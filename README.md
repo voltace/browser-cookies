@@ -16,6 +16,7 @@
 - [Options](#options)
 - [Examples](#examples)
 - [How to use with PHP](#how-to-use-with-php)
+- [How to shim browser-cookies on node](how-to-shim-browser-cookies-on-node)
 
 ### Features
 - Clean and easy to use API
@@ -164,8 +165,8 @@ setrawcookie('fullName', rawurlencode('Lisa Cuddy'));
 $_COOKIE['fullName'];
 ```
 
-### How to use as a node shim
-The package [browser-cookies-shim](ref-browser-cookies-shim] provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
+### How to shim browser-cookies on node
+The package [browser-cookies-shim](ref-browser-cookies-shim) provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
 
 ### Todo's
 - Additional testing:
