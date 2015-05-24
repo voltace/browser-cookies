@@ -1,8 +1,12 @@
+function isNode () {
+  return typeof(process.browser) === "undefined" && typeof module !== 'undefined' && module.exports;
+}
+
 exports.defaults = {};
 
 exports.set = function(name, value, options) {
-  if (typeof module !== 'undefined' && module.exports) {
-    return;
+  if (isNode()) {
+    return null;
   }
   
   // Retrieve options and defaults
@@ -38,7 +42,7 @@ exports.set = function(name, value, options) {
 };
 
 exports.get = function(name) {
-  if (typeof module !== 'undefined' && module.exports) {
+  if (isNode()) {
     return null;
   }
   
@@ -65,8 +69,8 @@ exports.get = function(name) {
 };
 
 exports.erase = function(name, options) {
-  if (typeof module !== 'undefined' && module.exports) {
-    return;
+  if (isNode()) {
+    return null;
   }
   
   exports.set(name, '', {
