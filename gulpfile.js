@@ -23,17 +23,18 @@ var customLaunchers = {
 
   // Desktop
   Chrome_26:  {browserName: 'chrome',            version: '26'},
-  Chrome_41:  {browserName: 'chrome',            version: '41'},
+  Chrome_48:  {browserName: 'chrome',            version: '48'},
+  Edge_20:    {browserName: 'MicrosoftEdge',     version: '20'},
   IE_07:      {browserName: 'internet explorer', version:  '7'},
   IE_08:      {browserName: 'internet explorer', version:  '8'},
   IE_09:      {browserName: 'internet explorer', version:  '9'},
   IE_10:      {browserName: 'internet explorer', version: '10'},
   IE_11:      {browserName: 'internet explorer', version: '11'},
-  Firefox_03: {browserName: 'firefox',           version:  '3'},
-  Firefox_36: {browserName: 'firefox',           version: '36'},
+  Firefox_04: {browserName: 'firefox',           version:  '4'},
+  Firefox_44: {browserName: 'firefox',           version: '44'},
   Opera_11:   {browserName: 'opera',             version: '11'},
   Safari_5:   {browserName: 'safari',            version:  '5'},
-  Safari_8:   {browserName: 'safari',            version:  '8'}
+  Safari_9:   {browserName: 'safari',            version:  '8'}
 };
 
 // Base Karma configuration, contains everything needed for a local teste run
