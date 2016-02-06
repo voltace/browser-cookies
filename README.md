@@ -179,7 +179,7 @@ The package [browser-cookies-shim](ref-browser-cookies-shim) provides a browser-
   - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains][ref-ie-cookies]. Could ensure cookies are saved to all subdomains by default for consistent behavior amongst all browsers? or perhaps add a note to set the domain explicitly for proper cross-browser consistency?
 
 ### Development
-This design goal is to provide to smallest possible size (when minified and gzipped) for the given API, while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
+The design goal is to provide to smallest possible size (when minified and gzipped) for the given API while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
 
 Development setup (requires [node][ref-node-download] and [git][ref-git-setup] to be installed):  
 ```python
