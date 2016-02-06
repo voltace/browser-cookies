@@ -1,6 +1,6 @@
 var co = require('co');
 var gulp = require('gulp');
-var karma = require('karma').server;
+var KarmaServer = require('karma').Server;
 var rename = require('gulp-rename');
 var size = require('gulp-size');
 var uglify = require('gulp-uglify');
@@ -50,7 +50,7 @@ var karmaConfig = {
   singleRun: true,
   preprocessors: {},
   browsers: ['PhantomJS'],
-  //logLevel: 'DEBUG',
+  //logLevel: 'DEBUG'
 };
 
 // Function to run Karma on Sauce Labs in batches
@@ -73,10 +73,10 @@ var runInSeries = function *(config, browsers, done) {
 
     // Run Karma batch
     yield new Promise(function (resolve, reject) {
-      karma.start(config, function () {
+      new KarmaServer(config, function () {
         // Resolve using a timeout to allow existing karma session to exit before starting a new session
         setTimeout(function() {resolve();}, 0);
-      });
+      }).start();
     });
 
     console.log(Date.now(), 'Finished batch ' + (batchCurrent + 1) + '/' + batchTotal + ': ', config.browsers.join(', '));
@@ -168,9 +168,6 @@ gulp.task('test:_full', function (done) {
   config.browserDisconnectTolerance = 1;
   config.background = true;
 
-  //config.browsers = Object.keys(customLaunchers);
-  //karma.start(config, done)
-
   // Run Karma (on Sauce Labs) in batches
   console.log('Starting karma session:', config.sauceLabs.testName);
   co(runInSeries(config, Object.keys(customLaunchers).sort(), done));
@@ -185,7 +182,7 @@ gulp.task('test:_local', function (done) {
   config.singleRun = true; // Run only once
 
   // Run Karma
-  karma.start(config, done);
+  new KarmaServer(config, done).start();
 });
 
 gulp.task('test:full',  gulp.series(['test:_build', 'test:_full' ])); // Various browsers using Sauce Labs
