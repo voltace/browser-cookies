@@ -34,7 +34,7 @@ var customLaunchers = {
   Firefox_44: {browserName: 'firefox',           version: '44'},
   Opera_11:   {browserName: 'opera',             version: '11'},
   Safari_5:   {browserName: 'safari',            version:  '5'},
-  Safari_9:   {browserName: 'safari',            version:  '8'}
+  Safari_8:   {browserName: 'safari',            version:  '8'}
 };
 
 // Base Karma configuration, contains everything needed for a local teste run
