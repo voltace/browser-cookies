@@ -24,13 +24,12 @@
 - No dependencies
 - RFC6265 compliant
 - Cross browser support
-- Unit tests
 - Supports CommonJS (e.g. Browserify)
 
 ### Browser compatibility
 Cross browser support is verified on real browsers using automated testing:  
 [![Sauce Test Status][saucelabs-image]][saucelabs-url]  
-Or [run the unit tests][ref-unittests] for your current browser right now.
+Or [run the unit tests][ref-unittests] right now in your current browser.
 
 ### Installation
 Using NPM  
@@ -166,13 +165,9 @@ $_COOKIE['fullName'];
 ```
 
 ### How to shim browser-cookies on node
-The package [browser-cookies-shim](ref-browser-cookies-shim) provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
+The package [browser-cookies-shim][ref-browser-cookies-shim] provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
 
 ### Todo's
-- Additional testing:
-  - Mobile browser testing (Disabled automated testing for mobile browsers because the results varied per run).
-  - Manually verify support on old browsers that that still need to be supported (i.e. IE6)?
-  - Perform compatibility testing with nodejs and document server-side usage.
 - Distribution:
   - Generate build for use without a loader (development build + minified version).
 - Cross browser consistency:
