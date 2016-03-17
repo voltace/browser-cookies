@@ -11,7 +11,6 @@
   "dependencies": {},
   "devDependencies": {
     "browserify": "13.0.0",
-    "co": "4.6.0",
     "coveralls": "2.11.8",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-rename": "1.2.2",
@@ -19,20 +18,19 @@
     "gulp-uglify": "1.5.3",
     "gulp-wrap": "0.11.0",
     "karma": "0.13.22",
-    "karma-browserify": "5.0.2",
     "karma-coverage": "0.5.5",
     "karma-jasmine": "0.1.6",
     "karma-phantomjs-launcher": "1.0.0",
-    "karma-sauce-launcher": "0.2.14",
     "karma-spec-reporter": "0.0.24",
     "phantomjs-prebuilt": "2.1.5",
-    "watchify": "3.7.0"
+    "watchify": "3.7.0",
+    "zuul": "3.10.1"
   },
   "scripts": {
-    "build": "node --harmony ./node_modules/gulp/bin/gulp.js build",
-    "test:local": "node --harmony ./node_modules/gulp/bin/gulp.js test:local",
-    "test:full": "node --harmony ./node_modules/gulp/bin/gulp.js test:full",
-    "test": "node --harmony ./node_modules/gulp/bin/gulp.js test:full"
+    "build": "node ./node_modules/gulp/bin/gulp.js build",
+    "test:local": "node ./node_modules/gulp/bin/gulp.js localtest",
+    "test:full": "node ./node_modules/gulp/bin/gulp.js build; ./node_modules/zuul/bin/zuul -- test/*.js",
+    "test": "node ./node_modules/gulp/bin/gulp.js localtest;./node_modules/zuul/bin/zuul -- test/*.js"
   },
   "author": {
     "name": "Voltace",
