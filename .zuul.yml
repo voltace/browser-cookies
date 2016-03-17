@@ -2,46 +2,36 @@ name: browser-cookies
 ui: jasmine
 browsers:
   - name: android
-    version: oldest
-  - name: android
-    version: latest
+    version: oldest..latest
   - name: iphone
-    version: oldest
-  - name: iphone
-    version: latest
+    version: oldest..latest
   - name: chrome
     version: oldest
+  - name: chrome
+    version: 30
+  - name: chrome
+    version: 40
   - name: chrome
     version: latest
   - name: firefox
     version: oldest
   - name: firefox
-    version: latest
-  - name: internet explorer
-    version: 6
-  - name: internet explorer
-    version: 7
-  - name: internet explorer
-    version: 8
-  - name: internet explorer
-    version: 9
-  - name: internet explorer
     version: 10
+  - name: firefox
+    version: 20
+  - name: firefox
+    version: 30
+  - name: firefox
+    version: 40
+  - name: firefox
+    version: latest
   - name: internet explorer
-    version: 11
+    version: oldest..latest
   - name: microsoftedge
-    version: oldest
-  - name: microsoftedge
-    version: latest
+    version: oldest..latest
   - name: opera
-    version: oldest
-  - name: opera
-    version: latest
+    version: oldest..latest
   - name: safari
-    version: oldest
-  - name: safari
-    version: 7
-  - name: safari
-    version: latest
+    version: oldest..latest
 scripts:
   - "dist/browser-cookies.test.js"
