@@ -2,9 +2,25 @@ name: browser-cookies
 ui: jasmine
 browsers:
   - name: android
-    version: oldest..latest
+    version: oldest
+  - name: android
+    version: 4.4
+  - name: android
+    version: 5.0
+  - name: android
+    version: latest
   - name: iphone
-    version: oldest..latest
+    version: oldest
+  - name: iphone
+    version: 6
+  - name: iphone
+    version: 7
+  - name: iphone
+    version: 8
+  - name: iphone
+    version: 9
+  - name: iphone
+    version: latest
   - name: chrome
     version: oldest
   - name: chrome
