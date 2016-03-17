@@ -17,14 +17,13 @@ var customLaunchers = {
   // Mobile
   /*Android_40: {browserName: 'android',           version: '4.0'},
   Android_50: {browserName: 'android',           version: '5'},
-  iPhone_4:   {browserName: 'iphone',            version: '4'},
   iPhone_6:   {browserName: 'iphone',            version: '6'},
-  iPhone_8:   {browserName: 'iphone',            version: '8'},*/
+  iPhone_9:   {browserName: 'iphone',            version: '9'},*/
 
   // Desktop
   Chrome_26:  {browserName: 'chrome',            version: '26'},
   Chrome_48:  {browserName: 'chrome',            version: '48'},
-  Edge_20:    {browserName: 'MicrosoftEdge',     version: '20'},
+  Edge:       {browserName: 'MicrosoftEdge'                   },
   IE_07:      {browserName: 'internet explorer', version:  '7'},
   IE_08:      {browserName: 'internet explorer', version:  '8'},
   IE_09:      {browserName: 'internet explorer', version:  '9'},
