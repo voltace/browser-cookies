@@ -24,7 +24,8 @@
     "karma-spec-reporter": "0.0.26",
     "phantomjs-prebuilt": "2.1.12",
     "watchify": "3.7.0",
-    "zuul": "3.11.0"
+    "zuul": "3.11.0",
+    "zuul-ngrok": "^4.0.0"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
