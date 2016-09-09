@@ -51,7 +51,3 @@ browsers:
     version: oldest..latest
 scripts:
   - "dist/browser-cookies.test.js"
-concurrency: 2
-tunnel:
-  type: ngrok
-  bind_tls: true
