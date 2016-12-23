@@ -49,6 +49,8 @@ cookies.set('firstName', 'Lisa', {secure: true, domain: 'www.example.org'});
 cookies.get('firstName'); // Returns cookie value (or null)
 
 cookies.erase('firstName'); // Removes cookie
+
+cookies.all(); // Get all cookies
 ```
 [More examples](#examples)
 
@@ -56,6 +58,7 @@ cookies.erase('firstName'); // Removes cookie
 API contents:
 - method [cookies.set(`name`, `value` &#91;, `options`&#93;)](#cookies-set)
 - method [cookies.get(`name`)](#cookies-get)
+- method [cookies.all()](#cookies-all)
 - method [cookies.erase(`name`, &#91;, `options`&#93;)](#cookies-erase)
 - property [cookies.defaults](#cookies-defaults)
 
@@ -82,6 +85,11 @@ Method that returns a cookie value, or **null** if the cookie is not found. [Per
 |---------------|--------|------------
 | **`name`**    | string | The name of the cookie to retrieve.
 
+<hr/><a name="cookies-all"></a>
+
+[cookies.all()](#cookies-all)
+<br/>
+Method to get all cookies
 
 <hr/><a name="cookies-erase"></a>
 
