@@ -48,7 +48,7 @@ exports.get = function(name) {
     separatorIndex = separatorIndex < 0 ? cookieLength : separatorIndex;
 
     // Decode the cookie name and remove any leading/trailing spaces, then compare to the requested cookie name
-    if (decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+|\s+$/g, '')) == name) {
+    if (decodeURIComponent(cookie.substring(0, separatorIndex).trim()) == name) {
       return decodeURIComponent(cookie.substring(separatorIndex + 1, cookieLength));
     }
   }
