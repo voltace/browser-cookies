@@ -443,13 +443,6 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.set('f_CTL2',       '\x7F'); expect(this.docStub.cookie).toBe('f_CTL2=%7F;path=/');
   });
 
-  it("Verify retrieval of all cookies", function() {
-    // @TODO this is a silly test because the document stub is broken
-    this.browsercookies.set('a', '1');
-    var all = this.browsercookies.all();
-    expect(all.a).toBe('1');
-  });
-
   describe("Verify compatibility with PHP server side", function() {
     it("Using PHP setcookie() - doesn't encode the plus sign properly", function() {
       // PHP output was generated using PHP 5.5
@@ -711,5 +704,11 @@ describe("Browser-based Test Suite", function() {
     expect(this.browsercookies.get('a')).toBe('=1=');
     expect(this.browsercookies.get('b')).toBe(':2:');
     expect(this.browsercookies.get('c')).toBe(';3;');
+  });
+  
+  it("Verify retrieval of all cookies", function() {
+    this.browsercookies.set('a', '1');
+    var all = this.browsercookies.all();
+    expect(all.a).toBe('1');
   });
 });
