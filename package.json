@@ -10,27 +10,29 @@
   ],
   "dependencies": {},
   "devDependencies": {
-    "browserify": "13.1.0",
-    "coveralls": "2.11.12",
+    "browserify": "13.1.1",
+    "concurrently": "3.1.0",
+    "coveralls": "2.11.15",
     "gulp": "git://github.com/gulpjs/gulp.git#4.0",
     "gulp-rename": "1.2.2",
     "gulp-size": "2.1.0",
     "gulp-uglify": "2.0.0",
     "gulp-wrap": "0.13.0",
-    "karma": "1.2.0",
+    "karma": "1.3.0",
     "karma-coverage": "1.1.1",
     "karma-jasmine": "0.1.6",
-    "karma-phantomjs-launcher": "1.0.1",
+    "karma-phantomjs-launcher": "1.0.2",
     "karma-spec-reporter": "0.0.26",
-    "phantomjs-prebuilt": "2.1.12",
-    "watchify": "3.7.0",
-    "zuul": "3.11.0"
+    "phantomjs-prebuilt": "2.1.14",
+    "watchify": "3.8.0",
+    "zuul": "3.11.1",
+    "zuul-ngrok": "4.0.0"
   },
   "scripts": {
     "build": "node ./node_modules/gulp/bin/gulp.js build",
     "test:local": "node ./node_modules/gulp/bin/gulp.js localtest",
-    "test:full": "node ./node_modules/gulp/bin/gulp.js build; ./node_modules/zuul/bin/zuul -- test/*.js",
-    "test": "node ./node_modules/gulp/bin/gulp.js coverage;./node_modules/zuul/bin/zuul -- test/*.js"
+    "test:full": "concurrently \"node ./node_modules/gulp/bin/gulp.js build\" \"node ./node_modules/zuul/bin/zuul -- test/*.js\"",
+    "test": "concurrently \"node ./node_modules/gulp/bin/gulp.js coverage\" \"node ./node_modules/zuul/bin/zuul -- test/*.js\""
   },
   "author": {
     "name": "Voltace",

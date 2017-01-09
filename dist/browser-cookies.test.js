@@ -38,18 +38,11 @@ exports.get = function(name) {
 
   // Iterate all cookies
   for(var i = 0; i < cookies.length; i++) {
-    var cookie = cookies[i];
-    var cookieLength = cookie.length;
+    var c = parseCookie(cookies[i]);
 
-    // Determine separator index ("name=value")
-    var separatorIndex = cookie.indexOf('=');
-
-    // IE<11 emits the equal sign when the cookie value is empty
-    separatorIndex = separatorIndex < 0 ? cookieLength : separatorIndex;
-
-    // Decode the cookie name and remove any leading/trailing spaces, then compare to the requested cookie name
-    if (decodeURIComponent(cookie.substring(0, separatorIndex).trim()) == name) {
-      return decodeURIComponent(cookie.substring(separatorIndex + 1, cookieLength));
+    // If name matches, return value
+    if (c[0] === name) {
+      return c[1];
     }
   }
 
@@ -65,4 +58,27 @@ exports.erase = function(name, options) {
     httponly: 0}
   );
 };
+
+exports.all = function() {
+  var cookies = document.cookie.split(';');
+  var all = {};
+  for(var i = 0; i < cookies.length; i++) {
+    var c = parseCookie(cookies[i]);
+    all[c[0]] = c[1];
+  }
+  return all;
+};
+
+function parseCookie(cookie) {
+  // Determine separator index ("name=value")
+  var separatorIndex = cookie.indexOf('=');
+  
+  // IE<11 emits the equal sign when the cookie value is empty
+  separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
+  
+  var cookieName = decodeURIComponent(cookie.substring(0, separatorIndex).trim());
+  var cookieValue = decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
+
+  return [cookieName, cookieValue];
+}
  }

@@ -1,8 +1,12 @@
 name: browser-cookies
 ui: jasmine
+tunnel:
+  type: ngrok
+  bind_tls: false
+concurrency: 1
+scripts:
+  - "dist/browser-cookies.test.js"
 browsers:
-  - name: android
-    version: oldest
   - name: android
     version: 4.4
   - name: android
@@ -49,5 +53,3 @@ browsers:
     version: oldest..latest
   - name: safari
     version: oldest..latest
-scripts:
-  - "dist/browser-cookies.test.js"
