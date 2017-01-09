@@ -708,7 +708,9 @@ describe("Browser-based Test Suite", function() {
   
   it("Verify retrieval of all cookies", function() {
     this.browsercookies.set('a', '1');
+    this.browsercookies.set('b', '2');
     var all = this.browsercookies.all();
     expect(all.a).toBe('1');
+    expect(all.b).toBe('2');
   });
 });
