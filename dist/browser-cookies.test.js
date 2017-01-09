@@ -76,7 +76,7 @@ function parseCookie(cookie) {
   // IE<11 emits the equal sign when the cookie value is empty
   separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
   
-  var cookieName = decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+|\s+$/g, ''));
+  var cookieName = decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+/, ''));
   var cookieValue = decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
 
   return [cookieName, cookieValue];
