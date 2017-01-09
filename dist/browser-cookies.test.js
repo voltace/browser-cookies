@@ -1,5 +1,8 @@
 function requireCookies(document, Date, exports) { exports.defaults = {};
 
+var encodeNameRegexp = /[^+#$&^`|]/g;
+var encodeValueRegexp = /[^+#$&/:<-\[\]-}]/g;
+
 exports.set = function(name, value, options) {
   // Retrieve options and defaults
   var opts = options || {};
@@ -22,10 +25,10 @@ exports.set = function(name, value, options) {
   ) : '';
 
   // Set cookie
-  document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
+  document.cookie = name.replace(encodeNameRegexp, encodeURIComponent)                // Encode cookie name
   .replace('(', '%28')
   .replace(')', '%29') +
-  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
+  '=' + value.replace(encodeValueRegexp, encodeURIComponent) +                  // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
   (domain   ? ';domain=' + domain : '') +                                          // Add domain
   (path     ? ';path='   + path   : '') +                                          // Add path
