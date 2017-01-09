@@ -394,18 +394,6 @@ describe("Stubbed Test Suite", function() {
     expect(this.browsercookies.get('a')).toBe('1');
     expect(this.browsercookies.get('b')).toBe('2');
     expect(this.browsercookies.get('c')).toBe('3');
-
-    // With trailing whitespace
-    this.docStub.cookie = 'a=1;b =2;c=3';
-    expect(this.browsercookies.get('a')).toBe('1');
-    expect(this.browsercookies.get('b')).toBe('2');
-    expect(this.browsercookies.get('c')).toBe('3');
-
-    // With leading and trailing whitespace
-    this.docStub.cookie = 'a=1; b =2;c=3';
-    expect(this.browsercookies.get('a')).toBe('1');
-    expect(this.browsercookies.get('b')).toBe('2');
-    expect(this.browsercookies.get('c')).toBe('3');
   });
 
   it("Verify cookie value encoding", function() {
