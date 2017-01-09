@@ -6,17 +6,17 @@ exports.set = function(name, value, options) {
   var defaults = exports.defaults;
 
   // Apply default value for unspecified options
-  var expires  = opts.expires || defaults.expires;
-  var domain   = opts.domain  || defaults.domain;
-  var path     = opts.path     != undefined ? opts.path     : (defaults.path != undefined ? defaults.path : '/');
-  var secure   = opts.secure   != undefined ? opts.secure   : defaults.secure;
-  var httponly = opts.httponly != undefined ? opts.httponly : defaults.httponly;
+  var expires  = opts.expires  || defaults.expires;
+  var domain   = opts.domain   || defaults.domain;
+  var path     = opts.path     !== undefined ? opts.path     : (defaults.path !== undefined ? defaults.path : '/');
+  var secure   = opts.secure   !== undefined ? opts.secure   : defaults.secure;
+  var httponly = opts.httponly !== undefined ? opts.httponly : defaults.httponly;
 
   // Determine cookie expiration date
   // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
   var expDate = expires ? new Date(
       // in case expires is an integer, it should specify the number of days till the cookie expires
-      typeof expires == 'number' ? new Date().getTime() + (expires * 864e5) :
+      typeof expires === 'number' ? new Date().getTime() + (expires * 864e5) :
       // else expires should be either a Date object or in a format recognized by Date.parse()
       expires
   ) : '';
