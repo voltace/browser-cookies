@@ -38,14 +38,24 @@ exports.get = function(name) {
 
   // Iterate all cookies
   for(var i = 0; i < cookies.length; i++) {
-    var c = parseCookie(cookies[i]);
+    var cookie = cookies[i];
+    var cookieLength = cookie.length;
 
-    // If name matches, return value
-    if (c[0] === name) {
-      return c[1];
+    // Determine separator index ("name=value")
+    var separatorIndex = cookie.indexOf('=');
+
+    // IE<11 emits the equal sign when the cookie value is empty
+    separatorIndex = separatorIndex < 0 ? cookieLength : separatorIndex;
+
+    var cookie_name = decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+/, ''));
+
+    // Return cookie value if the name matches
+    if (cookie_name === name) {
+      return decodeURIComponent(cookie.substring(separatorIndex + 1, cookieLength));
     }
   }
 
+  // Return `null` as the cookie was not found
   return null;
 };
 
@@ -60,25 +70,25 @@ exports.erase = function(name, options) {
 };
 
 exports.all = function() {
-  var cookies = document.cookie.split(';');
   var all = {};
+  var cookies = document.cookie.split(';');
+
+  // Iterate all cookies
   for(var i = 0; i < cookies.length; i++) {
-    var c = parseCookie(cookies[i]);
-    all[c[0]] = c[1];
-  }
+	  var cookie = cookies[i];
+    var cookieLength = cookie.length;
+
+	  // Determine separator index ("name=value")
+	  var separatorIndex = cookie.indexOf('=');
+
+	  // IE<11 emits the equal sign when the cookie value is empty
+	  separatorIndex = separatorIndex < 0 ? cookieLength : separatorIndex;
+
+    // add the cookie name and value to the `all` object
+	  var cookie_name = decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+/, ''));
+	  all[cookie_name] = decodeURIComponent(cookie.substring(separatorIndex + 1, cookieLength));
+	}
+
   return all;
 };
-
-function parseCookie(cookie) {
-  // Determine separator index ("name=value")
-  var separatorIndex = cookie.indexOf('=');
-  
-  // IE<11 emits the equal sign when the cookie value is empty
-  separatorIndex = separatorIndex < 0 ? cookie.length : separatorIndex;
-  
-  var cookieName = decodeURIComponent(cookie.substring(0, separatorIndex).replace(/^\s+/, ''));
-  var cookieValue = decodeURIComponent(cookie.substring(separatorIndex + 1, cookie.length));
-
-  return [cookieName, cookieValue];
-}
  }

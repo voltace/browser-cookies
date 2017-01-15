@@ -380,6 +380,7 @@ describe("Stubbed Test Suite", function() {
   it("Verify cookie name decoding", function() {
     this.docStub.cookie = 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2=yellow';
     expect(this.browsercookies.get('báñâñâ')).toBe('yellow');
+    expect(this.browsercookies.all()['báñâñâ']).toBe('yellow');
   });
 
   it("Verify cookie name parsing using whitespace", function() {
@@ -388,12 +389,14 @@ describe("Stubbed Test Suite", function() {
     expect(this.browsercookies.get('a')).toBe('1');
     expect(this.browsercookies.get('b')).toBe('2');
     expect(this.browsercookies.get('c')).toBe('3');
+    expect(this.browsercookies.all()).toEqual({'a':'1', 'b':'2', 'c':'3'});
 
     // With leading whitespace
     this.docStub.cookie = 'a=1; b=2;c=3';
     expect(this.browsercookies.get('a')).toBe('1');
     expect(this.browsercookies.get('b')).toBe('2');
     expect(this.browsercookies.get('c')).toBe('3');
+    expect(this.browsercookies.all()).toEqual({'a':'1', 'b':'2', 'c':'3'});
   });
 
   it("Verify cookie value encoding", function() {
@@ -569,10 +572,16 @@ describe("Browser-based Test Suite", function() {
     // Create non stubbed instance of browser-cookies
     this.browsercookies = {};
     requireCookies(document, Date, this.browsercookies);
+    
+    // Remove temporary cookies
+    var cookies = ['banana', 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2', 'a', 'b', 'c', 'd', 'e', 'f'];
+    for (var i = 0; i < cookies.length; i++) {
+      document.cookie = cookies[i] + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
+    }
   });
 
   afterEach(function() {
-    // Remove 'banana' cookies
+    // Remove temporary cookies
     var cookies = ['banana', 'b%C3%A1%C3%B1%C3%A2%C3%B1%C3%A2', 'a', 'b', 'c', 'd', 'e', 'f'];
     for (var i = 0; i < cookies.length; i++) {
       document.cookie = cookies[i] + '=;expires=Thu, 01 Jan 1970 00:00:01 GMT;path=/';
@@ -641,6 +650,7 @@ describe("Browser-based Test Suite", function() {
 
       // Get cookie
       expect(this.browsercookies.get(name)).toBe('value');
+      expect(this.browsercookies.all()[name]).toBe('value');
 
       // Erase cookie
       this.browsercookies.erase(name);
@@ -652,6 +662,7 @@ describe("Browser-based Test Suite", function() {
     // Should apply URI encoding
     this.browsercookies.set('banana', '¿yéllów?');
     expect(this.browsercookies.get('banana')).toBe('¿yéllów?');
+    expect(this.browsercookies.all()['banana']).toBe('¿yéllów?');
 
     // Should not modify the original value
     var value = '¿yéllów?';
@@ -683,22 +694,16 @@ describe("Browser-based Test Suite", function() {
     expect(this.browsercookies.get('a')).toBe('1');
     expect(this.browsercookies.get('b')).toBe('2');
     expect(this.browsercookies.get('c')).toBe('3');
+    expect(this.browsercookies.all()).toEqual({'a':'1', 'b':'2', 'c':'3'});
   });
 
-  it("Verify retrieval of multiple cookies using separators in the value", function() {
+  it("Verify retrieval of multiple cookies with separator characters in the value", function() {
     this.browsercookies.set('a', '=1=');
     this.browsercookies.set('b', ':2:');
     this.browsercookies.set('c', ';3;');
     expect(this.browsercookies.get('a')).toBe('=1=');
     expect(this.browsercookies.get('b')).toBe(':2:');
     expect(this.browsercookies.get('c')).toBe(';3;');
-  });
-  
-  it("Verify retrieval of all cookies", function() {
-    this.browsercookies.set('a', '1');
-    this.browsercookies.set('b', '2');
-    var all = this.browsercookies.all();
-    expect(all.a).toBe('1');
-    expect(all.b).toBe('2');
+    expect(this.browsercookies.all()).toEqual({'a':'=1=', 'b':':2:', 'c':';3;'});
   });
 });
