@@ -16,7 +16,6 @@
 - [Options](#options)
 - [Examples](#examples)
 - [How to use with PHP](#how-to-use-with-php)
-- [How to shim browser-cookies on node](#how-to-shim-browser-cookies-on-node)
 
 ### Features
 - Clean and easy to use API
@@ -49,8 +48,6 @@ cookies.set('firstName', 'Lisa', {secure: true, domain: 'www.example.org'});
 cookies.get('firstName'); // Returns cookie value (or null)
 
 cookies.erase('firstName'); // Removes cookie
-
-cookies.all(); // Get all cookies
 ```
 [More examples](#examples)
 
@@ -89,7 +86,8 @@ Method that returns a cookie value, or **null** if the cookie is not found. [Per
 
 [cookies.all()](#cookies-all)
 <br/>
-Method to get all cookies
+Method to get all cookies.
+Returns an object containing all cookie values with the cookie names used as keys. Percent encoded names and values will automatically be decoded.
 
 <hr/><a name="cookies-erase"></a>
 
@@ -162,6 +160,23 @@ cookies.set('FirstName', 'John')
 cookies.set('LastName', 'Smith', {expires: 30})
 ```
 
+The `cookies.all` method can be used for more advanced functionality, for example to erase all cookies except one:
+```javascript
+var cookies = require('browser-cookies');
+var cookieToKeep = 'FirstName'; // Name of the cookie to keep
+
+// Get all cookies as an object
+var allCookies = cookies.all();
+
+// Iterate over all cookie names
+for (var cookieName in allCookies) {
+  // Erase the cookie (except if it's the cookie that needs to be kept)
+  if(allCookies.hasOwnProperty(cookieName) && cookieName != cookieToKeep) {
+	cookies.erase(cookieName);
+  }
+}
+```
+
 ### How to use with PHP
 Use [setrawcookie()][ref-php-setrawcookie] instead of `setcookie()` to prevent PHP from replacing spaces with `+` characters:
 ```php
@@ -171,15 +186,6 @@ setrawcookie('fullName', rawurlencode('Lisa Cuddy'));
 // Get cookie
 $_COOKIE['fullName'];
 ```
-
-### How to shim browser-cookies on node
-The package [browser-cookies-shim][ref-browser-cookies-shim] provides a browser-cookies shim for node, which may be useful to run client javascript on node without errors.
-
-### Todo's
-- Distribution:
-  - Generate build for use without a loader (development build + minified version).
-- Cross browser consistency:
-  - When a domain is not specified most browsers only allow an exact domain match, but [IE sends cookies to all subdomains][ref-ie-cookies]. Could ensure cookies are saved to all subdomains by default for consistent behavior amongst all browsers? or perhaps add a note to set the domain explicitly for proper cross-browser consistency?
 
 ### Development
 The design goal is to provide to smallest possible size (when minified and gzipped) for the given API while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
