@@ -188,7 +188,7 @@ $_COOKIE['fullName'];
 ```
 
 ### Development
-The design goal is to provide to smallest possible size (when minified and gzipped) for the given API while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
+The design goal is to provide the smallest possible size (when minified and gzipped) for the given API while remaining compliant to RFC6265 and providing cross-browser compatibility and consistency.
 
 Development setup (requires [node][ref-node-download] and [git][ref-git-setup] to be installed):  
 ```python
