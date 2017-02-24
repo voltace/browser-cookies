@@ -118,6 +118,7 @@ The options shown in the table below may be set globally using [cookies.defaults
 | `path`     | `String`                   | `"/"`   | The path from where the cookie is readable.<ul><li>The default value of `"/"` allows the cookie to be readable from all paths.</li><li>If set to `""` the cookie will only be readable from the current browser path.</li><li>Note that cookies don't support relative paths such as `"../../some/path"` so paths must be absolute like `"/some/path"`.</li></ul>
 | `secure`   | `Boolean`                  | `false` | If true the cookie will only be transmitted over secure protocols like https.
 | `httponly` | `Boolean`                  | `false` | If true the cookie may only be read by the web server.<ul><li> This option may be set to [prevent malicious scripts from accessing cookies][ref-httponly], not all browsers support this feature yet.</li></ul>
+| `samesite` | `String`                   | `""`   | The `samesite` argument may be used to [prevent cookies from being sent along with cross-site requests][ref-samesite].<ul><li>If set to `""` the SameSite feature will not be used.</li><li>If set to `"Strict"` the cookie will only be sent along with "same-site" requests.</li><li>If set to `"Lax"` the cookie will be sent with "same-site" requests and with "cross-site" top-level navigations.</li></ul>This is an experimental feature as only [a few browsers support SameSite][ref-samesite-caniuse] and [the standard][ref-samesite-spec] has not been finalized yet. Don't use this feature in production environments.
 
 ### Examples
 Count the number of a visits to a page:  
@@ -215,6 +216,9 @@ Public Domain ([UNLICENSE][ref-licence])
 [ref-percent-encoding]: http://en.wikipedia.org/wiki/Percent-encoding
 [ref-php-setrawcookie]: http://php.net/manual/en/function.setrawcookie.php
 [ref-unittests]: https://rawgit.com/voltace/browser-cookies/master/test/index.html
+[ref-samesite]: http://www.sjoerdlangkemper.nl/2016/04/14/preventing-csrf-with-samesite-cookie-attribute/
+[ref-samesite-caniuse]: http://caniuse.com/#feat=same-site-cookie-attribute
+[ref-samesite-spec]: https://tools.ietf.org/html/draft-ietf-httpbis-cookie-same-site-00
 
 [npm-url]: https://npmjs.org/package/browser-cookies
 [npm-version-image]: https://img.shields.io/npm/v/browser-cookies.svg
@@ -227,4 +231,3 @@ Public Domain ([UNLICENSE][ref-licence])
 [coveralls-image]: https://img.shields.io/coveralls/voltace/browser-cookies/master.svg
 
 [saucelabs-url]: https://saucelabs.com/u/browser-cookies
-[saucelabs-image]: https://rawgit.com/voltace/browser-cookies/master/browser_compatibility.svg
