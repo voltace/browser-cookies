@@ -1,6 +1,14 @@
+function isNode () {
+  return typeof(process.browser) === "undefined" && typeof module !== 'undefined' && module.exports;
+}
+
 exports.defaults = {};
 
 exports.set = function(name, value, options) {
+  if (isNode()) {
+    return null;
+  }
+  
   // Retrieve options and defaults
   var opts = options || {};
   var defaults = exports.defaults;
@@ -34,6 +42,10 @@ exports.set = function(name, value, options) {
 };
 
 exports.get = function(name) {
+  if (isNode()) {
+    return null;
+  }
+  
   var cookies = document.cookie.split(';');
   
   // Iterate all cookies
@@ -59,6 +71,10 @@ exports.get = function(name) {
 };
 
 exports.erase = function(name, options) {
+  if (isNode()) {
+    return null;
+  }
+  
   exports.set(name, '', {
     expires:  -1,
     domain:   options && options.domain,
