@@ -5,6 +5,7 @@
   "main": "src/browser-cookies.js",
   "files": [
     "src/browser-cookies.js",
+    "src/browser-cookies.d.ts",
     "README.md",
     "LICENCE"
   ],
@@ -35,6 +36,7 @@
     "test:travis_saucelabs": "node ./node_modules/gulp/bin/gulp.js coverage && node ./node_modules/zuul/bin/zuul -- test/*.js",
     "test": "if [ -z \"$SAUCE_ACCESS_KEY\" ]; then npm run test:local; else npm run test:travis_saucelabs; fi"
     },
+  "types": "./src/browser-cookies.d.ts",
   "author": {
     "name": "Voltace",
     "email": "support@voltace.com",
