@@ -55,8 +55,8 @@ cookies.erase('firstName'); // Removes cookie
 API contents:
 - method [cookies.set(`name`, `value` &#91;, `options`&#93;)](#cookies-set)
 - method [cookies.get(`name`)](#cookies-get)
-- method [cookies.all()](#cookies-all)
 - method [cookies.erase(`name`, &#91;, `options`&#93;)](#cookies-erase)
+- method [cookies.all()](#cookies-all)
 - property [cookies.defaults](#cookies-defaults)
 
 <hr/><a name="cookies-set"></a>
@@ -82,13 +82,6 @@ Method that returns a cookie value, or **null** if the cookie is not found. [Per
 |---------------|--------|------------
 | **`name`**    | string | The name of the cookie to retrieve.
 
-<hr/><a name="cookies-all"></a>
-
-[cookies.all()](#cookies-all)
-<br/>
-Method to get all cookies.
-Returns an object containing all cookie values with the cookie names used as keys. Percent encoded names and values will automatically be decoded.
-
 <hr/><a name="cookies-erase"></a>
 
 [cookies.erase(`name` &#91;, `options` &#93;)](#cookies-erase)
@@ -100,6 +93,12 @@ Method to remove a cookie.
 | **`name`**    | string | The name of the cookie to remove.
 | **`options`** | object | May contain the `domain` and `path` properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
+<hr/><a name="cookies-all"></a>
+
+[cookies.all()](#cookies-all)
+<br/>
+Method to get all cookies.
+Returns an object containing all cookie values with the cookie names used as keys. Percent encoded names and values will automatically be decoded.
 
 <hr/><a name="cookies-defaults"></a>
 
@@ -109,7 +108,7 @@ This object may be used to change the default value of each option specified in 
 
 
 ### Options
-The options shown in the table below may be set globally using [cookies.defaults](#cookies-defaults) or passed as function argument to [cookies.set()](#cookies-set) and [cookies.get()](#cookies-get). Also check out the [Examples](#examples) further below.
+The options shown in the table below may be set globally using [cookies.defaults](#cookies-defaults) or passed as function argument to [cookies.set()](#cookies-set) and [cookies.erase()](#cookies-erase). Also check out the [Examples](#examples) further below.
 
 | Name       | Type                       | Default | Description
 |------------|----------------------------|---------|--------
@@ -200,7 +199,7 @@ npm run test:local  # Run unit tests locally (takes ~5 seconds)
 npm run build       # Create minified version
 ```
 
-Feel free to add an issue on GitHub for any questions, bug or feature request you may have.
+Feel free to submit an issue on GitHub for any question, bug or feature requesst you may have.
 
 ### License
 Public Domain ([UNLICENSE][ref-licence])
