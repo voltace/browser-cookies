@@ -11,6 +11,7 @@ exports.set = function(name, value, options) {
   var path     = opts.path     !== undefined ? opts.path     : (defaults.path !== undefined ? defaults.path : '/');
   var secure   = opts.secure   !== undefined ? opts.secure   : defaults.secure;
   var httponly = opts.httponly !== undefined ? opts.httponly : defaults.httponly;
+  var samesite = opts.samesite !== undefined ? opts.samesite : defaults.samesite;
 
   // Determine cookie expiration date
   // If succesful the result will be a valid Date, otherwise it will be an invalid Date or false(ish)
@@ -27,10 +28,11 @@ exports.set = function(name, value, options) {
   .replace(')', '%29') +
   '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
-  (domain   ? ';domain=' + domain : '') +                                          // Add domain
-  (path     ? ';path='   + path   : '') +                                          // Add path
-  (secure   ? ';secure'           : '') +                                          // Add secure option
-  (httponly ? ';httponly'         : '');                                           // Add httponly option
+  (domain   ? ';domain=' + domain     : '') +                                      // Add domain
+  (path     ? ';path='   + path       : '') +                                      // Add path
+  (secure   ? ';secure'               : '') +                                      // Add secure option
+  (httponly ? ';httponly'             : '') +                                      // Add httponly option
+  (samesite ? ';samesite=' + samesite : '');                                       // Add samesite option
 };
 
 exports.get = function(name) {

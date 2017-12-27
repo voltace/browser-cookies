@@ -230,3 +230,4 @@ Public Domain ([UNLICENSE][ref-licence])
 [coveralls-image]: https://img.shields.io/coveralls/voltace/browser-cookies/master.svg
 
 [saucelabs-url]: https://saucelabs.com/u/browser-cookies
+[saucelabs-image]: https://rawgit.com/voltace/browser-cookies/master/browser_compatibility.svg
