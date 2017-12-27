@@ -4,6 +4,7 @@ export interface CookieOptions {
       path?: string;
       secure?: boolean;
       httponly?: boolean;
+      samesite?: "" | "Strict" | "Lax";
 }
 export function set(name: string, value: string, options?: CookieOptions): void;
 export function get(name: string): string | null;
