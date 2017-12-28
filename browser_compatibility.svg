@@ -1,6 +1,6 @@
 
 
-<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="890" height="242" data-created="2017-01-14T16:09:21.236821">
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="780" height="242" data-created="2017-12-28T01:38:14.384300">
   <defs>
     <style>
       @font-face {
@@ -81,7 +81,7 @@
       <path class="icon" stroke="none" d="M6.000,6.000 C6.000,6.000 6.000,1.077 6.000,1.077 C6.000,1.077 13.000,-0.000 13.000,-0.000 C13.000,-0.000 13.000,6.000 13.000,6.000 C13.000,6.000 6.000,6.000 6.000,6.000 ZM-0.000,6.000 C-0.000,6.000 -0.000,2.000 -0.000,2.000 C-0.000,2.000 5.000,1.231 5.000,1.231 C5.000,1.231 5.000,6.000 5.000,6.000 C5.000,6.000 -0.000,6.000 -0.000,6.000 ZM5.000,7.000 C5.000,7.000 5.000,11.769 5.000,11.769 C5.000,11.769 -0.000,11.000 -0.000,11.000 C-0.000,11.000 -0.000,7.000 -0.000,7.000 C-0.000,7.000 5.000,7.000 5.000,7.000 ZM13.000,7.000 C13.000,7.000 13.000,13.000 13.000,13.000 C13.000,13.000 6.000,11.923 6.000,11.923 C6.000,11.923 6.000,7.000 6.000,7.000 C6.000,7.000 13.000,7.000 13.000,7.000 Z"></path>
     </symbol>
   </defs>
-  <rect width="890" height="242" fill="transparent" stroke="#d7d7d7" stroke-width="1" rx="4" ry="4" />
+  <rect width="780" height="242" fill="transparent" stroke="#d7d7d7" stroke-width="1" rx="4" ry="4" />
   
   <svg x="0" y="0" width="119" height="140">
     <use x="12" y="7" width="20" height="20" xlink:href="#android" fill="#333f4b"></use>
@@ -113,7 +113,7 @@
 
 <svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">5.1</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">6.0</text>
   <use xlink:href="#linux" x="34" width="15" fill="#000"></use>
   <text x="53" y="22" text-anchor="left" class="platform_version">*</text>
   <use xlink:href="#passing" x="90" width="10"></use>
@@ -142,8 +142,8 @@
 <svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">10</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">8.1</text>
+  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -154,7 +154,7 @@
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">20</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10.8</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -164,8 +164,8 @@
 <svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">30</text>
-  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
+  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">8</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -175,8 +175,8 @@
 <svg x="5" y="170" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">40</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">7</text>
+  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">u</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -185,9 +185,9 @@
 
 <svg x="5" y="204" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">50</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">57</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.11</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -204,7 +204,7 @@
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">26</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">8</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -214,8 +214,8 @@
 <svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">30</text>
-  <use xlink:href="#linux" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">*</text>
+  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">7</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -225,8 +225,8 @@
 <svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">40</text>
-  <use xlink:href="#linux" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">*</text>
+  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.10</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
@@ -235,44 +235,22 @@
 
 <svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">55</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">63</text>
+  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
     
   </svg>
   
-  <svg x="330" y="0" width="119" height="245">
+  <svg x="330" y="0" width="119" height="175">
     <use x="12" y="7" width="20" height="20" xlink:href="#ie" fill="#333f4b"></use>
     <text x="42" y="24" text-anchor="left" class="head">IE</text>
     
     
 
 <svg x="5" y="34" width="109" height="33" viewBox="0 0 109 33">
-  <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">6</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">XP</text>
-  <use xlink:href="#passing" x="90" width="10"></use>
-</svg>
-
-    
-    
-
-<svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
-  <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">7</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">XP</text>
-  <use xlink:href="#passing" x="90" width="10"></use>
-</svg>
-
-    
-    
-
-<svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">8</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
@@ -283,7 +261,7 @@
     
     
 
-<svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">9</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
@@ -294,7 +272,7 @@
     
     
 
-<svg x="5" y="170" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">10</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
@@ -305,7 +283,7 @@
     
     
 
-<svg x="5" y="204" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">11</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
@@ -346,16 +324,16 @@
 
 <svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">10.0</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">11</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10.11</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
     
   </svg>
   
-  <svg x="550" y="0" width="119" height="105">
+  <svg x="550" y="0" width="119" height="175">
     <use x="12" y="7" width="20" height="20" xlink:href="#edge" fill="#333f4b"></use>
     <text x="42" y="24" text-anchor="left" class="head">Edge</text>
     
@@ -381,65 +359,37 @@
 </svg>
 
     
-  </svg>
-  
-  <svg x="660" y="0" width="119" height="105">
-    <use x="12" y="7" width="20" height="20" xlink:href="#opera" fill="#333f4b"></use>
-    <text x="42" y="24" text-anchor="left" class="head">Opera</text>
-    
     
 
-<svg x="5" y="34" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">11</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">15</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">XP</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
     
     
 
-<svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">12</text>
+  <text x="7" y="22" text-anchor="left" class="browser_version">16</text>
   <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">XP</text>
+  <text x="53" y="22" text-anchor="left" class="platform_version">10</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
     
   </svg>
   
-  <svg x="770" y="0" width="119" height="245">
+  <svg x="660" y="0" width="119" height="210">
     <use x="12" y="7" width="20" height="20" xlink:href="#safari" fill="#333f4b"></use>
     <text x="42" y="24" text-anchor="left" class="head">Safari</text>
     
     
 
 <svg x="5" y="34" width="109" height="33" viewBox="0 0 109 33">
-  <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">5</text>
-  <use xlink:href="#windows" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">7</text>
-  <use xlink:href="#passing" x="90" width="10"></use>
-</svg>
-
-    
-    
-
-<svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
-  <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
-  <text x="7" y="22" text-anchor="left" class="browser_version">6</text>
-  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
-  <text x="53" y="22" text-anchor="left" class="platform_version">10.8</text>
-  <use xlink:href="#passing" x="90" width="10"></use>
-</svg>
-
-    
-    
-
-<svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">7</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
@@ -450,7 +400,7 @@
     
     
 
-<svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="68" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">8</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
@@ -461,7 +411,7 @@
     
     
 
-<svg x="5" y="170" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="102" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">9</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
@@ -472,11 +422,22 @@
     
     
 
-<svg x="5" y="204" width="109" height="33" viewBox="0 0 109 33">
+<svg x="5" y="136" width="109" height="33" viewBox="0 0 109 33">
   <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
   <text x="7" y="22" text-anchor="left" class="browser_version">10</text>
   <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
   <text x="53" y="22" text-anchor="left" class="platform_version">10.12</text>
+  <use xlink:href="#passing" x="90" width="10"></use>
+</svg>
+
+    
+    
+
+<svg x="5" y="170" width="109" height="33" viewBox="0 0 109 33">
+  <rect x="0" y="0" fill="#69cc01" width="109" height="33" />
+  <text x="7" y="22" text-anchor="left" class="browser_version">11</text>
+  <use xlink:href="#mac" x="34" width="15" fill="#000"></use>
+  <text x="53" y="22" text-anchor="left" class="platform_version">u</text>
   <use xlink:href="#passing" x="90" width="10"></use>
 </svg>
 
