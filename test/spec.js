@@ -71,12 +71,13 @@ describe("Stubbed Test Suite", function() {
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
-      httponly: true
+      httponly: true,
+      samesite: 'Strict'
     };
     this.browsercookies.set('banana', 'yellow', options);
 
     // All options should have been applied
-    expect(this.docStub.cookie).toBe('banana=yellow;expires=Tue, 24 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Tue, 24 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly;samesite=Strict');
 
     // Original options structure not modified
     expect(options).toEqual({
@@ -84,7 +85,8 @@ describe("Stubbed Test Suite", function() {
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
-      httponly: true
+      httponly: true,
+      samesite: 'Strict'
     });
   });
 
@@ -95,12 +97,13 @@ describe("Stubbed Test Suite", function() {
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
-      httponly: true
+      httponly: true,
+      samesite: 'Strict'
     };
 
     // Set cookie, all default options should be applies
     this.browsercookies.set('banana', 'yellow');
-    expect(this.docStub.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly');
+    expect(this.docStub.cookie).toBe('banana=yellow;expires=Fri, 27 Dec 2030 23:15:30 GMT;domain=www.test.com;path=/some/path;secure;httponly;samesite=Strict');
 
     // The defaults should not have been modified
     expect(this.browsercookies.defaults).toEqual({
@@ -108,7 +111,8 @@ describe("Stubbed Test Suite", function() {
       domain: 'www.test.com',
       path: '/some/path',
       secure: true,
-      httponly: true
+      httponly: true,
+      samesite: 'Strict'
     });
   });
 
@@ -163,7 +167,7 @@ describe("Stubbed Test Suite", function() {
       httponly: true
     };
 
-    // Erase cookie should apply the domain and path specified in the defaults  above
+    // Erase cookie should apply the domain and path specified in the defaults above
     this.browsercookies.erase('banana');
     expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=default.example.org;path=/default/path');
 
@@ -175,7 +179,6 @@ describe("Stubbed Test Suite", function() {
     this.browsercookies.erase('banana', {domain: 'other.example.org', path: '/other/path', expires: 100, secure: true, httponly: true});
     expect(this.docStub.cookie).toBe('banana=;expires=Thu, 19 Dec 2030 23:15:30 GMT;domain=other.example.org;path=/other/path');
   });
-
 
   it("Verify all allowed formats for the 'expires' option", function() {
     // Verify usage of Date() format
@@ -315,6 +318,33 @@ describe("Stubbed Test Suite", function() {
     expect(this.docStub.cookie).toBe('banana=yellow;path=/;httponly');
   });
 
+  it("Set samesite option", function() {
+    // Set cookie with the samesite option (to Strict)
+    this.browsercookies.set('banana', 'yellow', {samesite: 'Strict'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;samesite=Strict');
+
+    // Set cookie with the samesite option (to Lax)
+    this.browsercookies.set('banana', 'yellow', {samesite: 'Lax'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;samesite=Lax');
+    
+    // Set cookie without the samesite option
+    this.browsercookies.set('banana', 'yellow', {samesite: ''});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
+
+    // Change the default to 'Lax'
+    this.browsercookies.defaults.samesite = 'Lax';
+    this.browsercookies.set('banana', 'yellow');
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;samesite=Lax');
+
+    // Override the default using the function option to disable samesite
+    this.browsercookies.set('banana', 'yellow', {samesite: ''});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/');
+    
+    // Override the default using the function option (to 'Strict')
+    this.browsercookies.set('banana', 'yellow', {samesite: 'Strict'});
+    expect(this.docStub.cookie).toBe('banana=yellow;path=/;samesite=Strict');
+  });
+  
   it("Verify cookie name encoding", function() {
     // Should apply URI encoding
     this.browsercookies.set('báñâñâ', 'yellow');
