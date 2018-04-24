@@ -68,7 +68,7 @@ Method to save a cookie.
 | argument      | type   | description
 |---------------|--------|------------
 | **`name`**    | string | The name of the cookie to save.
-| **`value`**   | string | The value to save, [percent encoding][ref-percent-encoding] will automatically be applied.
+| **`value`**   | string | The value to save, [percent encoding][ref-percent-encoding] will automatically be applied. Note that only strings are allowed as value, the [examples](#examples) section shows how to save JSON data.
 | **`options`** | object | May contain any of the properties specified in [options](#options) below. If an option is not specified, the value configured in [cookies.defaults](#cookies-defaults) will be used.
 
 
