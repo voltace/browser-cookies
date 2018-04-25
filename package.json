@@ -14,7 +14,7 @@
     "browserify": "16.2.0",
     "concurrently": "3.5.1",
     "coveralls": "3.0.0",
-    "gulp": "git://github.com/gulpjs/gulp.git#4.0",
+    "gulp": "4.0.0",
     "gulp-rename": "1.2.2",
     "gulp-size": "3.0.0",
     "gulp-uglify": "3.0.0",
@@ -35,7 +35,7 @@
     "test:full": "concurrently \"node ./node_modules/gulp/bin/gulp.js build\" \"node ./node_modules/zuul/bin/zuul -- test/*.js\"",
     "test:travis_saucelabs": "node ./node_modules/gulp/bin/gulp.js coverage && node ./node_modules/zuul/bin/zuul -- test/*.js",
     "test": "if [ -z \"$SAUCE_ACCESS_KEY\" ]; then npm run test:local; else npm run test:travis_saucelabs; fi"
-    },
+  },
   "types": "./src/browser-cookies.d.ts",
   "author": {
     "name": "Voltace",
