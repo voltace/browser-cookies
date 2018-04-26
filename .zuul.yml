@@ -12,7 +12,7 @@ browsers:
   - name: android
     version: 5.0
   - name: android
-    version: latest
+    version: 6.0
   - name: iphone
     version: oldest
   - name: iphone
