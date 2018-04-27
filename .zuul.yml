@@ -7,49 +7,27 @@ concurrency: 1
 scripts:
   - "dist/browser-cookies.test.js"
 browsers:
-  - name: android
-    version: 4.4
-  - name: android
-    version: 5.0
-  - name: android
-    version: 6.0
   - name: iphone
     version: oldest
-  - name: iphone
-    version: 6
-  - name: iphone
-    version: 7
-  - name: iphone
-    version: 8
-  - name: iphone
-    version: 9
   - name: iphone
     version: latest
   - name: chrome
     version: oldest
   - name: chrome
-    version: 30
-  - name: chrome
-    version: 40
-  - name: chrome
     version: latest
   - name: firefox
     version: oldest
-  - name: firefox
-    version: 10
-  - name: firefox
-    version: 20
-  - name: firefox
-    version: 30
-  - name: firefox
-    version: 40
   - name: firefox
     version: latest
   - name: internet explorer
-    version: oldest..latest
-  - name: microsoftedge
-    version: oldest..latest
-  - name: opera
-    version: oldest..latest
+    version: oldest
+  - name: internet explorer
+    version: lateste
+  - name: MicrosoftEdge
+    version: oldest
+  - name: MicrosoftEdge
+    version: latest
   - name: safari
-    version: oldest..latest
+    version: oldest
+  - name: safari
+    version: latest
