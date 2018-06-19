@@ -23,10 +23,12 @@ exports.set = function(name, value, options) {
   ) : 0;
 
   // Set cookie
+  const stringValue = typeof value === 'string' ? value : JSON.stringify(value)
+
   document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
   .replace('(', '%28')
   .replace(')', '%29') +
-  '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
+  '=' + stringValue.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
   (domain   ? ';domain=' + domain     : '') +                                      // Add domain
   (path     ? ';path='   + path       : '') +                                      // Add path
