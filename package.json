@@ -42,7 +42,7 @@
     "email": "support@voltace.com",
     "url": "http://www.voltace.com/"
   },
-  "license": "Unlicence",
+  "license": "Unlicense",
   "repository": {
     "type": "git",
     "url": "git://github.com/voltace/browser-cookies"
