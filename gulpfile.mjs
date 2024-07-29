@@ -1,10 +1,10 @@
-var gulp = require('gulp');
-var karma = require('karma');
-var rename = require('gulp-rename');
-var size = require('gulp-size');
-var uglify = require('gulp-uglify');
-var util = require('util');
-var wrap = require('gulp-wrap');
+import gulp from 'gulp';
+import karma from 'karma';
+import rename from 'gulp-rename';
+import size from 'gulp-size';
+import uglify from 'gulp-uglify';
+import util from 'util';
+import wrap from 'gulp-wrap';
 
 // Defines
 var FILENAME_DEV = 'src/browser-cookies.js';
@@ -23,7 +23,9 @@ var karmaConfig = {
   autoWatch: false,
   singleRun: true,
   preprocessors: {},
-  browsers: ['PhantomJS'],
+  //browsers: ['ChromiumHeadless', 'Edge', 'FirefoxHeadless'],
+  browsers: ['ChromeHeadless'],
+  concurrency: 1
   //logLevel: 'DEBUG'
 };
 
