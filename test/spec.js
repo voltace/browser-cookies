@@ -386,6 +386,12 @@ describe("Stubbed Test Suite", function() {
       expect(this.docStub.cookie).toBe('cookie' + separators[separator] + '=value;path=/');
     }
 
+    // Check whether all separators are also encoded when the same separate is present multiple times
+    for (var separator in separators) {
+      this.browsercookies.set('cookie' + separator + '_' + separator, 'value2');
+      expect(this.docStub.cookie).toBe('cookie' + separators[separator] + '_' + separators[separator] + '=value2;path=/');
+    }
+
     // Check whether CTLs are encoded
     this.browsercookies.set('\x10', 'value'); expect(this.docStub.cookie).toBe('%10=value;path=/');
     this.browsercookies.set('\x7F', 'value'); expect(this.docStub.cookie).toBe('%7F=value;path=/');
