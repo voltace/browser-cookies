@@ -24,8 +24,8 @@ exports.set = function(name, value, options) {
 
   // Set cookie
   document.cookie = name.replace(/[^+#$&^`|]/g, encodeURIComponent)                // Encode cookie name
-  .replace('(', '%28')
-  .replace(')', '%29') +
+  .replace(/\(/g, '%28')
+  .replace(/\)/g, '%29') +
   '=' + value.replace(/[^+#$&/:<-\[\]-}]/g, encodeURIComponent) +                  // Encode cookie value (RFC6265)
   (expDate && expDate.getTime() >= 0 ? ';expires=' + expDate.toUTCString() : '') + // Add expiration date
   (domain   ? ';domain=' + domain     : '') +                                      // Add domain
